@@ -1,0 +1,24 @@
+.loadercontiner {
+  background: linear-gradient(270deg, #2261ff 0%, #a2bcff 100%);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+.animatimg{
+    z-index: 2;
+    position: absolute;
+    
+}
+.colororang{
+    position: relative;
+}
+@media screen and (max-width: 767px) {
+  .animatimg{
+    img{
+      width:250px;
+      height:187px;
+    }
+  }
+ 
+}

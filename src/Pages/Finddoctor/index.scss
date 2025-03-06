@@ -1,0 +1,14 @@
+.swiper-button-prev {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+  .swiper-button-prev.swiper-button-disabled {
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+  
+  .swiper-button-prev:not(.swiper-button-disabled) {
+    opacity: 1;
+    pointer-events: auto;
+  }

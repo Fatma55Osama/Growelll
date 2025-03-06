@@ -1,0 +1,144 @@
+.parentspage {
+  min-height: 100vh;
+  max-height: 90%;
+  // display: flex;
+  // align-items: center;
+  // flex-direction: column;
+  // justify-content: flex-start;
+  .div1page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .divresearsh {
+    margin-top: 130px;
+    // display: flex;
+    span {
+      color: #0c3275;
+      font-size: 18px;
+      font-family: "Poppins", serif;
+      
+    }
+    .divinput {
+      border: 1px solid #0c3275;
+      margin-right: 70px;
+      input {
+        border: none;
+        outline: none;
+      }
+      input::placeholder {
+        color: #0c3275;
+      }
+    }
+  }
+  .div2page {
+    margin-top: 60px;
+    h3 {
+      color: #0c3275;
+    }
+    .divcard {
+      gap: 1rem;
+
+      .card1 {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          196.21deg,
+          rgba(227, 241, 255, 0.58) -3.51%,
+          #ffffff 36.96%
+        );
+
+        border-radius:15px ;
+      border: 1px solid rgba(48, 122, 196, 0.201);
+        img {
+          width: 270px;
+        }
+        .card-body {
+          h5 {
+            color: #0c3275;
+            font-size: 17px;
+            margin: 0;
+          }
+
+          p {
+            color: #0c3275;
+            font-size: 12px;
+          }
+          .btn {
+            color: #0c3275;
+            background: #0c32751a;
+            border: 1px solid #0c327580;
+            backdrop-filter: blur(11.399999618530273px);
+            text-decoration: none;
+            
+          }
+        }
+      }
+    }
+    .hrline {
+      border-bottom: 1px solid #0c327594;
+      height: 0; 
+      margin-top: 20px; 
+      margin-bottom: 20px; 
+      background-color: antiquewhite;
+    }
+  }
+  .divbooks {
+    .divcard {
+      gap: 1rem;
+
+      .card1 {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          196.21deg,
+          rgba(227, 241, 255, 0.58) -3.51%,
+          #ffffff 36.96%
+        );
+
+        border-radius:15px ;
+        border: 1px solid rgba(48, 122, 196, 0.201);
+
+        img {
+          width: 270px;
+        }
+        .card-body {
+          h5 {
+            color: #0c3275;
+            font-size: 17px;
+            margin: 0;
+          }
+
+          p {
+            color: #0c3275;
+            font-size: 12px;
+          }
+          .btn {
+            color: #0c3275;
+            background: #0c32751a;
+            border: 1px solid #0c327580;
+            backdrop-filter: blur(11.399999618530273px);
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  .divinput {
+    margin-left: 0px;
+    margin-right: 0px !important;
+
+    img {
+      width: 15px;
+      height: 15px;
+    }
+    input {
+      font-size: 13px;
+    }
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .divinput {
+    margin-right: 0px !important;
+  }
+}

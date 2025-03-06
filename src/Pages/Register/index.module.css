@@ -1,0 +1,50 @@
+.parent {
+  min-height: 100vh;
+  max-height: 90%;
+  h2 {
+    color: #2261ff;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  .contnetpage{
+  }
+  form {
+    input {
+      border-radius: 8px;
+      border: 1px solid #d0cfd3;
+      color: black;
+      padding: 7px;
+      outline: none;
+    }
+
+       
+      .btn {
+        color: white;
+        font-weight: 500;
+        font-size: 16px;
+        text-decoration: none;
+        border: none;
+        font-weight: 600;
+        font-size: 18px;
+        border: 1px solid #2261ff;
+        background-color: #2261ff;
+        border-radius: 8px;
+      }
+    
+    span{
+        color: #b3b3b4;
+        font-size: 18px;
+        margin-top: 30px;
+       .link_gologin{
+        text-decoration: none;
+       }
+    }
+  }
+}
+@media screen and (max-width: 767px) {
+  form {
+    span {
+      margin: 5px!important;
+    }
+  }
+}

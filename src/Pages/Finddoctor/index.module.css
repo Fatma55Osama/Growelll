@@ -1,0 +1,67 @@
+.parent {
+  min-height: 100vh;
+}
+.divresearsh {
+  margin-top: 130px;
+  /* display: flex; */
+  span {
+    color: #0c3275;
+    font-size: 18px;
+    font-family: "Poppins", serif;
+  }
+  .divinput {
+    border: 1px solid #0c3275;
+    /* margin-right: 70px; */
+    input {
+      border: none;
+      outline: none;
+    }
+    input::placeholder {
+      color: #0c3275;
+    }
+  }
+}
+.doctorswiper {
+    border-bottom: 1px solid #0C327538;
+  span {
+    font-size: 25px;
+    color: #0c3275;
+  }
+  .Cardstyl {
+    background: linear-gradient(
+      196.21deg,
+      rgba(227, 241, 255, 0.58) -3.51%,
+      #ffffff 36.96%
+    );
+    /* border: 1px solid  transparent;
+    border-image: linear-gradient(
+      180deg,
+      rgba(12, 50, 117, 0) 0%,
+      rgba(48, 123, 196, 0.4) 100%
+    );
+    border-image-slice: 1; */
+    border: 1px solid rgba(48, 122, 196, 0.201);
+    border-radius: 15px;
+    color: #0c3275;
+    .titlecard{
+        font-size: 20px;
+        font-weight: 600;
+        padding: 0;
+        margin: 0;
+    }
+    .textcaed{
+        font-size: 16px;
+    }
+    .linkcard{
+        background: #0C32751A;
+        border: 1px solid #0C327580
+    }
+
+  }
+ 
+}
+.div2{
+    min-height: 800px;
+    max-height: 90%;
+}
+
