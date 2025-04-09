@@ -15,7 +15,7 @@ import "swiper/css/navigation";
 export default function Finddoctor() {
   return (
     <div className={styles.parent}>
-      <Nav />
+      {/* <Nav /> */}
       <div className={styles.contandivcenter + ' container   d-flex align-items-center justify-content-center'}>
         <div className={styles.div1 + ' col-11 px-4  d-flex flex-column  gap-5'}>
           <div className={styles.divresearsh + ' col-12 d-flex flex-wrap flex-row justify-content-between align-items-center'} >

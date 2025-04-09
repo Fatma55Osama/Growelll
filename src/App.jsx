@@ -17,14 +17,15 @@ import Login from './Pages/Login'
 import Changpassword from './Pages/ChangPassword'
 import DetailsDoctor from './Pages/DetailsDoctor'
 import ScrollToTop from './ScrollToTop/ScrollToTop'
+import MainLayout from './Component/MainLayout'
 export default function App() {
-  
+
   return (
 
     <BrowserRouter>
-     <ScrollToTop/>
+      <ScrollToTop />
       {/* start nav par bg-white of figma */}
-{/* 
+      {/* 
       <div className=' allnavsuccess col-12  py-3 h-25'>
         <div className='navpar col-9 bg-white container mt-3 d-flex flex-row align-items-center justify-content-between'>
           <div className='ms-5'> <img src={logo} width="120px" height="48px" alt="" /></div>
@@ -41,23 +42,27 @@ export default function App() {
       </div> */}
 
       {/* end nav par bg-white of figma */}
-     
+
       {/* <Nav/> */}
       <Routes>
-        <Route path='/'>
+        
+        <Route path='/' element={<MainLayout />}>
           <Route index element={<Homepage />}></Route>
           <Route path='/Event' element={<Event />}></Route>
           <Route path='/Finddoctor' element={<Finddoctor />}></Route>
-          <Route path='/DetailsDoctor/:iddoctor' element={<DetailsDoctor/>}/>
+          <Route path='/DetailsDoctor/:iddoctor' element={<DetailsDoctor />} />
           <Route path='/Contact' element={<Contact />}></Route>
-          <Route path='/DetailsEvent/:idevent' element={<DetailsEvent/>}></Route>
-          <Route path='/register' element={<Register/>}/>
-          <Route path='/login' element={<Login/>}/>
-          <Route path='/changpassword' element={<Changpassword/>}/>
-          <Route path='*' element={<Errorpage/>}></Route>
+          <Route path='/DetailsEvent/:idevent' element={<DetailsEvent />}></Route>
+        </Route>
+
+        <Route path='/'>
+          <Route path='/register' element={<Register />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/changpassword' element={<Changpassword />} />
+          <Route path='*' element={<Errorpage />}></Route>
         </Route>
       </Routes>
-      
+
       {/* <Footer/> */}
       {/* <div className='col-12 div9 bg-white d-flex  align-items-end '>
 

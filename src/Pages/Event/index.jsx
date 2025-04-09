@@ -11,7 +11,7 @@ export default function Event() {
   const books = useRecoilValue($booksState);
   return (
     <div className='col-12 parentspage'>
-      <Nav/>
+      {/* <Nav/> */}
       <div className='col-12  div1page '>
 
         <div className='col-10 col-lg-8 divresearsh   '>
@@ -69,7 +69,7 @@ export default function Event() {
         </div>
       </div>
 
-     <Footer/>
+     {/* <Footer/> */}
     </div>
   )
 }

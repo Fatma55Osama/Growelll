@@ -55,24 +55,24 @@ export default function Homepage() {
     }).init();
   }, [])
   useEffect(()=>{
-    let token = localStorage.getItem("token")
+    // let token =JSON.parse(localStorage.getItem("token"))
 
-    if(token){
-      axios.get("",{
-        headers:
-        {
-          Authorization:`Bearer ${token}`
-        }
-      }).then((res)=>{
-        console.log(res)
-      }).catch((err)=>{
-        localStorage.clear()
-        navigat("/login")
-      })
+    // if(token){
+    //   axios.get("",{
+    //     headers:
+    //     {
+    //       Authorization:`Bearer ${token}`
+    //     }
+    //   }).then((res)=>{
+    //     console.log(res)
+    //   }).catch((err)=>{
+    //     localStorage.clear()
+    //     navigat("/login")
+    //   })
 
-    }else{
-      navigat("/login")
-    }
+    // }else{
+    //   navigat("/login")
+    // }
   },[])
 
   return (
@@ -86,7 +86,7 @@ export default function Homepage() {
 
 
               
-              <Nav/>
+              {/* <Nav/> */}
               {/* start nav par bg-white of figma */}
               {/* 
               <div className=' allnavsuccess col-12  py-3 '>
@@ -521,7 +521,7 @@ export default function Homepage() {
                 </div>
               </div>
             </div> */}
-           <Footer/>
+           {/* <Footer/> */}
           </div>
 
         )

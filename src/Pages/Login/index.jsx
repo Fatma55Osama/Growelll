@@ -41,9 +41,9 @@ export default function Login() {
           })
         } else {
           if (remember) {
-            localStorage.setItem("token", res.data.data)
+            localStorage.setItem("token",JSON.stringify(res.data.data) )
           } else {
-            sessionStorage.setItem("token", res.data)
+            sessionStorage.setItem("token",JSON.stringify(res.data.data))
           }
           navigate("/")
         }
