@@ -1,0 +1,40 @@
+.login{
+    /* min-height: 780px !important;
+    min-height: 90%; */
+    /* background-color: antiquewhite; */
+    min-height: 100vh;
+    max-height: 90%;
+    #sectionimg{
+        background-color: #f2f4f8;
+
+    }
+    #sectiondata{
+        h3{
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        span{
+            color: #96a2b4;
+            font-size: 14px;
+        }
+       
+    }
+    .teamdoctor{
+        border: #0066ff;
+        min-height: 560px;
+        max-height: 90%;
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+@media screen and (max-width:1024px) and (min-width:768px) {
+    
+    .teamdoctor{
+        min-height: 200px !important;
+        max-height: 0%;}
+}
+@media screen and (max-width:767px) {
+
+}

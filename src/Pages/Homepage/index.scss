@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .parent {
-  min-height: 99vh;
+  min-height: 700px;
   max-height: 100%;
   background: linear-gradient(270deg, #2261ff 0%, #a2bcff 100%);
 
@@ -448,45 +448,45 @@
     }
   }
 }
-.div8 {
-  min-height: 700px;
-  max-height: 90%;
-  .contentform {
-    min-height: 500px;
-    max-height: 90%;
-    .half1 {
-      span {
-        color: #307bc4;
-        font-weight: 600;
-        font-family: "Inter", sans-serif;
-      }
-      h3 {
-        color: #274760;
-        font-weight: 700;
-        font-family: "Inter", sans-serif;
-      }
-      form {
-        label {
-          color: #274760;
-          font-family: "Poppins", sans-serif;
-          font-weight: 400;
-        }
-        input {
-          border-radius: 10px;
-          border: 1px solid #307bc480;
-          outline: none;
-          padding: 10px;
-          &::placeholder {
-            opacity: 30%;
-          }
-        }
-        button {
-          background: linear-gradient(107.31deg, #307bc4 0%, #274760 100%);
-        }
-      }
-    }
-  }
-}
+// .div8 {
+//   min-height: 700px;
+//   max-height: 90%;
+//   .contentform {
+//     min-height: 500px;
+//     max-height: 90%;
+//     .half1 {
+//       span {
+//         color: #307bc4;
+//         font-weight: 600;
+//         font-family: "Inter", sans-serif;
+//       }
+//       h3 {
+//         color: #274760;
+//         font-weight: 700;
+//         font-family: "Inter", sans-serif;
+//       }
+//       form {
+//         label {
+//           color: #274760;
+//           font-family: "Poppins", sans-serif;
+//           font-weight: 400;
+//         }
+//         input {
+//           border-radius: 10px;
+//           border: 1px solid #307bc480;
+//           outline: none;
+//           padding: 10px;
+//           &::placeholder {
+//             opacity: 30%;
+//           }
+//         }
+//         button {
+//           background: linear-gradient(107.31deg, #307bc4 0%, #274760 100%);
+//         }
+//       }
+//     }
+//   }
+// }
 .div9 {
   min-height: 500px;
   max-height: 90%;

@@ -28,20 +28,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import Loader from '../Loadar/Loader';
 import '../../Component/Nav'
 import '../../Component/Footer'
-import { $booksState, $doctorState, $eventsState } from '../../Store';
+import { $eventsState, useBooks, useData, usedomain, useEvents } from '../../Store';
+import doctorsimg1 from "../../assets/Link → doctor_11.png.png";
 import { useRecoilValue } from 'recoil';
 import axios from 'axios';
 import Nav from '../../Component/Nav';
 import Footer from '../../Component/Footer';
+import ContactForm from '../../Component/ContactForm';
+import { getData } from '../../data/Repo/getData';
 export default function Homepage() {
   // const [doctors, setDoctors] = useState([{ img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
   // const [events, setEvents] = useState([{ img: Skaak, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: imgplay, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: Skaak, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
   //   const [books, setBooks] = useState([{ img: book, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: book, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: book, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
-  const events = useRecoilValue($eventsState);
-  const books = useRecoilValue($booksState);
-  const doctors = useRecoilValue($doctorState)
+  // const events = useRecoilValue($eventsState);
+  const { books, setbooks } = useBooks()
+  // const doctors = useRecoilValue($doctorState)
   const navigat = useNavigate()
+  const { events, setevents } = useEvents()
+  const {domain} =usedomain()
   const [loderindex, setLoderindex] = useState(true)
+  const { dataDoctor: doctors, setdataDoctor } = useData()
   useEffect(() => {
     setTimeout(() => {
       setLoderindex(false)
@@ -54,26 +60,20 @@ export default function Homepage() {
       live: true
     }).init();
   }, [])
-  useEffect(()=>{
-    // let token =JSON.parse(localStorage.getItem("token"))
-
-    // if(token){
-    //   axios.get("",{
-    //     headers:
-    //     {
-    //       Authorization:`Bearer ${token}`
-    //     }
-    //   }).then((res)=>{
-    //     console.log(res)
-    //   }).catch((err)=>{
-    //     localStorage.clear()
-    //     navigat("/login")
-    //   })
-
-    // }else{
-    //   navigat("/login")
-    // }
-  },[])
+ useEffect(() => {
+    let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    if (token) {
+      getData.get_profile(domain, token)
+        .then(res => {
+          console.log("homeprofile", res);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } else {
+      navigat("/login");
+    }
+  }, [domain, navigat]);
 
   return (
     <>
@@ -85,7 +85,7 @@ export default function Homepage() {
 
 
 
-              
+
               {/* <Nav/> */}
               {/* start nav par bg-white of figma */}
               {/* 
@@ -119,7 +119,10 @@ export default function Homepage() {
                     <div className='col-12 col-md-10'>
                       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>
                     </div>
-                    <button className='rounded-5 px-2 py-1 px-md-3 py-md-2'>Have your test Now <img src={logobtn} width="30px" height="30px" alt="" /></button>
+                    <Link className='nav-link' to={'/Finddoctor'}>
+
+                      <button className='rounded-5 px-2 py-1 px-md-3 py-md-2'>Have your test Now <img src={logobtn} width="30px" height="30px" alt="" /></button>
+                    </Link>
                   </div>
                 </div>
                 <div className='col-6 div2  d-flex  justify-content-center'>
@@ -290,11 +293,11 @@ export default function Homepage() {
                   {
                     doctors.slice(0, 3).map((el, index) => {
                       return (
-                        <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "19rem" }} key={index}>
-                          <img src={el.img} className="card-img-top mt-2" alt="..." />
+                        <div className="card card1 d-flex flex-column justify-content-center align-content-center " style={{ width: "18rem" }} key={index}>
+                          <img  src={`${domain}/${el.image}`} className="card-img-top mt-2" alt="..." />
                           <div className="card-body">
-                            <h5 className="card-title mb-1">{el.name}</h5>
-                            <p className="card-text">{el.descript}</p>
+                            <h5 className="card-title mb-1">Dr:{el.fullName}</h5>
+                            <p className="card-text">{el.specialization}</p>
                             <Link to={`/DetailsDoctor/${el.id}`} className="btn  col-12 rounded-5">Enroll</Link>
                           </div>
                         </div>
@@ -326,12 +329,12 @@ export default function Homepage() {
                         //     <Link to={`/DetailsEvent/${el.id}`} className="btn  col-12 rounded-5">Enroll</Link>
                         //   </Card.Body>
                         // </Card>
-                        <div key={el.id} className="card  card1  d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "19rem" }} >
-                          <img src={el.img} className="card-img-top mt-3" alt="..." />
-                          <div className="card-body">
-                            <h5 className="card-title mb-1">{el.name}</h5>
-                            <p className="card-text">{el.descript}</p>
-                            <Link to={`/DetailsEvent/${el.id}`} className="btn  col-12 rounded-5">Enroll</Link>
+                        <div key={el.videoEventId} className="card  card1  d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "18rem" }} >
+                          <img src={el.videoImagePath.replace('/api/HomeEvents/GetImage/', '')} className="card-img-top mt-3" height={152} alt="..." />
+                          <div className="card-body d-flex flex-column justify-content-end">
+                            <h5 className="card-title mb-1">{el.videoTitle}</h5>
+                            <p className="card-text">{el.aboutOfVideo}</p>
+                            <Link to={`/detailsvedio/${el.videoEventId}`} className="btn  col-12 rounded-5">Enroll</Link>
                           </div>
                         </div>
 
@@ -351,12 +354,12 @@ export default function Homepage() {
                   {
                     books.slice(0, 3).map((el, index) => {
                       return (
-                        <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "19rem" }} key={index}>
-                          <img src={el.img} className="card-img-top mt-3" alt="..." />
+                        <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "18rem" }} key={index}>
+                          <img src={el.bookImagePath.replace('/api/HomeEvents/GetImage/', '')} className="card-img-top mt-3" alt="..." />
                           <div className="card-body">
-                            <h5 className="card-title mb-1">{el.name}</h5>
-                            <p className="card-text">{el.descript}</p>
-                            <Link className="btn col-12 rounded-5">Enroll</Link>
+                            <h5 className="card-title mb-1">{el.bookTitle}</h5>
+                            <p className="card-text">{el.aboutOfBook}</p>
+                            <Link className="btn col-12 rounded-5" to={`/DetailsEvent/${el.bookEventId}`}>Enroll</Link>
                           </div>
                         </div>
                       )
@@ -383,7 +386,7 @@ export default function Homepage() {
               </div>
 
             </div>
-
+            {/* 
             <div className='col-12 div8 bg-white'>
               <div className='container contentform  d-flex justify-content-between'>
 
@@ -468,7 +471,7 @@ export default function Homepage() {
                 </div>
               </div>
 
-            </div>
+            </div> */}
 
 
 
@@ -521,7 +524,8 @@ export default function Homepage() {
                 </div>
               </div>
             </div> */}
-           {/* <Footer/> */}
+            {/* <Footer/> */}
+            <ContactForm />
           </div>
 
         )

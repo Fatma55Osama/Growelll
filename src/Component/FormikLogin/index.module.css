@@ -1,0 +1,77 @@
+.formControl {
+  font-weight: 400;
+  font-size: 1rem;
+  border: 1px solid #74777f;
+  width: 100%;
+  padding: 17px 40px 17px 10px;
+  border-radius: 6px;
+  outline: none;
+}
+  .iconform {
+    right: 15%;
+    font-size: 20px;
+    pointer-events: none;
+  }
+  .inputGroup {
+    min-height: 70px;
+    width:80% ;
+  }
+  .formControlbutton {
+    font-weight: 500;
+    font-size: 1rem;
+    border: 1px solid;
+    width: 80%;
+    padding: 17px 10px;
+    background-color: #005cbb;
+    color: white;
+  }
+  .formControl.error {
+    border: 1px solid rgba(220, 53, 69, 1);
+  }
+  .error + .iconform {
+    color: red;
+  }
+  .errorMessage {
+    font-size: 0.85rem;
+    position: absolute;
+    /* bottom: -20px; */
+    left: 0;
+  }
+  #remember{
+    width: 80%;
+  }
+  @media screen and (max-width:1024px) and (min-width:768px) {
+    .inputGroup {
+      width:97% ;
+    }
+    #remember{
+      width: 97%;
+    }
+    .iconform {
+      right: 7%;}
+      .formControlbutton {
+        width: 97%;
+      }
+  }
+  @media screen and (max-width:767px) {
+   #logodiv{
+     margin-right: 60%;
+    padding: 20px 0;
+    img{
+      width: 130px;
+      
+    }
+  
+   }
+   .iconform {
+    right: 7%;}
+   .inputGroup {
+    width:95% ;
+  }
+  #remember{
+    width: 95%;
+  }
+  .formControlbutton {
+    width: 95%;
+  }
+  }

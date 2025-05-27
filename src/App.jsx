@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom'
 import Homepage from './Pages/Homepage'
 import Finddoctor from './Pages/Finddoctor'
-import Contact from './Pages/Contact'
 import Event from './Pages/Event'
 import logo from './assets/Growell.svg'
 import frame from './assets/Frame 8745.svg'
@@ -18,6 +17,16 @@ import Changpassword from './Pages/ChangPassword'
 import DetailsDoctor from './Pages/DetailsDoctor'
 import ScrollToTop from './ScrollToTop/ScrollToTop'
 import MainLayout from './Component/MainLayout'
+import Registeradmin from './Pages/Registeradmin'
+import Loginadmin from './Pages/Loginadmin'
+import Contactus from './Pages/Contactus'
+import TestNow from './Pages/TestNow'
+import TestCategory from './Pages/TestCategory'
+import DetailsVedio from './Pages/DetailsVedio'
+import Profile from './Pages/Profile'
+import Reports from './Pages/Reports'
+import Question from './Pages/Dashboard/Question'
+import CreateQuestion from './Pages/Dashboard/CreateQuestion'
 export default function App() {
 
   return (
@@ -45,20 +54,31 @@ export default function App() {
 
       {/* <Nav/> */}
       <Routes>
-        
+
         <Route path='/' element={<MainLayout />}>
           <Route index element={<Homepage />}></Route>
           <Route path='/Event' element={<Event />}></Route>
           <Route path='/Finddoctor' element={<Finddoctor />}></Route>
-          <Route path='/DetailsDoctor/:iddoctor' element={<DetailsDoctor />} />
-          <Route path='/Contact' element={<Contact />}></Route>
+          <Route path='/DetailsDoctor/:id' element={<DetailsDoctor />} />
+          <Route path='/Contact' element={<Contactus />}></Route>
           <Route path='/DetailsEvent/:idevent' element={<DetailsEvent />}></Route>
+          <Route path='/detailsvedio/:id' element={<DetailsVedio />}></Route>
+          <Route path='/report' element={<Reports />}></Route>
+          <Route path='/question' element={<Question />} />
+          <Route path='/createquestion' element={<CreateQuestion />} />
+
         </Route>
 
         <Route path='/'>
+          <Route path='/DetailsDoctor/:id/test/:testNumber' element={<TestNow />} />
+          <Route path='/DetailsDoctor/:id/tests' element={<TestCategory />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/registeradmin' element={<Registeradmin />} />
+          <Route path='/Loginadmin' element={<Loginadmin />} />
           <Route path='/changpassword' element={<Changpassword />} />
+          <Route path='/profile' element={<Profile />} />
+
           <Route path='*' element={<Errorpage />}></Route>
         </Route>
       </Routes>

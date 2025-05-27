@@ -1,0 +1,154 @@
+.sectionParent {
+    min-height: 100vh;
+}
+.div1{
+   background: linear-gradient(119.31deg, #D2EAEF 17.16%, #86BBF1 89.78%);
+   /* min-height: 600px; */
+   padding-bottom: 30px ;
+}
+  .divresearsh {
+    margin-top: 130px;
+    /* display: flex; */
+    span {
+      color: #0c3275;
+      font-size: 18px;
+      font-family: "Poppins", serif;
+    }
+    .divinput {
+      border: 1px solid #0c3275;
+      /* margin-right: 70px; */
+      input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+      }
+      input::placeholder {
+        color: #0c3275;
+      }
+    }
+}
+.div2{
+  img{
+    width: 490px;
+    height: 499px;
+    border-radius: 20px;
+  }
+  .contantdata {
+    margin-left: -170px;
+    margin-bottom: -110px;
+    background:white ;
+    box-shadow: 0px 4px 11.4px 0px #307bc426;
+    border-radius: 25px;
+    /* padding: 80px 0; */
+    h4 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #274760;
+    }
+    span {
+      font-size: 17px;
+      color: #274760;
+    }
+    p {
+      font-size: 14px;
+      color: #27476085;
+      margin: 0;
+    }
+  }
+
+    .bordericon{
+      background-color: #307BC4;
+      width: 30px ;
+      height: 30px;
+      border-radius: 50%;
+      color: white;
+      font-size: 15px;
+    }
+    .HaveTest{
+      background-color: #307BC4;
+      border-end-end-radius: 25px;
+      border-bottom-left-radius: 25px;
+      color: #ffffff;
+    
+      span{
+        color: #ffffff;
+      }
+    }
+}
+.sectioncontact{
+
+  .about{
+  color: #274760;
+  background: #BEDDF057;
+  border: 1px solid #0C327533;
+  border-radius: 20px;
+  .bordericon {
+    color: #307BC4;
+    font-size: 24px;
+  }
+  .bordericon2{
+    color: #307BC4;
+
+  }
+  span,h6{
+    font-size: 19px;
+  }
+  .Dates{
+    background: #FFFFFF66;
+    border-radius: 20px;
+
+  }
+}
+#textaboutme{
+   color: #0C3275;
+  
+}
+
+
+}
+.sectionkid{
+  #kidAbout{
+    background-color: #307BC4;
+    border-radius: 20px;
+  }
+  .divbtn{
+    background-color: white;
+    padding: 2px 30px 10px 30px;
+    margin-top: -100px;
+    margin-right: -15px;
+    button{
+      border: none;
+      padding: 20px 50px 20px 50px;
+      color: #0C3275;
+      font-size: 25px;
+      font-weight: 500;
+    }
+  }
+  .divbtn2{
+    padding: 40px 50px 40px 50px;
+    background-color:white;
+    margin-bottom: -100px;
+    margin-left: -62px;
+    border-radius: 20px;
+    button{
+      border: none;
+      color: #0C3275;
+      padding: 20px 220px 20px 220px;
+      border: 1px solid #0C3275;
+      font-size: 20px;
+      border-radius: 20px;
+      font-weight: 500;
+      background-color:#DDE7FF ;
+    }
+  }
+} .rating{
+    color: #0C3275;
+    h2{
+      font-size: 33px;
+    }
+    p{
+      font-size: 22px;
+      font-weight: 400;
+    }
+  }
+ 

@@ -1,14 +1,21 @@
 import React from 'react'
 import Footer from '../../Component/Footer'
 import Nav from '../../Component/Nav'
-import { useRecoilState, useRecoilValue } from 'recoil'
-import { $active, $booksState, $eventsState } from '../../Store'
+import { useRecoilValue } from 'recoil'
+import { $eventsState, useBooks, usedomain, useEvents } from '../../Store'
 import './index.scss'
 import iconsearch from '../../assets/Vector.png'
 import { Link } from 'react-router-dom'
 export default function Event() {
-  const events = useRecoilValue($eventsState);
-  const books = useRecoilValue($booksState);
+  // const events = useRecoilValue($eventsState);
+  // const books = useRecoilValue($booksState);
+  const { books, setbooks } = useBooks()
+  const {events,setevents } = useEvents()
+
+  const { domain } = usedomain()
+
+  console.log("this is books", books)
+  console.log("this is events",events)
   return (
     <div className='col-12 parentspage'>
       {/* <Nav/> */}
@@ -25,16 +32,16 @@ export default function Event() {
           </div>
           <div className='col-12 div2page d-flex flex-column gap-5'>
             <h3>Events</h3>
-            <div className='col-11 col-lg-11 col-md-12 divcard d-flex justify-content-between flex-wrap gap-4 gap-lg-5'>
+            <div className='col-11 col-lg-12 col-md-12 divcard d-flex justify-content-between flex-wrap gap-4 gap-lg-4'>
               {
-                events.map((el, index) => {
+                events?.map((el, index) => {
                   return (
-                    <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "19rem" }} key={index}>
-                      <img src={el.img} className="card-img-top mt-3" alt="..." />
-                      <div className="card-body">
-                        <h5 className="card-title mb-1">{el.name}</h5>
-                        <p className="card-text">{el.descript}</p>
-                        <Link to={`/DetailsEvent/${el.id}`} className="btn  col-12 rounded-5">Enroll</Link>
+                    <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "18rem" }} key={index}>
+                      <img src={el.videoImagePath.replace('/api/HomeEvents/GetImage/', '')} className="card-img-top mt-3" height={152} alt="..." />
+                      <div className="card-body d-flex flex-column justify-content-end">
+                        <h5 className="card-title mb-1">{el.videoTitle}</h5>
+                        <p  className="card-text">{el.aboutOfVideo}</p>
+                        <Link to={`/detailsvedio/${el.videoEventId}`} className="btn  col-12 rounded-5">Enroll</Link>
                       </div>
                     </div>
                   )
@@ -50,26 +57,26 @@ export default function Event() {
 
       <div className='divbooks col-12 d-flex justify-content-center'>
         <div className='col-10 col-lg-8 '>
-          <div className='col-12 col-lg-11 col-md-12 mt-5 mb-5 divcard d-flex justify-content-between flex-wrap gap-4 gap-lg-5'>
+          <div className='col-12 col-lg-12 col-md-12 mt-5 mb-5 divcard d-flex justify-content-between flex-wrap gap-4 gap-lg-4'>
             {
-              books.map((el, index) => {
-                return (
-                  <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "19rem" }} key={index}>
-                    <img src={el.img} className="card-img-top mt-3" alt="..." />
-                    <div className="card-body">
-                      <h5 className="card-title mb-1">{el.name}</h5>
-                      <p className="card-text">{el.descript}</p>
-                      <Link className="btn  col-12 rounded-5">Enroll</Link>
-                    </div>
+              books?.map((el, index) =>
+              (
+                <div className="card card1 d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "18rem" }} key={index}>
+                  <img src={el.bookImagePath.replace('/api/HomeEvents/GetImage/', '')} className="card-img-top mt-3" alt="..." />
+                  <div className="card-body">
+                    <h5 className="card-title mb-1">{el.bookTitle}</h5>
+                    <p className="card-text">{el.aboutOfBook}</p>
+                    <Link className="btn  col-12 rounded-5" to={`/DetailsEvent/${el.bookEventId}`}>Enroll</Link>
                   </div>
-                )
-              })
+                </div>
+              )
+              )
             }
           </div>
         </div>
       </div>
 
-     {/* <Footer/> */}
+      {/* <Footer/> */}
     </div>
   )
 }

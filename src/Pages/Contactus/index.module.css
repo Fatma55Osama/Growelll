@@ -1,0 +1,48 @@
+.parentalldiv {
+  /* min-height: 100vh; */
+}
+.div1 {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url(../../assets/page-title-6.jpg);
+  background-position: 50%;
+  background-size: cover;
+  min-height: 580px;
+  max-height: 90%;
+}
+.textdiv {
+  h1 {
+    font-size: 66px;
+    font-weight: 600;
+    color: white;
+  }
+  span {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+#divform {
+  h2 {
+    color: #307bc4;
+  }
+  p {
+    color: #274760;
+  }
+}
+#contactus2{
+  margin-top: 70px;
+}
+@media screen and (max-width: 767px) {
+  .textdiv {
+    h1 {
+      font-size: 40px;
+    }
+  }
+}
+@media screen and (max-width: 992px) and (min-width: 768px) {
+  .textdiv {
+    h1 {
+      font-size: 40px;
+    }
+  }
+}

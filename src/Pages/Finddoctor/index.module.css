@@ -22,8 +22,8 @@
   }
 }
 .doctorswiper {
-    border-bottom: 1px solid #0C327538;
-  span {
+  border-bottom: 1px solid #0c327538;
+  #span {
     font-size: 25px;
     color: #0c3275;
   }
@@ -43,25 +43,87 @@
     border: 1px solid rgba(48, 122, 196, 0.201);
     border-radius: 15px;
     color: #0c3275;
-    .titlecard{
-        font-size: 20px;
-        font-weight: 600;
-        padding: 0;
-        margin: 0;
+    .titlecard {
+      font-size: 20px;
+      font-weight: 600;
+      padding: 0;
+      margin: 0;
     }
-    .textcaed{
-        font-size: 16px;
+    .textcaed {
+      font-size: 16px;
     }
-    .linkcard{
-        background: #0C32751A;
-        border: 1px solid #0C327580
+    .linkcard {
+      background: #0c32751a;
+      border: 1px solid #0c327580;
     }
-
   }
- 
 }
-.div2{
-    min-height: 800px;
-    max-height: 90%;
-}
+.div2 {
+  .imgdiv {
+    background: linear-gradient(
+      196.21deg,
+      rgba(227, 241, 255, 0.58) -3.51%,
+      #ffffff 36.96%
+    );
+    border-radius: 25px;
+    width: 280px;
+    height: 280px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  span {
+    font-size: 25px;
+    color: #0c3275;
+  }
+  .contantdata {
+    background: linear-gradient(
+      196.21deg,
+      rgba(227, 241, 255, 0.58) -3.51%,
+      #ffffff 36.96%
+    );
+    box-shadow: 0px 4px 11.4px 0px #307bc426;
+    border-radius: 25px;
+    /* padding: 80px 0; */
+    h4 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #274760;
+    }
+    span {
+      font-size: 17px;
+      color: #274760;
+    }
+    p {
+      font-size: 14px;
+      color: #27476085;
+      margin: 0;
+    }
+  }
 
+  .bordericon {
+    background-color: #307bc4;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    font-size: 15px;
+  }
+  .HaveTest {
+    background-color: #307bc4;
+    border-end-end-radius: 25px;
+    border-bottom-left-radius: 25px;
+    color: #ffffff;
+
+    span {
+      color: #ffffff;
+    }
+  }
+}
+ #star{
+    span{
+      color: #faaf00 !important;
+    }
+  }

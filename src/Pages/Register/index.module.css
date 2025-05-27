@@ -3,8 +3,8 @@
   max-height: 90%;
   h2 {
     color: #2261ff;
-    margin-top: 40px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
   .contnetpage{
   }
@@ -34,7 +34,7 @@
     span{
         color: #b3b3b4;
         font-size: 18px;
-        margin-top: 30px;
+        /* margin-top: 30px; */
        .link_gologin{
         text-decoration: none;
        }

@@ -25,15 +25,15 @@ export default function Login() {
       return
     }
     if (email && pass) {
-      axios.post("https://localhost:7071/api/AccountAccount/Login", {
+      axios.post("https://localhost:7071/api/Account/Login", {
         "emailAddress": email,
         "password": pass,
         "rememberMe": remember
 
       }).then((res) => {
         console.log(res)
-        // const token = response.headers['authorization']; // أو حسب اسم الـ header
-        // console.log('Token:',res.data.id);
+        const token = res.data.token;
+        console.log('Token:', res.data.token);
         if (res.data.err) {
           Swal.fire({
             icon: "error",
@@ -41,16 +41,20 @@ export default function Login() {
           })
         } else {
           if (remember) {
-            localStorage.setItem("token",JSON.stringify(res.data.data) )
+            localStorage.setItem("token", res.data.token)
           } else {
-            sessionStorage.setItem("token",JSON.stringify(res.data.data))
+            sessionStorage.setItem("token", res.data.token)
           }
+          Swal.fire({
+            icon: "success",
+            text: "Password changed successfully"
+          })
           navigate("/")
         }
       }).catch((err) => {
         Swal.fire({
           icon: "error",
-          text: "Connection problem"
+          text: "Wrong username or password"
         })
       })
     } else {
@@ -72,7 +76,7 @@ export default function Login() {
       </div>
       <div className={styles.right + " col-12 col-md-6 col-lg-6 d-flex  align-items-center"}>
         <div className='container col-12 col-md-12 col-lg-11 mt-md-5 d-flex flex-column py-md-3 mb-4 mb-lg-0 mb-md-0 gap-4'>
-          <h2>LOGIN AS USER</h2>
+          <h2>LOGIN</h2>
           <form onSubmit={handelform} className='d-flex flex-column col-12 col-lg-10 col-md-11 align-content-between gap-5'>
             <input ref={(el) => (formrefs.current[0] = el)} type="text" placeholder='Username' />
             <input ref={(el) => (formrefs.current[1] = el)} type="password" placeholder='Password' />
@@ -84,7 +88,7 @@ export default function Login() {
               <Link className={styles["link-lab"]} to="/changpassword">Forgot Password</Link>
             </div>
             <div className='col-12 d-flex flex-column align-items-center gap-3'>
-              <button type='submit' className={styles.btn1 + ' col-12 py-2 text-center'} >Login</button>
+              <button type='submit' className={styles.btn1 + ' col-12 py-2 text-center btn-primary'} >Login</button>
               <h5 className='text-primary'>Or</h5>
               <Link className={styles.btn2 + ' col-12 py-2 text-center'} to="/register">Register</Link>
             </div>
