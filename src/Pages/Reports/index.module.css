@@ -54,49 +54,101 @@
       }
     }
     #classificat {
-     background:rgba(48, 123, 196, 1) ; 
+      background: rgba(48, 123, 196, 1);
       box-shadow: 0px 4px 11.4px 0px #307bc426;
       border-radius: 25px;
       height: 381px;
       margin-right: 50px;
-      #btnclassifact{
-        button{
-            border:none;;
-            background-color: white;
-            font-weight: 600;
-            font-size: 20px;
-            border-radius: 20px;
-            padding: 20px;
+      #btnclassifact {
+        button {
+          border: none;
+          background-color: white;
+          font-weight: 600;
+          font-size: 20px;
+          border-radius: 20px;
+          padding: 20px;
         }
       }
-      span{
+      span {
         font-size: 25px;
-        
       }
     }
   }
-  #allsection{
+  #allsection {
     /* min-height: 500px; */
     max-height: 90%;
     background-color: #274760;
   }
   #numberdiv {
-  background: #0c32751f;
-  border: 1px solid #0c3275d6;
-  backdrop-filter: blur(24.600000381469727px);
-  border-radius: 10px;
-  /* margin-top: -50px; */
-  /* position: absolute; */
-  /* z-index: 20; */
+    background: #0c32751f;
+    border: 1px solid #0c3275d6;
+    backdrop-filter: blur(24.600000381469727px);
+    border-radius: 10px;
+    /* margin-top: -50px; */
+    /* position: absolute; */
+    /* z-index: 20; */
 
-  h3 {
-    color: #0c3275;
-    font-weight: 700;
-    font-size: 35px;
-  }
-  span {
-    color: #0c3275;
-    font-weight: 400;
+    h3 {
+      color: #0c3275;
+      font-weight: 700;
+      font-size: 35px;
+    }
+    span {
+      color: #0c3275;
+      font-weight: 400;
+    }
   }
 }
+.contantdata2 {
+  /* margin-left: -250px;
+        margin-bottom: -110px; */
+  background: white;
+  box-shadow: 0px 4px 11.4px 0px #307bc426;
+  border-radius: 25px;
+  /* padding: 80px 0; */
+  h4 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #274760;
+  }
+  span {
+    font-size: 17px;
+    color: #274760;
+  }
+  p {
+    font-size: 14px;
+    color: #27476085;
+    margin: 0;
+  }
+}
+
+.bordericon {
+  background-color: #307bc4;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: white;
+  font-size: 15px;
+}
+.HaveTest2 {
+  background-color: #307bc4;
+  border-end-end-radius: 25px;
+  border-bottom-left-radius: 25px;
+  color: #ffffff;
+
+  span {
+    color: #ffffff;
+  }
+}
+
+#breakText {
+  word-wrap: break-word;
+  white-space: normal;
+}
+#h2{
+  margin-top: 120px;
+}
+#noreport{
+   margin-top: 350px;
+   color:#0c3275 ;
 }

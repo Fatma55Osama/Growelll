@@ -2,7 +2,7 @@ import { Box, Rating } from '@mui/material'
 import React from 'react'
 import { FaRegStar } from 'react-icons/fa'
 
-export default function DoctorRating({value, withText = false}) {
+export default function DoctorRating({ value, withText = false }) {
   const labels = {
     0.5: 'Poor',
     1: 'Poor+',
@@ -16,18 +16,18 @@ export default function DoctorRating({value, withText = false}) {
     5: 'Outstanding',
   };
   return (
-    <div>            
-    <Rating
-      name="text-feedback"
-      value={value}
-      readOnly
-      precision={0.5}
-      emptyIcon={<FaRegStar style={{ opacity: 0.55 }} fontSize="inherit" />}
-    />
-    {
-      withText&&      <Box sx={{ ml: 2 }}>{labels[value]}</Box>
+    <div>
+      <Rating
+        name="text-feedback"
+        value={value}
+        readOnly
+        precision={0.5}
+        emptyIcon={<FaRegStar style={{ opacity: 0.55 }} fontSize="inherit" />}
+      />
+      {
+        withText && <Box sx={{ ml: 2 }}>{labels[value]}</Box>
 
-    }
-      </div>
+      }
+    </div>
   )
 }

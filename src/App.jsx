@@ -27,6 +27,13 @@ import Profile from './Pages/Profile'
 import Reports from './Pages/Reports'
 import Question from './Pages/Dashboard/Question'
 import CreateQuestion from './Pages/Dashboard/CreateQuestion'
+import EditeQuestion from './Pages/Dashboard/EditeQuestion'
+import RegisterAdminn from './Pages/RegisterAdminn'
+import ChangDoctorPasswordd from './Pages/ChangDoctorPasswordd'
+import Test from './Pages/Dashboard/Test'
+import CreateTest from './Pages/Dashboard/CreateTest'
+import EditeTest from './Pages/Dashboard/EditeTest'
+import EditeProfile from './Pages/EditeProfile'
 export default function App() {
 
   return (
@@ -65,7 +72,13 @@ export default function App() {
           <Route path='/detailsvedio/:id' element={<DetailsVedio />}></Route>
           <Route path='/report' element={<Reports />}></Route>
           <Route path='/question' element={<Question />} />
+          <Route path='/test' element={<Test />} />
+          <Route path='/createtest' element={<CreateTest />} />
+
           <Route path='/createquestion' element={<CreateQuestion />} />
+          <Route path='/editequestion/:id' element={<EditeQuestion />} />
+          <Route path='/editetest/:id' element={<EditeTest />} />
+          <Route path='/editeprofile/:id' element={<EditeProfile />} />
 
         </Route>
 
@@ -74,9 +87,12 @@ export default function App() {
           <Route path='/DetailsDoctor/:id/tests' element={<TestCategory />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
-          <Route path='/registeradmin' element={<Registeradmin />} />
-          <Route path='/Loginadmin' element={<Loginadmin />} />
+          <Route path='/registeradmin2' element={<RegisterAdminn />} />
+
+          <Route path='/loginadmin' element={<Loginadmin />} />
           <Route path='/changpassword' element={<Changpassword />} />
+          <Route path='/changdoctorpassword' element={<ChangDoctorPasswordd />} />
+
           <Route path='/profile' element={<Profile />} />
 
           <Route path='*' element={<Errorpage />}></Route>

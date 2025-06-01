@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './index.module.css'
 import logo from '../../assets/Growell.svg'
 import { Link } from 'react-router-dom'
@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import axios from 'axios'
 export default function Register() {
   const formRefs = useRef([])
+  const [errors, setErrors] = useState({});
   const HandelRegist = (event) => {
     event.preventDefault()
     let first_name = formRefs.current[0].value
@@ -34,7 +35,7 @@ export default function Register() {
       "Address": address,
       "LastName": last_name,
       "FristName": first_name,
-      "PhoneNumber":phone,
+      "PhoneNumber": phone,
       "Password": pass,
       "ConfirmPassword": confirm,
     });
@@ -53,14 +54,14 @@ export default function Register() {
     formData.append("LastName", last_name);
     formData.append("Email", email);
     formData.append("Address", address);
-    formData.append("PhoneNumber",phone)
+    formData.append("PhoneNumber", phone)
     formData.append("Password", pass);
     formData.append("ConfirmPassword", confirm);
     axios.post("https://localhost:7071/api/Account/Register", formData, {
-    headers: {
-      "Content-Type": "multipart/form-data"
-    }
-  }).then((res) => {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    }).then((res) => {
 
       console.log(res)
       Swal.fire({
@@ -68,13 +69,15 @@ export default function Register() {
         text: "Registration successful"
       })
     }).catch((err) => {
-      console.log(err.response?.data)
-      console.log(err.message)
-
-      Swal.fire({
-        icon: "error",
-        text: "Error occurred"
-      })
+      const apiErrors = err.response?.data || {};
+      if (apiErrors && apiErrors.errors) {
+        setErrors(apiErrors.errors);
+      } else {
+        Swal.fire({
+          icon: "error",
+          text: "Error occurred"
+        });
+      }
     })
   }
   return (
@@ -85,12 +88,24 @@ export default function Register() {
           <h2>REGISTER </h2>
           <form onSubmit={HandelRegist} className='d-flex flex-column gap-4'>
             <input ref={(el) => (formRefs.current[0] = el)} type="text" placeholder='First Name' />
+            {errors.FristName && <div className="text-danger">{errors.FristName[0]}</div>}            <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
             <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
+            {errors.LastName && <div className="text-danger">{errors.LastName[0]}</div>}
+
             <input ref={(el) => (formRefs.current[2] = el)} type="text" placeholder='Address' />
-           <input ref={(el) => (formRefs.current[3] = el)} type="email" placeholder='Email' />
+            {errors.Address && <div className="text-danger">{errors.Address[0]}</div>}
+
+            <input ref={(el) => (formRefs.current[3] = el)} type="email" placeholder='Email' />
+            {errors.Email && <div className="text-danger">{errors.Email[0]}</div>}
+
             <input ref={(el) => (formRefs.current[6] = el)} type="Phone" placeholder='Phone' />
+            {errors.PhoneNumber && <div className="text-danger">{errors.PhoneNumber[0]}</div>}
+
             <input ref={(el) => (formRefs.current[4] = el)} type="password" placeholder='Password' />
+            {errors.Password && <div className="text-danger">{errors.Password[0]}</div>}
+
             <input ref={(el) => (formRefs.current[5] = el)} type="password" placeholder='Confirm Password' />
+            {errors.ConfirmPassword && <div className="text-danger">{errors.ConfirmPassword[0]}</div>}
             <button type='submit' className={styles.btn + " text-center btn py-2"}>Register</button>
             <span className='text-center'>Already have an account? <Link to="/login" className={styles["link_gologin"]}> Go to Login</Link></span>
 

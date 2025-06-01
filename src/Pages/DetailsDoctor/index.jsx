@@ -30,12 +30,12 @@ export default function DetailsDoctor() {
       <div className={styles.div1}>
         <div className='container d-flex flex-column justify-content-center'>
           <div className={' col-11 px-5  d-flex flex-column  gap-5'}>
-            <div className={styles.divresearsh + ' col-12 d-flex flex-wrap flex-row justify-content-between align-items-center'} >
+            <div className={styles.divresearsh + ' py-2 col-12 d-flex flex-wrap flex-row justify-content-between align-items-center'} >
               <span className='d-flex gap-1'><Link className='nav-link' to={"/"}>Home</Link> / <Link to={"/Finddoctor"} className='nav-link'>Doctors</Link>/<Link to={`/DetailsDoctor/${id}`} className='nav-link'>Doctor Details</Link></span>
-              <div className={styles.divinput + ' col-6 col-md-4 col-lg-3   px-md-2 rounded-5 d-flex  align-items-center  py-md-2'}>
+              {/* <div className={styles.divinput + ' col-6 col-md-4 col-lg-3   px-md-2 rounded-5 d-flex  align-items-center  py-md-2'}>
                 <input className='col-8 col-md-8 ms-3' placeholder='Search Doctors' type="text" />
                 <img className='ms-2 ms-md-3' src={iconsearch} width="25px" height="25px" alt="" />
-              </div>
+              </div> */}
 
             </div>
 

@@ -85,7 +85,7 @@ export default function Login() {
                 <input id='remeber' ref={(el) => (formrefs.current[2] = el)} className='form-check' type="checkbox" />
                 <label htmlFor="remeber">Remember Me</label>
               </div>
-              <Link className={styles["link-lab"]} to="/changpassword">Forgot Password</Link>
+              {/* <Link className={styles["link-lab"]} to="/changpassword">Forgot Password</Link> */}
             </div>
             <div className='col-12 d-flex flex-column align-items-center gap-3'>
               <button type='submit' className={styles.btn1 + ' col-12 py-2 text-center btn-primary'} >Login</button>

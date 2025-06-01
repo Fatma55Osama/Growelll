@@ -1,17 +1,17 @@
 import axios from "axios"
 
-export const show_single_question = async (domain, id,token) => {
+export const show_singletestdoctor = async (domain, id,tokenDoctor) => {
     let final = {}
-    await axios.get(`${domain}/api/TestHome/${id}/questions`, {
+    await axios.get(`${domain}/api/Test/GetById/${id}`, {
         // params: {
         //     populate: "*"
         // },
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${tokenDoctor}`
         }
     }).then((res) => {
         final = res.data
-        console.log("Question : ", final)
+        console.log("testsingleDoctor : ", final)
     }).catch((err) => { console.log(err) })
     return final
 }

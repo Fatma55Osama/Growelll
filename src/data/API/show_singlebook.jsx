@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const show_singlebook =async(domain,id)=>{
     let final ={}
-    await axios  .get(`${domain}/api/HomeEvents/GetbookID`, {
+    await axios.get(`${domain}/api/HomeEvents/GetbookID`, {
       params: {
         bookId: id
       }

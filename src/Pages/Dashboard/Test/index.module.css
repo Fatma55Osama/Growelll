@@ -4,7 +4,7 @@
     min-height: 600px;
     max-height: 90%;
     /* margin-top: 8%; */
-    background: linear-gradient(119.31deg, #d2eaef 17.16%, #86bbf1 89.78%);
+    background: linear-gradient(119.31deg, #2ac6ea70 17.16%, #007fff 89.78%);
     .div2 {
       margin-left: 150px !important;
       /* margin-top: 20px !important; */
@@ -65,11 +65,11 @@
         color: #ffffff;
       }
     }
-    #btnadd {
-      background-color: rgba(48, 123, 196, 1);
+    #btnaddd {
+      background-color: rgb(255, 255, 255);
+      color: #274760 !important;
       border-radius: 10px;
       font-weight: 500;
-       color: #ffffff;
     }
   }
   .divqqa {
@@ -79,9 +79,12 @@
   #Qa {
     #singleqa {
       margin-top: 100px;
-      background-color: #307bc4;
+      /* background-color: #307bc4; */
       border-radius: 10px;
-     
+      background-color: rgba(221, 231, 255, 1);
+      color: rgba(12, 50, 117, 1)!important;
+      border: 1px solid rgba(12, 50, 117, 1);
+
     }
     span {
       font-weight: 500;
@@ -92,3 +95,10 @@
     font-weight: 500;
   }
 }
+/* border: 1px solid rgba(12, 50, 117, 1);
+background-color: rgba(221, 231, 255, 1);
+border-radius: 20px;
+color: rgba(12, 50, 117, 1);
+font-family: "Poppins", sans-serif;
+font-weight: 700;
+font-size: 20px; */

@@ -36,6 +36,7 @@ import Nav from '../../Component/Nav';
 import Footer from '../../Component/Footer';
 import ContactForm from '../../Component/ContactForm';
 import { getData } from '../../data/Repo/getData';
+import Chat from '../Chat';
 export default function Homepage() {
   // const [doctors, setDoctors] = useState([{ img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
   // const [events, setEvents] = useState([{ img: Skaak, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: imgplay, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: Skaak, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
@@ -60,20 +61,20 @@ export default function Homepage() {
       live: true
     }).init();
   }, [])
- useEffect(() => {
-    let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-    if (token) {
-      getData.get_profile(domain, token)
-        .then(res => {
-          console.log("homeprofile", res);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } else {
-      navigat("/login");
-    }
-  }, [domain, navigat]);
+//  useEffect(() => {
+//     let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+//     if (token) {
+//       getData.get_profile(domain, token)
+//         .then(res => {
+//           console.log("homeprofile", res);
+//         })
+//         .catch(err => {
+//           console.log(err);
+//         });
+//     } else {
+//       navigat("/login");
+//     }
+//   }, [domain, navigat]);
 
   return (
     <>
@@ -526,6 +527,7 @@ export default function Homepage() {
             </div> */}
             {/* <Footer/> */}
             <ContactForm />
+            <Chat/>
           </div>
 
         )

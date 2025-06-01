@@ -1,0 +1,37 @@
+#parent {
+  min-height: 100vh;
+  max-height: 90%;
+  #create {
+    margin-top: 130px;
+    /* min-height: 500px !important; */
+    h2{
+      color:#2261ff;
+    }
+  }
+  form {
+    label {
+      color: #274760;
+      font-family: "Poppins", sans-serif;
+      font-weight: 400;
+    }
+    input {
+      border-radius: 10px;
+      border: 1px solid #307bc480;
+      outline: none;
+      padding: 10px;
+      &::placeholder {
+        opacity: 30%;
+      }
+    }
+    .button{
+      background-color: rgba(48, 123, 196, 1);
+      border-radius: 10px;
+      border: none;
+    }
+
+    /* button {
+          border: none;
+          background: linear-gradient(107.31deg, #307bc4 0%, #274760 100%);
+        } */
+  }
+}

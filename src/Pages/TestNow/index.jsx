@@ -18,6 +18,7 @@ export default function TestNow() {
   const { domain } = usedomain();
   const navigate = useNavigate()
   let testNumber = params.testNumber;
+   const [error401, setError401] = useState(false)
   const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   useEffect(() => {
     getData.get_single_question(domain, testNumber, token)
@@ -25,7 +26,14 @@ export default function TestNow() {
         setquestion(res);
         console.log(res);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        if (err.response && err.response.status === 401) {
+          setError401(true);
+        } else {
+          setError401(false);
+        }
+      });
   }, []);
   const finishTest = () => {
     const userAnswers = question.map((q, index) => answers[index]);
@@ -52,14 +60,19 @@ export default function TestNow() {
         cancelButtonText: 'Go to Event',
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/'); // أو '/Home' حسب المسار عندك
+          navigate('/');
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           navigate('/Event');
         }
       });
     })
       .catch((error) => {
-        console.error("حدث خطأ أثناء الإرسال:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Submission Failed',
+          text: error.response?.data?.message || 'Invalid data or request failed.',
+          confirmButtonText: 'OK'
+        });
       });
   };
   const handleAnswerChange = (e) => {
@@ -83,57 +96,71 @@ export default function TestNow() {
   return (
     <div className="d-flex justify-content-center align-items-center h-100" id={styles.testnow}>
       <div className="container d-flex flex-column justify-content-center h-75 col-8">
+        
         {!started ? (
           <>
             <div className='container d-flex flex-column align-items-center col-12'>
               <div className='py-4'>
                 <img src={growell} alt="" />
               </div>
-              <div className='d-flex flex-column justify-content-between align-items-center gap-3'>
-                <div className="mb-6 d-flex justify-content-around col-8 py-3" id={styles.regtangl}>
-                  <div id={styles.cycleicon} className='d-flex flex-column justify-content-center align-items-center'>
-                    <LuBrain id={styles.icon} />
-                  </div>
-                  <div className='col-9'>
-                    <h5 className="text-xl font-semibold mb-2"> About the Test</h5>
-                    <p className="text-gray-600">
-                      This quick and interactive test will help us understand how you think and process information — including your focus, memory, and speed
-                    </p>
-                  </div>
-                </div>
 
-                <div className="mb-6 d-flex justify-content-around col-8 py-3" id={styles.regtangl}>
-                  <div id={styles.cycleicon} className='d-flex flex-column justify-content-center align-items-center'>
-                    <IoWarningOutline id={styles.icon} />
-                  </div>
-                  <div className='col-9'>
-                    <h5 className="text-xl font-semibold mb-2"> What to Expect</h5>
-                    <ul className="list-decimal list-inside text-gray-600 ">
-                      <li>Quick and engaging tasks</li>
-                      <li>Assess your focus, memory, and thinking speed</li>
-                      <li>No right or wrong answers — just be honest</li>
-                    </ul>
-                  </div>
+              {question.length === 0 ? (
+                <div className="nav-link py-3 px-3 col-7 mt-5 text-center" id={styles.numbertest}>
+                  No Test Available
                 </div>
+              ) : (
+                <>
+                  <div className='d-flex flex-column justify-content-between align-items-center gap-3'>
+                    <div className="mb-6 d-flex justify-content-around col-8 py-3" id={styles.regtangl}>
+                      <div id={styles.cycleicon} className='d-flex flex-column justify-content-center align-items-center'>
+                        <LuBrain id={styles.icon} />
+                      </div>
+                      <div className='col-9'>
+                        <h5 className="text-xl font-semibold mb-2"> About the Test</h5>
+                        <p className="text-gray-600">
+                          This quick and interactive test will help us understand how you think and process information — including your focus, memory, and speed
+                        </p>
+                      </div>
+                    </div>
 
-                <div className="mb-6 d-flex justify-content-around col-8 py-3" id={styles.regtangl}>
-                  <div id={styles.cycleicon} className='d-flex flex-column justify-content-center align-items-center'>
-                    <IoWarningOutline id={styles.icon} />
-                  </div>
-                  <div className='col-9'>
-                    <h5 className="text-xl font-semibold mb-2">Before You Begin</h5>
-                    <ul className="list-decimal list-inside text-gray-600 ">
-                      <li>Find a quiet and comfortable space</li>
-                      <li>Take your time - there's no rush</li>
-                      <li>Answer calmly and honestly</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+                    <div className="mb-6 d-flex justify-content-around col-8 py-3" id={styles.regtangl}>
+                      <div id={styles.cycleicon} className='d-flex flex-column justify-content-center align-items-center'>
+                        <IoWarningOutline id={styles.icon} />
+                      </div>
+                      <div className='col-9'>
+                        <h5 className="text-xl font-semibold mb-2"> What to Expect</h5>
+                        <ul className="list-decimal list-inside text-gray-600 ">
+                          <li>Quick and engaging tasks</li>
+                          <li>Assess your focus, memory, and thinking speed</li>
+                          <li>No right or wrong answers — just be honest</li>
+                        </ul>
+                      </div>
+                    </div>
 
-              <button onClick={() => setStarted(true)} className="align-self-center py-3 px-5 my-4" id={styles.numbertest}>
-                Start Test
-              </button>
+                    <div className="mb-6 d-flex justify-content-around col-8 py-3" id={styles.regtangl}>
+                      <div id={styles.cycleicon} className='d-flex flex-column justify-content-center align-items-center'>
+                        <IoWarningOutline id={styles.icon} />
+                      </div>
+                      <div className='col-9'>
+                        <h5 className="text-xl font-semibold mb-2">Before You Begin</h5>
+                        <ul className="list-decimal list-inside text-gray-600 ">
+                          <li>Find a quiet and comfortable space</li>
+                          <li>Take your time - there's no rush</li>
+                          <li>Answer calmly and honestly</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() => setStarted(true)}
+                    className="align-self-center py-3 px-5 my-4"
+                    id={styles.numbertest}
+                  >
+                    Start Test
+                  </button>
+                </>
+              )}
             </div>
           </>
         ) : (

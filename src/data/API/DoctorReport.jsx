@@ -1,16 +1,16 @@
 import axios from "axios"
 
-export const rebort_show = async (token) => {
+export const DoctorReport = async (tokenDoctor) => {
     let final = []
     await axios.get(`https://localhost:7071/api/UserReport/GetReport`, {
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${tokenDoctor}`,
             'Content-Type': 'application/json',
             Accept: 'application/json',
         }
     }).then((res) => {
         final = res.data
-        console.log('UserReport', final)
+        console.log('DoctorReport', final)
     }).catch((err) => {
         if (err.response) {
             console.log("Response error:", err.response.status, err.response.data)

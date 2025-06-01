@@ -209,6 +209,26 @@ export const useModalevedio = create((set) => ({
   closeModal: () => set(() => ({ modalindex: false })),
 }));
 export const useReport = create((set)=>({
-  report:{},
+  report:[],
   setreport:(val)=>set({report:val})
 }))
+export const useProfileDoctor = create((set)=>({
+  Profiledoctor:[],
+  setprofiledoctor:(val)=>set({Profiledoctor:val})
+}))
+export const useDoctorQuestion = create((set)=>({
+  Doctorquestion:[],
+  setDoctorquestion:(val)=>set({Doctorquestion:val})
+}))
+export const useDoctorTest = create((set)=>({
+  Doctortest:[],
+  setDoctortest:(val)=>set({Doctortest:val})
+}))
+export const useDoctorReport = create((set)=>({
+  doctorreport:[],
+  setdoctorreport:(val)=>set({doctorreport:val})
+}))
+// export const useDoctorsingleTest = create((set)=>({
+//   Doctorsingletest:{},
+//   setDoctorsingletest:(val)=>set({Doctorsingletest:val})
+// }))
