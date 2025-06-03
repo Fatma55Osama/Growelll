@@ -48,7 +48,7 @@ export default function Loginadmin() {
           }
           Swal.fire({
             icon: "success",
-            text: "Password changed successfully"
+            text: "Login successfully"
           })
           navigate("/question")
         }

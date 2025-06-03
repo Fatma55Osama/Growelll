@@ -7,42 +7,43 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { usedomain } from '../../../Store'
 import { show_singletestdoctor } from '../../../data/API/show_singletestdoctor'
-export default function EditeTest() {
+import { Single_bookdoctor } from '../../../data/API/Single_bookdoctor'
+export default function EditeBook() {
     const params = useParams()
     let id = params.id
     const { domain } = usedomain()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
     const [error, setError] = useState('');
-    const [testName, setTestName] = useState('');
-    const [description, setDescription] = useState('');
-    const [categoryID, setCategoryID] = useState('');
-    const [numberOfQuestions, setNumberOfQuestions] = useState('');
-    const [isActive, setisActive] = useState('');
+    const [BookTitle, setBookTitle] = useState('');
+    const [Description, setDescription] = useState('');
+    const [AboutOfBook, setAboutOfBook] = useState('');
+    const [BookUrl, setBookUrl] = useState('');
+    const [BookImage, setBookImage] = useState('');
     const navigate = useNavigate()
     useEffect(() => {
-        show_singletestdoctor(domain, id, tokenDoctor).then((res) => {
+        Single_bookdoctor(domain, id, tokenDoctor).then((res) => {
 
 
-            setTestName(res.testName || '');
+            setBookTitle(res.bookTitle || '');
             setDescription(res.description || '');
-            setCategoryID(res.categoryID?.toString() ?? '');
-            setNumberOfQuestions(res.numberOfQuestions?.toString() ?? '');
-            setisActive(res.isActive === true || res.isActive === "true");
+            setAboutOfBook(res.aboutOfBook?.toString() ?? '');
+            setBookUrl(res.bookUrl?.toString() ?? '');
+            setBookImage(res.bookImagePath || '');
         })
             .catch((err) => {
                 console.error("Error fetching test data:", err);
             });
     }, [id]);
 
-    const handelEditTest = (e) => {
+    const handelEditbook = (e) => {
         e.preventDefault()
         if (
-            !testName ||
-            !description ||
-            !categoryID ||
-            !numberOfQuestions ||
-            !isActive
- ) {
+            !BookTitle ||
+            !Description ||
+            !AboutOfBook ||
+            !BookUrl ||
+            !BookImage
+        ) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Missing Fields',
@@ -54,26 +55,31 @@ export default function EditeTest() {
         //     setError('Please enter Number Of Questions.');
         //     return;
         // }
-        axios.put(`https://localhost:7071/api/Test/Edit/${id}`, {
-            "testName": testName,
-            "description": description,
-            "categoryID": Number(categoryID),
-            'numberOfQuestions': Number(numberOfQuestions),
-            'isActive': isActive,
-        }, {
+
+        const formData = new FormData();
+        formData.append('BookTitle', BookTitle);
+        formData.append('Description', Description);
+        formData.append('AboutOfBook', AboutOfBook);
+        formData.append('BookUrl', BookUrl);
+
+        // الصورة: تأكد إنها File مش مجرد string
+        if (typeof BookImage === 'object') {
+            formData.append('BookImage', BookImage);
+        }
+        axios.put(`https://localhost:7071/api/BookEvent/EditBookEvent/${id}`, formData, {
             headers: {
                 Authorization: `Bearer ${tokenDoctor}`,
-                'Content-Type': 'application/json',
+                // 'Content-Type': 'application/json',
             }
         })
             .then(() => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Test Updated',
-                    text: 'Test updated successfully.',
+                    title: 'Book Updated',
+                    text: 'Book updated successfully.',
                 });
                 setError('');
-                navigate('/test')
+                navigate('/bookdoctor')
             })
             .catch((err) => {
                 if (err.response && err.response.data) {
@@ -96,19 +102,19 @@ export default function EditeTest() {
         <div className='col-12' id={styles.parent}>
             <div className='container  d-flex justify-content-center ' id={styles.create}>
                 <div className='col-10 d-flex flex-column'>
-                    <Link to={'/test'}>  <IoIosArrowRoundBack className='mb-3 text-black' style={{ fontSize: "50px" }} /></Link>
+                    <Link to={'/bookdoctor'}>  <IoIosArrowRoundBack className='mb-3 text-black' style={{ fontSize: "50px" }} /></Link>
                     <h2> Edit Test </h2>
-                    <form onSubmit={handelEditTest} action="" className='col-12 mt-5 d-flex flex-column gap-5'>
+                    <form onSubmit={handelEditbook} action="" className='col-12 mt-5 d-flex flex-column gap-5'>
                         <div className='col-12 d-flex flex-row justify-content-between flex-wrap gap-5 gap-md-0'>
 
                             <div className='col-12 col-md-12 d-flex flex-column gap-2'>
-                                <label>TestName</label>
+                                <label>BookTitle</label>
                                 <input
                                     type="text"
-                                    value={testName}
-                                    onChange={(e) => setTestName(e.target.value)}
+                                    value={BookTitle}
+                                    onChange={(e) => setBookTitle(e.target.value)}
                                 />
-                                {error?.TestName && <div className="text-danger">{error?.TestName[0]}</div>}
+                                {/* {error?.TestName && <div className="text-danger">{error?.TestName[0]}</div>} */}
 
                             </div>
 
@@ -123,34 +129,31 @@ export default function EditeTest() {
 
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>Description</label>
-                                <input value={description} onChange={(e) => setDescription(e.target.value)} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your Description ' />
-                                {error?.Description && <div className="text-danger">{error?.Description[0]}</div>}
+                                <input value={Description} onChange={(e) => setDescription(e.target.value)} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your Description ' />
+                                {/* {error?.Description && <div className="text-danger">{error?.Description[0]}</div>} */}
 
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
-                                <label>CategoryID</label>
-                                <input value={categoryID} onChange={(e) => setCategoryID(e.target.value)} className='py-2 col-10' type="number" placeholder='  Please Enter your CategoryID ' />
-                                {error?.CategoryID && <div className="text-danger">{error?.CategoryID[0]}</div>}
+                                <label>AboutOfBook</label>
+                                <input value={AboutOfBook} onChange={(e) => setAboutOfBook(e.target.value)} className='py-2 col-10' type="text" placeholder='  Please Enter your CategoryID ' />
+                                {/* {error?.AboutOfBook && <div className="text-danger">{error?.AboutOfBook[0]}</div>} */}
 
 
                             </div>
                         </div>
                         <div className='col-12 d-flex flex-row justify-content-between flex-wrap gap-3 gap-md-0'>
 
+
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
-                                <label>Number Of Question</label>
-                                <input value={numberOfQuestions} onChange={(e) => setNumberOfQuestions(e.target.value)} className='py-2 col-12 col-md-10' type="number" placeholder='  Please Enter your Number Of Test ' />
-                                {error?.NumberOfQuestions && <div className="text-danger">{error?.NumberOfQuestions[0]}</div>}
+                                <label>BookUrl</label>
+                                {BookImage && typeof BookImage === 'string' && (
+                                    <img src={`${domain}/${BookImage}`} alt="Current Book" style={{ width: '100px' }} />
+                                )}
+                                <input onChange={(e) => setBookImage(e.target.files[0])} className='py-2 col-12 col-md-10' type="file" />                                {/* {error?.BookUrl && <div className="text-danger">{error?.BookUrl[0]}</div>} */}
+                                {error?.BookImage && <div className="text-danger">{error?.BookImage[0]}</div>}
 
                             </div>
-                            <div className='col-10 col-md-6 d-flex gap-2  justify-content-start align-items-center '>
-                                <label>isActive</label>
-                                <input
-                                    checked={isActive}
-                                    onChange={(e) => { console.log("Checked:", e.target.checked); setisActive(e.target.checked) }}
-                                    type="checkbox"
-                                />                            </div>
 
 
                         </div>

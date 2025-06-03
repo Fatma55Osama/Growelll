@@ -36,7 +36,6 @@ import Nav from '../../Component/Nav';
 import Footer from '../../Component/Footer';
 import ContactForm from '../../Component/ContactForm';
 import { getData } from '../../data/Repo/getData';
-import Chat from '../Chat';
 export default function Homepage() {
   // const [doctors, setDoctors] = useState([{ img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: doctorsimg, name: "Dr: Esraa Nagy", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
   // const [events, setEvents] = useState([{ img: Skaak, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: imgplay, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }, { img: Skaak, name: "Full name", descript: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }])
@@ -46,7 +45,7 @@ export default function Homepage() {
   // const doctors = useRecoilValue($doctorState)
   const navigat = useNavigate()
   const { events, setevents } = useEvents()
-  const {domain} =usedomain()
+  const { domain } = usedomain()
   const [loderindex, setLoderindex] = useState(true)
   const { dataDoctor: doctors, setdataDoctor } = useData()
   useEffect(() => {
@@ -61,20 +60,20 @@ export default function Homepage() {
       live: true
     }).init();
   }, [])
-//  useEffect(() => {
-//     let token = localStorage.getItem("token") || sessionStorage.getItem("token");
-//     if (token) {
-//       getData.get_profile(domain, token)
-//         .then(res => {
-//           console.log("homeprofile", res);
-//         })
-//         .catch(err => {
-//           console.log(err);
-//         });
-//     } else {
-//       navigat("/login");
-//     }
-//   }, [domain, navigat]);
+  //  useEffect(() => {
+  //     let token = localStorage.getItem("token") || sessionStorage.getItem("token");
+  //     if (token) {
+  //       getData.get_profile(domain, token)
+  //         .then(res => {
+  //           console.log("homeprofile", res);
+  //         })
+  //         .catch(err => {
+  //           console.log(err);
+  //         });
+  //     } else {
+  //       navigat("/login");
+  //     }
+  //   }, [domain, navigat]);
 
   return (
     <>
@@ -116,9 +115,10 @@ export default function Homepage() {
               <div className='textdoctor col-12 col-md-10 col-lg-12 container   d-flex flex-row align-items-center justify-content-between '>
                 <div className='col-6 col-lg-5   div1 d-flex align-content-center align-items-center '>
                   <div className='col-12 bntdiv1 mt-5 h-75 d-flex flex-column align-items-baseline gap-1 gap-md-3'>
-                    <h1>Title Copy Goes<br /> Here Be Awesome</h1>
+                    <h1>Discover Your <br /> Child’s Potential</h1>
                     <div className='col-12 col-md-10'>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique. Duis cursus, mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam libero vitae erat.</p>
+                      <p>We help your child discover their cognitive skills through fun and interactive tests. Our platform provides smart tools to assess thinking and focus, supporting your child’s growth in a safe, easy way.
+                      </p>
                     </div>
                     <Link className='nav-link' to={'/Finddoctor'}>
 
@@ -192,8 +192,8 @@ export default function Homepage() {
                       </div>
 
                       <div className='d-flex flex-column pargraph  align-content-around gap-4'>
-                        <p>Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis condimentum lobortis. Ut commodo efficitur neque. Ut diam quam, semper iaculis condimentum ac, vestibulum eu nisl.</p>
-                        <p>Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdu</p>
+                        <p>We are a smart digital platform dedicated to supporting cognitive growth and early detection of intellectual delays. Our mission is to connect individuals with specialized doctors through accurate IQ assessments, personalized recommendations, and educational content to enhance mental abilities.</p>
+                        <p>Our platform allows doctors to create custom cognitive tests, monitor users’ progress, and communicate directly with them. Users can take scientifically designed tests, view detailed reports, and access tools to improve their mental skills.</p>
                       </div>
 
 
@@ -217,20 +217,17 @@ export default function Homepage() {
                 <div className='container   sonservices py-4 col-11 col-lg-10 d-flex justify-content-between flex-wrap gap-3 gap-lg-0  '>
 
                   <div className='col-lg-4 col-md-5 d-flex  align-items-end'>
-                    <div className='container col-11  secondry1 py-4 col-md-10  d-flex flex-column gap-2'>
+                    <div className='container col-11  secondry1 py-4 col-md-10  d-flex flex-column gap-2 align-items-center'>
 
-                      <div className='d-flex knowledg py-2 mt-1 justify-content-around align-items-center'>
+                      <div className=' col-8 d-flex knowledg py-2 mt-1 justify-content-around align-items-center justify-content-center'>
                         <img src={spanicon1} width="40px" height="40px" alt="" />
-                        <h3>Compassion</h3>
+                        <h3>IQ Testing</h3>
                       </div>
 
                       <div className='mt-2'>
-                        <p>We understand that seeking medical
-                          care can be a stressful and emotional
-                          experience, and we strive to create a
-                          welcoming and supportive environment
-                          that puts our patients at ease and every
-                          one.</p>
+                        <p>We offer comprehensive and scientifically designed IQ tests suitable for all ages. These tests help identify cognitive abilities, pinpoint areas of delay, and provide a foundation for early intervention.
+
+</p>
                       </div>
 
                     </div>
@@ -239,18 +236,14 @@ export default function Homepage() {
                   <div className='col-lg-4 col-md-5 d-flex align-items-center'>
                     <div className='container col-11 secondry1 py-3 col-md-10  d-flex flex-column  align-content-center gap-2'>
 
-                      <div className='d-flex flex-row  ms-3 col-10 knowledg  py-2 mt-1 justify-content-around align-content-center align-items-center'>
+                      <div className='d-flex flex-row  ms-3 col-11  knowledg  py-2 mt-1 justify-content-around align-content-center align-items-center'>
                         <img src={spanicon} width="40px" height="40px" alt="" />
-                        <h3>Excellence</h3>
+                        <h3> Cognitive Tools</h3>
                       </div>
 
                       <div className='mt-2'>
-                        <p>We are committed to providing excellent
-                          medical care and services to our
-                          patients. We believe in continuously
-                          improving our skills, knowledge, and
-                          resources to ensure that we deliver the
-                          highest quality care possible.</p>
+                        <p>
+We provide a curated library of educational videos, articles, books, and interactive exercises designed to improve memory, attention, reasoning, and overall mental capacity.</p>
                       </div>
 
                     </div>
@@ -259,18 +252,13 @@ export default function Homepage() {
                   <div className='col-lg-4 integrity col-md-5 d-flex align-items-end'>
                     <div className='container col-11 secondry1 py-3 col-md-10  d-flex flex-column align-items-center  gap-2'>
 
-                      <div className='d-flex  col-8 knowledg py-2 mt-1 justify-content-around align-items-center'>
+                      <div className='d-flex  col-9 knowledg py-2 mt-1 justify-content-around align-items-center'>
                         <img src={spanicon2} width="40px" height="40px" alt="" />
-                        <h3>Integrity</h3>
+                        <h3>Complaints</h3>
                       </div>
 
                       <div className='mt-2'>
-                        <p>We are committed to providing excellent
-                          medical care and services to our
-                          patients. We believe in continuously
-                          improving our skills, knowledge, and
-                          resources to ensure that we deliver the
-                          highest quality care possible.</p>
+                        <p>Users can easily submit complaints, concerns, or feedback via a structured form, which is promptly reviewed by doctors to ensure timely response and support.</p>
                       </div>
 
                     </div>
@@ -295,7 +283,7 @@ export default function Homepage() {
                     doctors.slice(0, 3).map((el, index) => {
                       return (
                         <div className="card card1 d-flex flex-column justify-content-center align-content-center " style={{ width: "18rem" }} key={index}>
-                          <img  src={`${domain}/${el.image}`} className="card-img-top mt-2" alt="..." />
+                          <img src={`${domain}/${el.image}`} className="card-img-top mt-2" alt="..." />
                           <div className="card-body">
                             <h5 className="card-title mb-1">Dr:{el.fullName}</h5>
                             <p className="card-text">{el.specialization}</p>
@@ -370,14 +358,13 @@ export default function Homepage() {
               </div>
             </div>
 
-            <div className='col-12 div7 bg-white d-flex align-items-center'>
+            <div className='col-12 div7 bg-white d-flex align-items-center '>
               <div className='col-12 bluesecur d-flex justify-content-between align-content-center align-items-center'>
 
                 <div className='col-5 col-md-4 contentblue '>
                   <h1>Don’t Let Your Health
                     <br /> Take a Backseat!</h1>
-                  <p>Schedule an appointment with one of our<br />
-                    experienced medical professionals today!</p>
+                  <p>"Discover your child's potential with our smart assessment today!"</p>
                 </div>
                 <div className='triangle d-none d-md-flex'></div>
                 <div className='banner_img  col-2'>
@@ -526,8 +513,8 @@ export default function Homepage() {
               </div>
             </div> */}
             {/* <Footer/> */}
-            <ContactForm />
-            <Chat/>
+            {/* <ContactForm />
+            <Chat/> */}
           </div>
 
         )

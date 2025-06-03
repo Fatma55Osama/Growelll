@@ -228,6 +228,22 @@ export const useDoctorReport = create((set)=>({
   doctorreport:[],
   setdoctorreport:(val)=>set({doctorreport:val})
 }))
+export const useSearch = create((set)=>({
+  Searchs:[],
+  setsearch:(val)=>set({Searchs:val})
+}))
+export const usecontactus = create((set)=>({
+  contact:[],
+  setcontact:(val)=>set({contact:val})
+}))
+export const usebookdoctor = create((set)=>({
+  bookdoctor:[],
+  setbookdoctor:(val)=>set({bookdoctor:val})
+}))
+export const usevediodoctor = create((set)=>({
+  videodoctor:[],
+  setvideodoctor:(val)=>set({videodoctor:val})
+}))
 // export const useDoctorsingleTest = create((set)=>({
 //   Doctorsingletest:{},
 //   setDoctorsingletest:(val)=>set({Doctorsingletest:val})

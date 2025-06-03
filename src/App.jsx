@@ -6,7 +6,6 @@ import Event from './Pages/Event'
 import logo from './assets/Growell.svg'
 import frame from './assets/Frame 8745.svg'
 import grop from './assets/Group 8752.png'
-import Errorpage from './Pages/ErrorPage'
 import Footer from './Component/Footer'
 import Nav from './Component/Nav'
 import './app.scss';
@@ -34,11 +33,22 @@ import Test from './Pages/Dashboard/Test'
 import CreateTest from './Pages/Dashboard/CreateTest'
 import EditeTest from './Pages/Dashboard/EditeTest'
 import EditeProfile from './Pages/EditeProfile'
+import Errorpage from './Pages/Errorpage'
+import Chat from './Pages/Chat'
+import Ask from './Pages/Ask'
+import Book from './Pages/Dashboard/Book'
+import CreatBook from './Pages/Dashboard/CreatBook'
+import EditeBook from './Pages/Dashboard/EditeBook'
+import Viedo from './Pages/Dashboard/Viedo'
+import CreateVedio from './Pages/Dashboard/CreateVedio'
 export default function App() {
 
   return (
 
     <BrowserRouter>
+      {/* <AppLayout/> */}
+      
+      <Chat />
       <ScrollToTop />
       {/* start nav par bg-white of figma */}
       {/* 
@@ -60,10 +70,12 @@ export default function App() {
       {/* end nav par bg-white of figma */}
 
       {/* <Nav/> */}
+
       <Routes>
 
         <Route path='/' element={<MainLayout />}>
           <Route index element={<Homepage />}></Route>
+          {/* <Route path="/chat" element={<Chat />} /> */}
           <Route path='/Event' element={<Event />}></Route>
           <Route path='/Finddoctor' element={<Finddoctor />}></Route>
           <Route path='/DetailsDoctor/:id' element={<DetailsDoctor />} />
@@ -76,9 +88,17 @@ export default function App() {
           <Route path='/createtest' element={<CreateTest />} />
 
           <Route path='/createquestion' element={<CreateQuestion />} />
+          <Route path='/createbook' element={<CreatBook />} />
+          <Route path='/createvedio' element={<CreateVedio />} />
+
           <Route path='/editequestion/:id' element={<EditeQuestion />} />
           <Route path='/editetest/:id' element={<EditeTest />} />
+          <Route path='/editebook/:id' element={<EditeBook/>} />
+
           <Route path='/editeprofile/:id' element={<EditeProfile />} />
+          <Route path='/ask' element={<Ask />} />
+          <Route path='/bookdoctor' element={<Book />} />
+          <Route path='/vediodoctor' element={<Viedo />} />
 
         </Route>
 

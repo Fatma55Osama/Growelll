@@ -92,10 +92,7 @@ export default function Reports() {
                     </div>
                   </div>
                 </>
-                // <div className="text-white ps-5">
-                //   <h3>No test results found.</h3>
-                //   <p>Please complete a test to view your report.</p>
-                // </div>
+              
               )}
             </div>
 
@@ -146,7 +143,7 @@ export default function Reports() {
           </div>
 
           {/* <h2 className='text-primary mt-4 d-flex justify-content-center'>All your Reports</h2> */}
-          <div className='d-flex  ms-5 mt-5 container d-flex flex-wrap gap-4'>
+          <div className='d-flex  ms-5 mt-5 container d-flex flex-wrap gap-4 justify-content-center' >
 
             {Array.isArray(report) && report.length > 0 && report.map((el, index) => (
               <div key={index} className={styles.contantdata2 + " col-5 d-flex flex-column ms-5 mt-4 "}>
@@ -181,7 +178,7 @@ export default function Reports() {
                 <h2 className="text-primary ">Dr. {doctorreport[0].doctor}</h2>
               </div>
 
-              <div className='d-flex ms-5 mt-5 container flex-wrap gap-4'>
+              <div className='d-flex justify-content-center  mt-5 container flex-wrap gap-4'>
                 {doctorreport.map((el, index) => (
                   <div key={index} className={styles.contantdata2 + " col-5 d-flex flex-column ms-5 mt-4"}>
                     <div className="ps-5 py-3 d-flex flex-column gap-3">

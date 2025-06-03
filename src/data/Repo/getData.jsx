@@ -11,6 +11,7 @@ import { store_question } from "../API/store_question";
 import { Doctorprofile } from "../API/Doctorprofile";
 import { store_test } from "../API/store_test";
 import { DoctorReport } from "../API/DoctorReport";
+import { store_contectus } from "../API/store_contectus";
 
 export const getData = {
     get_all_doctor: async (domain, page = 1, pageSize = 10) => {
@@ -54,6 +55,9 @@ export const getData = {
     },
     get_DoctorReport: async ( tokenDoctor) => {
         return await DoctorReport( tokenDoctor)
+    },
+      get_store_contectus: async ( tokenDoctor,domain) => {
+        return await store_contectus( tokenDoctor,domain)
     },
     
 } 

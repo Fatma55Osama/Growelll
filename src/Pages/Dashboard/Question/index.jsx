@@ -174,7 +174,7 @@ export default function Question() {
                                 <div className='text-white container d-flex justify-content-between align-items-center ' id={styles.singleqa}>
                                     <div className='ms-3 py-3 d-flex flex-column gap-2 '>
                                         <h6 className=''>Q{index + 1}</h6>
-                                        <div className='ms-3 d-flex flex-column gap-2 mb-4'>
+                                        <div className='ms-3 d-flex flex-column gap-2 mb-4' id={styles.breakText}>
                                             <h4>{el.questionText}</h4>
                                             <div className='d-flex gap-5'>
                                                 <span>A) {el.answerOption1}</span>

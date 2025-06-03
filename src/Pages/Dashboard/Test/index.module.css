@@ -82,9 +82,8 @@
       /* background-color: #307bc4; */
       border-radius: 10px;
       background-color: rgba(221, 231, 255, 1);
-      color: rgba(12, 50, 117, 1)!important;
+      color: rgba(12, 50, 117, 1) !important;
       border: 1px solid rgba(12, 50, 117, 1);
-
     }
     span {
       font-weight: 500;
@@ -93,6 +92,12 @@
   #icon {
     font-size: 18px;
     font-weight: 500;
+  }
+  #breakText {
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    max-width: 100%;
   }
 }
 /* border: 1px solid rgba(12, 50, 117, 1);

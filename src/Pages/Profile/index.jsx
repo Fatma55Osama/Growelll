@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { HiPencil } from "react-icons/hi2";
 import Swal from 'sweetalert2';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 
 export default function Profile() {
   const { domain } = usedomain()
@@ -39,7 +40,16 @@ export default function Profile() {
     aboutMe: false,
     description: false,
   });
-
+  const handleValidationErrors = (errors) => {
+    Object.keys(errors).forEach((key) => {
+      const messages = errors[key];
+      if (Array.isArray(messages)) {
+        messages.forEach((msg) => {
+          toast.error(msg);
+        });
+      }
+    });
+  };
   const [formDataDoctor, setFormDataDoctor] = useState({
     firstName: '',
     secondName: '',
@@ -59,6 +69,7 @@ export default function Profile() {
   });
   let token = localStorage.getItem('token') || sessionStorage.getItem('token')
   let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
+  console.log("Current formDataDoctor:", formDataDoctor);
 
   useEffect(() => {
     if (token) {
@@ -121,6 +132,7 @@ export default function Profile() {
 
       const imgURL = URL.createObjectURL(e.target.files[0]);
       setprofiledoctor(prev => ({ ...prev, profilePicturePath: imgURL }));
+      setEditModeDoctor(prev => ({ ...prev, Profiledoctor: imgURL }));
       setDoctorHasChanges(true)
     }
   };
@@ -130,7 +142,6 @@ export default function Profile() {
       const file = e.target.files[0];
       setFormData(prev => ({ ...prev, profilePictureFile: file }));
 
-      // قم بإلغاء الـ URL السابق إن وجد
       if (formData.profilePictureFile) {
         URL.revokeObjectURL(formData.profilePictureFile);
       }
@@ -174,7 +185,6 @@ export default function Profile() {
     data.append('bio', formDataDoctor.bio);
     data.append('aboutMe', formDataDoctor.aboutMe);
     data.append('description', formDataDoctor.description);
-    // data.append('ImgUrl', formDataDoctor.imgUrl || '');
     if (formDataDoctor.profilePictureFile) {
       data.append('ImgUrl', formDataDoctor.profilePictureFile);
     }
@@ -183,21 +193,7 @@ export default function Profile() {
     for (let pair of data.entries()) {
       console.log(pair[0] + ': ' + pair[1]);
     }
-    // if (formDataDoctor.profilePictureFile) {
-    //   data.append('profilePicture', formDataDoctor.profilePictureFile);
-    // }
-    // if (formDataDoctor.profilePictureFile) {
-    //   data.append('profilePicture', formDataDoctor.profilePictureFile);
-    // } else {
-    //   data.append('ImgUrl', formDataDoctor.imgUrl || '');
-    // }
-    //  if (formDataDoctor.profilePictureFile) {
-    //     data.append('profilePicture', formDataDoctor.profilePictureFile);
-    //   }
-    // console.log('Doctor FormData about to be sent:');
-    // for (let pair of data.entries()) {
-    //   console.log(pair[0] + ': ' + pair[1]);
-    // }
+
 
     try {
       const res = await fetch(`${domain}/api/AccountDoctor/update-profile`, {
@@ -264,11 +260,16 @@ export default function Profile() {
         });
         setDoctorHasChanges(true)
       } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Update Failed',
-          text: result.message || 'An error occurred while updating the doctor profile.',
-        });
+        if (result.errors) {
+          handleValidationErrors(result.errors)
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Update Failed',
+            text: result.message || 'An error occurred while updating the doctor profile.',
+          });
+        }
+
       }
     } catch (error) {
       Swal.fire({
@@ -405,7 +406,7 @@ export default function Profile() {
                     onChange={handleImageChange}
                   />
                 </div>
-                
+
                 {editMode.userName ? (
                   <input
                     type="text"
@@ -518,6 +519,19 @@ export default function Profile() {
         </>) : (
           <>
             <div id={styles.section1}>
+              <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+              />
               <div>
                 <Link className='btn btn-white ms-3 mt-3' id={styles.btn} to={'/'}>
                   <IoIosArrowRoundBack id={styles.iconarrow} />
@@ -574,7 +588,6 @@ export default function Profile() {
                       name="firstName"
                       value={formDataDoctor.firstName}
                       onChange={handleInputChangeDoctor}
-                      onBlur={() => setEditModeDoctor(prev => ({ ...prev, firstName: false }))}
                     />
                   ) : (
                     <h3 className='d-flex gap-3'>
@@ -592,7 +605,7 @@ export default function Profile() {
             <div className='d-flex container flex-column justify-content-center align-items-center' id={styles.section2}>
               <div className='container d-flex flex-column justify-content-center align-items-center '>
                 <div className='col-8 d-flex flex-column gap-4'>
-                  <h3>Information</h3>
+                  <h3>Bio Information</h3>
 
                   <div className='d-flex text-start justify-content-between align-items-center'>
                     <div className='d-flex align-items-center gap-3' id={styles.icon}>
@@ -632,7 +645,7 @@ export default function Profile() {
                   <div className='d-flex text-start justify-content-between align-items-center'>
                     <div className='d-flex align-items-center gap-3' id={styles.icon}>
                       <FaAddressCard />
-                      <span>address</span>
+                      <span>Address</span>
                     </div>
                     {editModeDoctor.address ? (
                       <input
@@ -652,10 +665,10 @@ export default function Profile() {
 
                   </div>
 
-                  <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex flex-column text-start justify-content-between  gap-3'>
                     <div className='d-flex align-items-center  gap-3' id={styles.icon}>
                       <FaAddressCard />
-                      <span>AboutMe</span>
+                      <span>About Me</span>
                     </div>
                     {editModeDoctor.aboutMe ? (
                       <input
@@ -664,7 +677,7 @@ export default function Profile() {
                         value={formDataDoctor.aboutMe || ''} onChange={handleInputChangeDoctor}
                       />
                     ) : (
-                      <div className='d-flex align-items-center gap-3'>
+                      <div className='d-flex align-items-center  justify-content-between gap-3'>
                         {formDataDoctor.aboutMe || 'No aboutMe'}
                         <button onClick={() => setEditModeDoctor(prev => ({ ...prev, aboutMe: true }))} id={styles.edit} title="Edit aboutMe">
                           <HiPencil />
@@ -695,10 +708,10 @@ export default function Profile() {
 
 
                   </div>
-                  <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex flex-column text-start justify-content-between gap-3'>
                     <div className='d-flex align-items-center  gap-3' id={styles.icon}>
                       <FaAddressCard />
-                      <span>bio</span>
+                      <span>Bio</span>
                     </div>
                     {editModeDoctor.bio ? (
                       <input
@@ -707,7 +720,7 @@ export default function Profile() {
                         value={formDataDoctor.bio || ''} onChange={handleInputChangeDoctor}
                       />
                     ) : (
-                      <div className='d-flex  gap-1  justify-content-end'>
+                      <div className='d-flex  gap-1 justify-content-between'>
                         <p className='col-9'>{formDataDoctor.bio || 'No adderss'}</p>
                         <button onClick={() => setEditModeDoctor(prev => ({ ...prev, bio: true }))} id={styles.edit} title="Edit adderss">
                           <HiPencil />
@@ -716,7 +729,7 @@ export default function Profile() {
                     )}
 
                   </div>
-                  <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex flex-column text-start justify-content-between gap-3'>
                     <div className='d-flex align-items-center  gap-3' id={styles.icon}>
                       <FaAddressCard />
                       <span>description</span>
@@ -728,7 +741,7 @@ export default function Profile() {
                         value={formDataDoctor.description || ''} onChange={handleInputChangeDoctor}
                       />
                     ) : (
-                      <div className='d-flex  gap-1  justify-content-end'>
+                      <div className='d-flex  gap-1 justify-content-between'>
                         <p className='col-9'>{formDataDoctor.description || 'No description'}</p>
                         <button onClick={() => setEditModeDoctor(prev => ({ ...prev, description: true }))} id={styles.edit} title="Edit description">
                           <HiPencil />
@@ -738,10 +751,10 @@ export default function Profile() {
 
 
                   </div>
-                  <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex flex-column text-start justify-content-between gap-3'>
                     <div className='d-flex align-items-center  gap-3' id={styles.icon}>
                       <FaAddressCard />
-                      <span>education</span>
+                      <span>Education</span>
                     </div>
                     {editModeDoctor.education ? (
                       <input
@@ -750,7 +763,7 @@ export default function Profile() {
                         value={formDataDoctor.education || ''} onChange={handleInputChangeDoctor}
                       />
                     ) : (
-                      <div className='d-flex  gap-1  justify-content-end'>
+                      <div className='d-flex  gap-1 justify-content-between'>
                         <p className='col-9'>{formDataDoctor.education || 'No adderss'}</p>
                         <button onClick={() => setEditModeDoctor(prev => ({ ...prev, education: true }))} id={styles.edit} title="Edit adderss">
                           <HiPencil />
@@ -760,10 +773,10 @@ export default function Profile() {
 
 
                   </div>
-                  <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex flex-column text-start justify-content-between gap-3'>
                     <div className='d-flex align-items-center  gap-3' id={styles.icon}>
                       <FaAddressCard />
-                      <span>specialization</span>
+                      <span>Specialization</span>
                     </div>
                     {editModeDoctor.specialization ? (
                       <input
@@ -772,7 +785,7 @@ export default function Profile() {
                         value={formDataDoctor.specialization || ''} onChange={handleInputChangeDoctor}
                       />
                     ) : (
-                      <div className='d-flex  gap-1  justify-content-end'>
+                      <div className='d-flex  gap-1  justify-content-between'>
                         <p className='col-9'>{formDataDoctor.specialization || 'No adderss'}</p>
                         <button onClick={() => setEditModeDoctor(prev => ({ ...prev, specialization: true }))} id={styles.edit} title="Edit adderss">
                           <HiPencil />
@@ -782,10 +795,10 @@ export default function Profile() {
 
 
                   </div>
-                  <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex text-start justify-content-between align-items-center mb-5'>
                     <div className='d-flex align-items-center  gap-3' id={styles.icon}>
                       <FaAddressCard />
-                      <span>yearsOfExperience</span>
+                      <span>Years Of Experience</span>
                     </div>
                     {editModeDoctor.yearsOfExperience ? (
                       <input
@@ -804,16 +817,15 @@ export default function Profile() {
 
 
                   </div>
-                  <div className='d-flex gap-3 py-3 mb-4'>
+                  {/* <div className='d-flex gap-3 py-3 mb-4'>
                     <Link className=' btn btn-primary' to={'/question'}>View All Question </Link>
                     <Link className='btn btn-primary' to={'/test'}>View All Test </Link>
-                    <Link className='btn btn-primary' to={'/editeprofile/:id'}>Edite profile </Link>
 
-                  </div>
+                  </div> */}
 
                   {(editModeDoctor.firstName || editModeDoctor.phoneNumber || editModeDoctor.address || editModeDoctor.Profiledoctor || editModeDoctor.aboutMe || editModeDoctor.age || editModeDoctor.bio || editModeDoctor.description || editModeDoctor.education || editModeDoctor.specialization || editModeDoctor.yearsOfExperience) && doctorHasChanges && (
                     <button
-                      className='btn btn-primary mt-3'
+                      className='btn btn-primary mt-3 mb-5'
                       onClick={handleSaveDoctor}
                     >
                       Save Changes

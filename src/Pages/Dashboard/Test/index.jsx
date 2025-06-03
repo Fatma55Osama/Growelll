@@ -42,34 +42,7 @@ export default function Test() {
             })
             .catch(err => console.log(err));
     };
-    // const handelDeleteQuestions = (id) => {
-    //     Swal.fire({
-    //         title: 'Are you sure?',
-    //         text: "This question will be permanently deleted!",
-    //         icon: 'warning',
-    //         showCancelButton: true,
-    //         confirmButtonColor: '#d33',
-    //         cancelButtonColor: '#3085d6',
-    //         confirmButtonText: 'Yes, delete it!',
-    //         cancelButtonText: 'No, cancel'
-    //     }).then((result) => {
-    //         if (result.isConfirmed) {
-    //             DeleteQuestions(tokenDoctor, domain, id)
-    //                 .then(res => {
-
-    //                     Swal.fire('Deleted!', 'The question has been deleted.', 'success');
-    //                     setDoctorquestion(prev => Array.isArray(prev) ? prev.filter(q => q.questionID !== id) : []);
-    //                     window.location.reload();
-    //                 })
-    //                 .catch((error) => {
-    //                     console.error(error);
-    //                     Swal.fire('Error!', 'Something went wrong while deleting the question.', 'error');
-    //                 });
-    //         }
-
-    //     });
-
-    // }
+   
     const handelDeletetest = (id) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -84,7 +57,7 @@ export default function Test() {
             if (result.isConfirmed) {
                 DeleteTest(tokenDoctor, domain, id)
                     .then(res => {
-                        Swal.fire('Deleted!', 'The question has been deleted.', 'success');
+                        Swal.fire('Deleted!', 'The Test has been deleted.', 'success');
 
                         fetchTest();
                     })
@@ -105,25 +78,15 @@ export default function Test() {
                             Doctortest.length > 0 ? (
                                 <>
                                     <img src={`${domain}/${Doctortest[0]?.doctor.imageUrl}`} width={190} height={199} alt="" />
-                                    <div className={styles.contantdata + " col-5 d-flex flex-column"}>
+                                    <div className={styles.contantdata + " col-5 d-flex flex-column"} >
                                         <div className="ps-3 py-3 d-flex flex-column gap-3">
                                             <div className="d-flex flex-column gap-1 container">
                                                 <h4>Dr: {Doctortest[0]?.doctor?.doctorName} </h4>
                                                 <p className='col-11'>{Doctortest[0]?.doctor?.bio} </p>
-                                                {/* <span>Date: {new Date(report[0]?.takenAt).toLocaleDateString()}</span> */}
                                             </div>
                                         </div>
                                         <div className={styles.HaveTest + " px-5 py-4"}>
-                                            {/* <div className='d-flex justify-content-between'>
-                                <div className='d-flex align-items-center gap-2'>
-                                    <CiClock2 />
-                                    <span>Avaibility</span>
-                                </div>
-                                <div>
-                                    <Link className'nav-link' ><span>Have the test <GoArrowRight /></span></Link>
-                                </div>=
-                            </div> */}
-
+                                           
                                         </div>
                                     </div>
                                 </>
@@ -135,19 +98,10 @@ export default function Test() {
                                             <div className="d-flex flex-column gap-1 container">
                                                 <h4>Dr: {Doctortest?.doctor?.firstName} {Doctortest?.doctor?.lastName}</h4>                                                <span>{doctor.bio}</span>
                                                 <p className='col-11'>{Doctortest?.doctor?.bio} </p>
-                                                {/* <span>Date: {new Date(report[0]?.takenAt).toLocaleDateString()}</span> */}
                                             </div>
                                         </div>
                                         <div className={styles.HaveTest + " px-5 py-4"}>
-                                            {/* <div className='d-flex justify-content-between'>
-                                <div className='d-flex align-items-center gap-2'>
-                                    <CiClock2 />
-                                    <span>Avaibility</span>
-                                </div>
-                                <div>
-                                    <Link className'nav-link' ><span>Have the test <GoArrowRight /></span></Link>
-                                </div>=
-                            </div> */}
+                                   
 
                                         </div>
                                     </div>
@@ -172,13 +126,13 @@ export default function Test() {
                     Array.isArray(Doctortest) && Doctortest.length > 0 ? (
                         Doctortest.map((el, index) => (
                             <div key={el.testId} className='container col-10' id={styles.Qa}>
-                                <div className='text-white container d-flex justify-content-between align-items-center' id={styles.singleqa}>
-                                    <div className='ms-3 py-3 d-flex flex-column gap-2'>
+                                <div className='text-white container d-flex justify-content-between align-items-center col-12' id={styles.singleqa}>
+                                    <div className='ms-3 py-3 d-flex flex-column gap-2 '>
                                         <h6 className=''>Test {index + 1}</h6>
-                                        <div className='ms-3 d-flex flex-column gap-2 mb-4'>
-                                            <h4>Test Name: {el.testName}</h4>
+                                        <div className={ ' ms-3 d-flex flex-column gap-2 mb-4'} id={styles.breakText}>
+                                            <h4 className='' >Test Name: {el.testName}</h4>
                                             <div className='d-flex flex-column gap-3'>
-                                                <span className='col-11'>{el.description}</span>
+                                                <span className='col-11'>Description:{el.description}</span>
                                                 <span> Test ID : {el.testId}</span>
                                                 <span>Number Of Qestion:  {el.numberOfQuestions}</span>
                                                

@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import styles from './index.module.css';
 import { usedomain, useModale } from '../../Store';
 import { IoIosSettings, IoMdNotifications } from 'react-icons/io';
-import { IoCloseSharp, IoPersonCircleOutline, IoPersonOutline } from 'react-icons/io5';
+import { IoCloseSharp, IoPersonCircleOutline, IoPersonOutline, IoPlay, IoPlayOutline } from 'react-icons/io5';
 import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
 import { Logout } from '../../data/API/Logout';
 import { DeleteAccount } from '../../data/API/DeleteAccount';
-import { TbLockPassword, TbReport } from "react-icons/tb";
+import { TbBrandSpeedtest, TbLockPassword, TbReport } from "react-icons/tb";
 import Swal from 'sweetalert2';
 import { LogoutDoctor } from '../../data/API/LogoutDoctor';
 import { DeleteDoctorAcount } from '../../data/API/DeleteDoctorAcount';
+import { GoTasklist } from 'react-icons/go';
+import { FaBook, FaClipboardQuestion } from "react-icons/fa6";
 export default function Menu() {
     const { closeModal } = useModale();
     const navigate = useNavigate()
@@ -205,44 +207,89 @@ export default function Menu() {
                     </div>
 
 
-                    <div className='d-flex flex-column justify-content-between gap-5'>
+                    <div className='d-flex flex-column justify-content-between gap-4'>
                         <div className='overflow-hidden mb-2'>
                             {/* <h5 className={styles.h5}>Profile</h5> */}
                             <Link className='d-flex gap-3 nav-link' to={'/profile'} onClick={() => closeModal(false)} id={styles.profiletext}>
                                 <IoPersonOutline className={styles.icon} />
                                 <h5>Profile</h5>
-                                {/* <div className='col-10 p-2' id={styles.massege}>
-                                    <h5>Admin</h5>
-                                    <p id={styles.p}>fgdgdfgf</p>
-                                </div> */}
+                              
                             </Link>
                         </div>
                         <div className='overflow-hidden mb-2'>
-                            {/* <h5 className={styles.h5}>Profile</h5> */}
                             <Link className='d-flex gap-3 nav-link' to={destination} onClick={() => closeModal(false)} id={styles.profiletext}>
                                 <TbLockPassword className={styles.icon} />
                                 <h5>Change Password</h5>
-                                {/* <div className='col-10 p-2' id={styles.massege}>
-                                    <h5>Admin</h5>
-                                    <p id={styles.p}>fgdgdfgf</p>
-                                </div> */}
+                               
                             </Link>
                         </div>
 
 
                         <div className='overflow-hidden mb-2'>
-                            {/* <h5 className={styles.h5}>Profile</h5> */}
                             <Link className='d-flex gap-3 nav-link' to={'/report'} onClick={() => closeModal(false)} id={styles.profiletext}>
                                 <TbReport className={styles.icon} />
                                 <h5>Report</h5>
-                                {/* <div className='col-10 p-2' id={styles.massege}>
-                                    <h5>Admin</h5>
-                                    <p id={styles.p}>fgdgdfgf</p>
-                                </div> */}
+                               
                             </Link>
                         </div>
+                        {
+                            tokenDoctor && (
+                                <div className='overflow-hidden mb-2'>
+                                    <Link className='d-flex gap-3 nav-link' to={'/ask'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                        <GoTasklist className={styles.icon} />
+                                        <h5>Ask</h5>
+                                    
+                                    </Link>
+                                </div>
+
+                            )
+                        }
+                        {
+                            tokenDoctor && (
+                                <div className='overflow-hidden mb-2'>
+                                    <Link className='d-flex gap-3 nav-link' to={'/test'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                        <TbBrandSpeedtest className={styles.icon} />
+                                        <h5>All Test</h5>
+
+                                    </Link>
+                                </div>
+                            )
+                        }
+                           {
+                            tokenDoctor && (
+                                <div className='overflow-hidden mb-2'>
+                                    <Link className='d-flex gap-3 nav-link' to={'/test'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                        <FaClipboardQuestion  className={styles.icon} />
+                                        <h5>All Question</h5>
+
+                                    </Link>
+                                </div>
+                            )
+                        } {
+                            tokenDoctor && (
+                                <div className='overflow-hidden mb-2'>
+                                    <Link className='d-flex gap-3 nav-link' to={'/bookdoctor'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                        <FaBook   className={styles.icon} />
+                                        <h5>All Book</h5>
+
+                                    </Link>
+                                </div>
+                            )
+                        }
+                         {
+                            tokenDoctor && (
+                                <div className='overflow-hidden mb-2'>
+                                    <Link className='d-flex gap-3 nav-link' to={'/vediodoctor'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                        <IoPlay     className={styles.icon} />
+                                        <h5>All Vedio</h5>
+
+                                    </Link>
+                                </div>
+                            )
+                        }
+
+
                         <div className='overflow-hidden mb-2'>
-                            {/* <h5 className={styles.h5}>Are you sure you want to delete your account?</h5> */}
                             <div className='d-flex align-items-center gap-3' id={styles.profiletext} onClick={() => {
                                 if (tokenDoctor) {
                                     DeleteDoctorAccountfunc();
@@ -253,12 +300,10 @@ export default function Menu() {
                                 <MdDelete className={styles.icon1} />
                                 <div className='col-10 ' id={styles.massege}>
                                     <h5>Delete Account</h5>
-                                    {/* <p id={styles.p}>  This action is permanent and cannot be undone.</p> */}
                                 </div>
                             </div>
                         </div>
                         <div className='overflow-hidden mb-2 '>
-                            {/* <h5 className={styles.h5}>Are you sure you want to log out?</h5> */}
                             <div className='d-flex j align-items-center gap-3' id={styles.profiletext} onClick={() => {
                                 if (tokenDoctor) {
                                     logoutDoctor();
@@ -269,7 +314,6 @@ export default function Menu() {
                                 <RiLogoutCircleLine className={styles.icon1} />
                                 <div className='col-10 ' id={styles.massege}>
                                     <h5>Logout</h5>
-                                    {/* <p id={styles.p}>fgdgdfgf</p> */}
                                 </div>
                             </div>
                         </div>

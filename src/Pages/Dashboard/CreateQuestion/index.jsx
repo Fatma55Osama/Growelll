@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './index.module.css'
 import { InputAdornment } from '@mui/material'
 import { IoIosArrowRoundBack } from 'react-icons/io'
@@ -31,11 +31,13 @@ export default function CreateQuestion() {
     const createdBy = useRef()
     const createdAt = useRef()
     const testID = useRef()
+    const [error, setError] = useState('');
+
     // const DoctorID = useRef()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
 
     const handelCreateQuestion = (e) => {
-           e.preventDefault();
+        e.preventDefault();
 
         let questionTextvalue = questionText.current.value
         let answerOption1value = answerOption1.current.value
@@ -78,8 +80,27 @@ export default function CreateQuestion() {
                 text: 'Your request has been sent.',
                 confirmButtonColor: '#3085d6'
             })
-        }).catch((err) => {
+            questionText.current.value=''
+            answerOption1.current.value=''
+            answerOption2.current.value=''
+            answerOption3.current.value=''
+            answerOption4.current.value=''
+            correctAnswer.current.value=''
+            orderNumber.current.value=''
+            createdBy.current.value=''
+            testID.current.value=''
+            setError('')
 
+        }).catch((err) => {
+            if (err.response && err.response.data) {
+                const validationErrors = err.response.data.errors;
+                if (validationErrors) {
+                    console.log("Validation errors:", validationErrors);
+                    setError(validationErrors);
+                } else {
+                    setError({ general: [err.response.data.message || "Unknown error occurred"] });
+                }
+            }
             console.error("create question error", err);
             Swal.fire({
                 icon: 'error',
@@ -101,6 +122,7 @@ export default function CreateQuestion() {
                             <div className='col-12 col-md-12 d-flex flex-column gap-2'>
                                 <label>QuestionText</label>
                                 <input ref={questionText} className='py-2 col-12 col-md-11' type="text" placeholder='  Please Enter your QuestionText ' />
+                                {/* {error.TestName && <div className="text-danger">{error.TestName[0]}</div>} */}
 
                             </div>
 
@@ -146,6 +168,7 @@ export default function CreateQuestion() {
                         <div className='col-12 col-md-12 d-flex flex-column gap-2'>
                             <label>OrderNumber</label>
                             <input ref={orderNumber} className='py-2 col-12 col-md-11' type="number" placeholder='  Please Enter your OrderNumber ' />
+                            {error.OrderNumber && <div className="text-danger">{error.OrderNumber[0]}</div>}
 
                         </div>
 
@@ -158,6 +181,7 @@ export default function CreateQuestion() {
                         <div className='col-12 col-md-12 d-flex flex-column gap-2'>
                             <label>testID</label>
                             <input ref={testID} className='py-2 col-12 col-md-11' type="number" placeholder='  Please Enter your testID ' />
+                            {error.TestID && <div className="text-danger">{error.TestID[0]}</div>}
 
                         </div>
                         <div className='col-12 col-md-12 d-flex flex-column gap-2'>

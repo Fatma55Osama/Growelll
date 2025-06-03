@@ -8,6 +8,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getData } from '../../data/Repo/getData';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Bounce, toast } from 'react-toastify';
+import { ToastContainer } from 'react-bootstrap';
 
 export default function TestNow() {
   const [started, setStarted] = useState(false);
@@ -18,9 +20,15 @@ export default function TestNow() {
   const { domain } = usedomain();
   const navigate = useNavigate()
   let testNumber = params.testNumber;
-   const [error401, setError401] = useState(false)
+  const [error401, setError401] = useState(false)
   const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   useEffect(() => {
+    if (!token) {
+      toast.error("Access to the test is not permitted for doctors.");
+      const id = params.id || 'default';
+      navigate(`/DetailsDoctor/${id}/tests`);
+      return;
+    }
     getData.get_single_question(domain, testNumber, token)
       .then((res) => {
         setquestion(res);
@@ -30,6 +38,8 @@ export default function TestNow() {
         console.log(err);
         if (err.response && err.response.status === 401) {
           setError401(true);
+          toast.error("Access to the test is not permitted for doctors.");
+
         } else {
           setError401(false);
         }
@@ -95,8 +105,21 @@ export default function TestNow() {
 
   return (
     <div className="d-flex justify-content-center align-items-center h-100" id={styles.testnow}>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <div className="container d-flex flex-column justify-content-center h-75 col-8">
-        
+
         {!started ? (
           <>
             <div className='container d-flex flex-column align-items-center col-12'>

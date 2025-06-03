@@ -6,19 +6,43 @@ import { Link, useParams } from 'react-router-dom'
 import { useData, usedomain } from '../../Store'
 import { getData } from '../../data/Repo/getData'
 import { IoIosArrowRoundBack } from 'react-icons/io'
+import { Bounce, toast } from 'react-toastify'
+import { ToastContainer } from 'react-bootstrap'
 
 export default function TestCategory() {
   const { id } = useParams();
   const { domain } = usedomain()
   const { detailsdoctor, setdailsdoctor } = useData()
   useEffect(() => {
+
     getData.get_single_dotor(domain, id).then((res) => {
       setdailsdoctor(res)
       console.log(res)
-    }).catch((err) => console.log(err))
+    }).catch((err) => {
+      if (err.response && err.response.status === 401) {
+        console.log(err.response)
+        toast.error("Access to the test is not permitted for doctors.");
+        setTimeout(() => {
+          navigate(`/DetailsDoctor/${id}/tests`);
+        }, 1500);
+      }
+    });
   }, [])
   return (
     <div className='col-12 d-flex' id={styles.testnow}>
+       <ToastContainer
+             position="top-center"
+             autoClose={5000}
+             hideProgressBar={false}
+             newestOnTop={false}
+             closeOnClick={false}
+             rtl={false}
+             pauseOnFocusLoss
+             draggable
+             pauseOnHover
+             theme="light"
+             transition={Bounce}
+           />
       <div className='container d-flex flex-column flex-grow-1  '>
 
         <div className='py-4 d-flex gap-3'>
@@ -54,9 +78,7 @@ export default function TestCategory() {
                   No Test Available
                 </div>
               )}
-              {/* <Link className="nav-link py-3 px-3" to={'/DetailsDoctor/:id/test/:testNumber'} id={styles.numbertest}>Test 1 </Link>
-              <Link className="nav-link py-3 px-3" to={'/DetailsDoctor/:id/test/:testNumber'} id={styles.numbertest}>Test 2 </Link>
-              <Link className="nav-link py-3 px-3" to={'/DetailsDoctor/:id/test/:testNumber'} id={styles.numbertest}>Test 3 </Link> */}
+
 
             </div>
           </div>

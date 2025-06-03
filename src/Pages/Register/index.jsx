@@ -68,6 +68,7 @@ export default function Register() {
         icon: "success",
         text: "Registration successful"
       })
+      setErrors('')
     }).catch((err) => {
       const apiErrors = err.response?.data || {};
       if (apiErrors && apiErrors.errors) {
@@ -88,7 +89,8 @@ export default function Register() {
           <h2>REGISTER </h2>
           <form onSubmit={HandelRegist} className='d-flex flex-column gap-4'>
             <input ref={(el) => (formRefs.current[0] = el)} type="text" placeholder='First Name' />
-            {errors.FristName && <div className="text-danger">{errors.FristName[0]}</div>}            <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
+            {errors.FristName && <div className="text-danger">{errors.FristName[0]}</div>}           
+             <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
             <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
             {errors.LastName && <div className="text-danger">{errors.LastName[0]}</div>}
 

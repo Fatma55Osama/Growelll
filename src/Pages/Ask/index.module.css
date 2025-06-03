@@ -1,0 +1,10 @@
+.div9{
+    min-height: 90% !important;
+}
+#parent{
+    min-height: 100vh;
+    background: linear-gradient(270deg, #2261ff 0%, #a2bcff 100%);
+    #ask{
+        margin-top: 10%;
+    }
+}

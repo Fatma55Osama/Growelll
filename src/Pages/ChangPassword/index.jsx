@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './index.module.css'
 import logo from '../../assets/Growell.svg'
 import { Link, useNavigate } from 'react-router-dom'
@@ -10,10 +10,13 @@ export default function Changpassword() {
     const formrefs = useRef([])
     const { domain } = usedomain()
     const navigate = useNavigate()
+    const [error, setError] = useState('');
+
     let token = localStorage.getItem('token') || sessionStorage.getItem('token')
 
     const handelchange = (event) => {
         event.preventDefault()
+
         let email = formrefs.current[0].value
         let oldpass = formrefs.current[1].value
         let newpass = formrefs.current[2].value
@@ -24,6 +27,7 @@ export default function Changpassword() {
             })
             return
         }
+        
         axios.post(`${domain}/api/Account/ChangePassword`, {
             "email": email,
             "oldPassword": oldpass,
@@ -42,12 +46,21 @@ export default function Changpassword() {
                 navigate('/login')
             })
             .catch((err) => {
+                if (err.response && err.response.data) {
+                    const validationErrors = err.response.data.errors;
+                    if (validationErrors) {
+                        console.log("Validation errors:", validationErrors);
+                        setError(validationErrors);
+                    } else {
+                        setError({ general: [err.response.data.message || "Unknown error occurred"] });
+                    }
+                }
                 console.log(err.response?.data)
                 console.log(err.message)
 
                 Swal.fire({
                     icon: "error",
-                    text: "Error occurred"
+                    text: "Field changed Password"
                 })
             })
 
@@ -62,7 +75,11 @@ export default function Changpassword() {
                     <form className='d-flex flex-column gap-4' onSubmit={handelchange}>
                         <input ref={(el) => (formrefs.current[0] = el)} type="email" placeholder='Email' />
                         <input ref={(el) => (formrefs.current[1] = el)} type="password" placeholder='old Password' />
+                        {error.OldPassword && <div className="text-danger">{error.OldPassword[0]}</div>}
+
                         <input ref={(el) => (formrefs.current[2] = el)} type="password" placeholder=' new Password' />
+                        {error.NewPassword && <div className="text-danger">{error.NewPassword[0]}</div>}
+
                         <button type='submit' className={styles.btn + " py-2 text-center"}>Change password</button>
                         <span className='text-center'>Already changed your password?  <Link to="/login" className={styles["link_gologin"]}> Go to Login</Link></span>
                     </form>

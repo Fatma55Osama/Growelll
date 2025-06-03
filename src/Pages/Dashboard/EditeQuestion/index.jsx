@@ -9,6 +9,7 @@ export default function EditeQuestion() {
     const params = useParams()
     let id = params.id
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
+    const [error, setError] = useState('');
 
     const [questionText, setQuestionText] = useState('');
     const [answer1, setAnswer1] = useState('');
@@ -46,6 +47,25 @@ export default function EditeQuestion() {
 
     const handelEditQuestion = (e) => {
         e.preventDefault()
+        if (
+            !questionText ||
+            !answer1 ||
+            !answer2 ||
+            !answer3 ||
+            !answer4 ||
+            !correctAnswer ||
+            !orderNumber ||
+            !testID ||
+            !createdBy
+        ) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Missing Fields',
+                text: 'Please fill in all the required fields.',
+            });
+            return;
+        }
+
         axios.put(`https://localhost:7071/api/Question/Edit/${id}`, {
             "questionText": questionText,
             "answerOption1": answer1,
@@ -69,12 +89,22 @@ export default function EditeQuestion() {
                     title: 'Question Updated',
                     text: 'Question updated successfully.',
                 });
+                setError('')
             })
-            .catch((error) => {
+            .catch((err) => {
+                if (err.response && err.response.data) {
+                    const validationErrors = err.response.data.errors;
+                    if (validationErrors) {
+                        console.log("Validation errors:", validationErrors);
+                        setError(validationErrors);
+                    } else {
+                        setError({ general: [err.response.data.message || "Unknown error occurred"] });
+                    }
+                }
                 Swal.fire({
                     icon: 'error',
                     title: 'Update Failed',
-                    text: error.message || 'Failed to update question.',
+                    text: err.message || 'Failed to update question.',
                 });
 
             });
@@ -95,6 +125,7 @@ export default function EditeQuestion() {
                                     value={questionText}
                                     onChange={(e) => setQuestionText(e.target.value)}
                                 />
+                                {error.QuestionText && <div className="text-danger">{error.QuestionText[0]}</div>}
 
                             </div>
 
@@ -110,6 +141,7 @@ export default function EditeQuestion() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>AnswerOption1</label>
                                 <input value={answer1} onChange={(e) => setAnswer1(e.target.value)} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your AnswerOption1 ' />
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>

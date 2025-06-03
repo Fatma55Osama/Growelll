@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './index.module.css'
 import { InputAdornment } from '@mui/material'
 import { IoIosArrowRoundBack } from 'react-icons/io'
@@ -28,7 +28,10 @@ export default function RegisterAdminn() {
     const ImgUrl = useRef();
     const Password = useRef();
     const ConfirmPassword = useRef();
-    const navigate =useNavigate()
+    const navigate = useNavigate()
+    const [error, setError] = useState('');
+
+
     const handelregister = (e) => {
         e.preventDefault();
         let Firstvalue = FirstName.current.value
@@ -51,7 +54,7 @@ export default function RegisterAdminn() {
         let ImgUrlvalue = ImgUrl.current.files[0]
         let Passwordvalue = Password.current.value
         let ConfirmPasswordvalue = ConfirmPassword.current.value
-        if (!Firstvalue || !Secondvalue || !Lastvalue || !Emailvalue || !Gendervalue || !Biovalue || !AboutMevalue || !Descriptionvalue || !PhoneNumbervalue || !AboutOfKidsvalue || !TargetAgeGroupvalue || !Specializationvalue || !Addressvalue || !YearsOfExperiencevalue || !AveRatingvalue || !Agevalue || !Educationvalue || !ImgUrlvalue || !Passwordvalue || !ConfirmPasswordvalue) {
+        if (!Firstvalue || !Secondvalue || !Lastvalue || !Emailvalue || !Gendervalue || !Biovalue || !AboutMevalue || !Descriptionvalue || !PhoneNumbervalue || !AboutOfKidsvalue || !TargetAgeGroupvalue || !Specializationvalue || !Addressvalue || !YearsOfExperiencevalue || !AveRatingvalue || !Agevalue || !Educationvalue  || !Passwordvalue || !ConfirmPasswordvalue) {
             Swal.fire({
                 icon: "warning",
                 text: "All fields are required"
@@ -102,10 +105,19 @@ export default function RegisterAdminn() {
         }).catch((err) => {
             console.log(err.response?.data)
             console.log(err.message)
+            if (err.response && err.response.data) {
+                const validationErrors = err.response.data.errors;
+                if (validationErrors) {
+                    console.log("Validation errors:", validationErrors);
+                    setError(validationErrors);
+                } else {
+                    setError({ general: [err.response.data.message || "Unknown error occurred"] });
+                }
+            }
 
             Swal.fire({
                 icon: "error",
-                text: "Error occurred"
+                text: "Field Register"
             })
         })
     }
@@ -136,11 +148,16 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>FirstName</label>
                                 <input ref={FirstName} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your FirstName ' />
+                                {error.FirstName && <div className="text-danger">{error.FirstName}</div>}
+
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
                                 <label>SecondName</label>
                                 <input ref={SecondName} className='py-2 col-10' type="text" placeholder='  Please Enter your SecondName ' />
+                                {error.SecondName && <div className="text-danger">{error.SecondName}</div>}
+
                             </div>
                         </div>
                         <div className='col-12 d-flex flex-row justify-content-between flex-wrap gap-3 gap-md-0'>
@@ -148,6 +165,8 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>LastName</label>
                                 <input ref={LastName} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your LastName ' />
+                                {error.LastName && <div className="text-danger">{error.LastName}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
@@ -160,6 +179,8 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>Gender</label>
                                 <input ref={Gender} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your Gender ' />
+                                {error.Gender && <div className="text-danger">{error.Gender[0]}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
@@ -188,6 +209,8 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>PhoneNumber</label>
                                 <input ref={PhoneNumber} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your PhoneNumber ' />
+                                {error.PhoneNumber && <div className="text-danger">{error.PhoneNumber}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
@@ -202,11 +225,15 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>TargetAgeGroup</label>
                                 <input ref={TargetAgeGroup} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your TargetAgeGroup ' />
+                                {error.TargetAgeGroup && <div className="text-danger">{error.TargetAgeGroup}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
                                 <label>Specialization</label>
                                 <input ref={Specialization} className='py-2 col-10' type="text" placeholder='  Please Enter your Specialization ' />
+                                {error.Specialization && <div className="text-danger">{error.Specialization}</div>}
+
                             </div>
 
                         </div>
@@ -216,6 +243,8 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>Address</label>
                                 <input ref={Address} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your Address ' />
+                                {error.Address && <div className="text-danger">{error.Address}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
@@ -235,6 +264,8 @@ export default function RegisterAdminn() {
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
                                 <label>Age</label>
                                 <input ref={Age} className='py-2 col-10' type="number" placeholder='  Please Enter your Age ' />
+                                {error.Age && <div className="text-danger">{error.Age[0]}</div>}
+
                             </div>
 
                         </div>
@@ -245,11 +276,16 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>Education</label>
                                 <input ref={Education} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your Education ' />
+                                {error.Education && <div className="text-danger">{error.Education[0]}</div>}
+
+                                
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
-                                <label>ImgUrl</label>
+                                <label>Img</label>
                                 <input ref={ImgUrl} className='py-2 col-10' type="file" placeholder='  Please Enter your ImgUrl ' />
+                                {/* {error.ImgUrl && <div className="text-danger">{error.ImgUrl[0]}</div>} */}
+
                             </div>
 
                         </div>
@@ -260,6 +296,9 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>Password</label>
                                 <input ref={Password} className='py-2 col-12 col-md-10' type="Password" placeholder='  Please Enter your Password ' />
+                                {error.Password && <div className="text-danger">{error.Password[0]}</div>}
+
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>

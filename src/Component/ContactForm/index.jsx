@@ -5,14 +5,12 @@ import styles from './index.module.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { Bounce, toast, ToastContainer } from 'react-toastify';
 export default function ContactForm() {
   const title = useRef();
   const description = useRef();
   const date = useRef();
-  // const emailRef = useRef();
-  // const phoneRef = useRef();
-  // const dateRef = useRef();
-  // const messageRef = useRef();
+
   const navigate = useNavigate();
   let token = localStorage.getItem('token') || sessionStorage.getItem('token')
 
@@ -47,20 +45,50 @@ export default function ContactForm() {
         text: 'Your request has been sent.',
         confirmButtonColor: '#3085d6'
       })
-    }).catch(err => {
-      // Swal.fire({
-      //   icon: 'error',
-      //   title: 'Submission Failed',
-      //   text: 'Please try again later or check your inputs.',
-      //   confirmButtonColor: '#d33'
-      // });
-    });
+      title.current.value = '';
+      description.current.value = '';
+      date.current.value = '';
 
+    }).catch(err => {
+      if (err.response && err.response.status === 401) {
+        toast.error("Doctors are not allowed to submit complaints", {
+          position: "top-center",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+        title.current.value = '';
+        description.current.value = '';
+        date.current.value = '';
+      } else {
+        toast.error("Submission failed. Please try again later.", {
+          position: "top-center",
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      }
+    });
   }
 
 
   return (
     <div className={`${styles.div8} col-12  bg-white`}>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <div className={` ${styles.contentform} container   d-flex justify-content-between align-items-center`}>
 
         <div className={` ${styles.half1} col-md-6  mb-5 mb-md-0 d-flex flex-column align-content-around gap-5`}>

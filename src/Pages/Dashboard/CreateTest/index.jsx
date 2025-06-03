@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import styles from './index.module.css'
 import { InputAdornment } from '@mui/material'
 import { IoIosArrowRoundBack } from 'react-icons/io'
@@ -7,35 +7,36 @@ import { getData } from '../../../data/Repo/getData'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 export default function CreateTest() {
-//   {
-//   
-//   "testName": "string",
-//   "description": "string",
-//   "categoryID": 2147483647,
-//   "numberOfQuestions": 100,
-//   "isActive": true
-// }
+    //   {
+    //   
+    //   "testName": "string",
+    //   "description": "string",
+    //   "categoryID": 2147483647,
+    //   "numberOfQuestions": 100,
+    //   "isActive": true
+    // }
     const testName = useRef()
     const description = useRef()
     const categoryID = useRef()
     const numberOfQuestions = useRef()
     const isActive = useRef()
-    
+    const [error, setError] = useState()
+
     // const DoctorID = useRef()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
 
     const handelCreateTest = (e) => {
-           e.preventDefault();
+        e.preventDefault();
 
         let testNamevalue = testName.current.value
         let descriptionvalue = description.current.value
         let categoryIDvalue = categoryID.current.value
         let numberOfQuestionsvalue = numberOfQuestions.current.value
         let isActive4value = isActive.current.value
-       
+
         // let DoctorIDvalue = DoctorID.current.value
 
-        if (!testNamevalue || !descriptionvalue || !categoryIDvalue || !numberOfQuestionsvalue || !isActive4value ) {
+        if (!testNamevalue || !descriptionvalue || !categoryIDvalue || !numberOfQuestionsvalue || !isActive4value) {
             Swal.fire({
                 icon: "warning",
                 text: "All fields are required"
@@ -48,7 +49,7 @@ export default function CreateTest() {
             "categoryID": categoryID.current.value,
             "numberOfQuestions": numberOfQuestions.current.value,
             "isActive": isActive.current.checked,
-         
+
         }, {
             headers: {
                 Authorization: `Bearer ${tokenDoctor}`
@@ -61,9 +62,26 @@ export default function CreateTest() {
                 text: 'Your request has been sent.',
                 confirmButtonColor: '#3085d6'
             })
+            testName.current.value = '';
+            description.current.value = '';
+            categoryID.current.value = '';
+            numberOfQuestions.current.value = '';
+            isActive.current.checked = false;
+            setError('')
         }).catch((err) => {
 
             console.error("create test error", err);
+
+            if (err.response && err.response.data) {
+                const validationErrors = err.response.data.errors;
+                if (validationErrors) {
+                    console.log("Validation errors:", validationErrors);
+                    setError(validationErrors);
+                } else {
+                    setError({ general: [err.response.data.message || "Unknown error occurred"] });
+                }
+            }
+            setError(err.response.data.errors)
             Swal.fire({
                 icon: 'error',
                 title: 'Submission Failed',
@@ -84,7 +102,7 @@ export default function CreateTest() {
                             <div className='col-12 col-md-12 d-flex flex-column gap-2'>
                                 <label>TestName</label>
                                 <input ref={testName} className='py-2 col-12 col-md-11' type="text" placeholder='  Please Enter your testName ' />
-
+                                {error?.TestName && <div className="text-danger">{error?.TestName[0]}</div>}
                             </div>
 
                             {/* <div className='col-11 col-md-6 d-flex flex-column gap-2 '>
@@ -111,6 +129,8 @@ export default function CreateTest() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>Number Of Questions</label>
                                 <input ref={numberOfQuestions} className='py-2 col-12 col-md-10' type="number" placeholder='  Please Enter your numberOfQuestions ' />
+                                {error?.NumberOfQuestions && <div className="text-danger">{error?.NumberOfQuestions[0]}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex gap-2  align-items-center '>
