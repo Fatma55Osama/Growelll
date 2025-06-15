@@ -146,7 +146,7 @@ export default function EditeBook() {
 
 
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
-                                <label>BookUrl</label>
+                                <label>Bookimg</label>
                                 {BookImage && typeof BookImage === 'string' && (
                                     <img src={`${domain}/${BookImage}`} alt="Current Book" style={{ width: '100px' }} />
                                 )}
@@ -154,8 +154,13 @@ export default function EditeBook() {
                                 {error?.BookImage && <div className="text-danger">{error?.BookImage[0]}</div>}
 
                             </div>
+                            <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
+                                <label>BookUrl</label>
+                                <input value={BookUrl} onChange={(e) => setBookUrl(e.target.value)} className='py-2 col-10' type="text" placeholder='  Please Enter your CategoryID ' />
+                                {/* {error?.AboutOfVideo && <div className="text-danger">{error?.AboutOfVideo[0]}</div>} */}
 
 
+                            </div>
                         </div>
 
 

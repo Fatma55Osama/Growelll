@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styles from './index.module.css'
-import { InputAdornment } from '@mui/material'
 import { IoIosArrowRoundBack } from 'react-icons/io'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import { usedomain } from '../../../Store'
-import { show_singletestdoctor } from '../../../data/API/show_singletestdoctor'
-import { Single_bookdoctor } from '../../../data/API/Single_bookdoctor'
 import { single_vediodoctor } from '../../../data/API/single_vediodoctor'
 export default function EditeVedio() {
     const params = useParams()
@@ -24,7 +21,7 @@ export default function EditeVedio() {
     useEffect(() => {
         single_vediodoctor(domain, tokenDoctor, id).then((res) => {
 
-            console.log('single_vediodoctor',res) 
+            console.log('single_vediodoctor', res)
             setVideoTitle(res.videoTitle || '');
             setDescription(res.description || '');
             setAboutOfVideo(res.aboutOfVideo?.toString() ?? '');
@@ -147,7 +144,7 @@ export default function EditeVedio() {
 
 
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
-                                <label>VideoUrl</label>
+                                <label>Videoimg</label>
                                 {VideoImage && typeof VideoImage === 'string' && (
                                     <img src={`${domain}/${VideoImage}`} alt="Current Video" style={{ width: '100px' }} />
                                 )}
@@ -155,7 +152,13 @@ export default function EditeVedio() {
                                 {error?.VideoImage && <div className="text-danger">{error?.VideoImage[0]}</div>}
 
                             </div>
+                            <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
+                                <label>videoUrl</label>
+                                <input value={VideoUrl} onChange={(e) => setVideoUrl(e.target.value)} className='py-2 col-10' type="text" placeholder='  Please Enter your CategoryID ' />
+                                {/* {error?.AboutOfVideo && <div className="text-danger">{error?.AboutOfVideo[0]}</div>} */}
 
+
+                            </div>
 
                         </div>
 
