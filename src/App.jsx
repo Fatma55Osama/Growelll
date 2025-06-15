@@ -41,6 +41,7 @@ import CreatBook from './Pages/Dashboard/CreatBook'
 import EditeBook from './Pages/Dashboard/EditeBook'
 import Viedo from './Pages/Dashboard/Viedo'
 import CreateVedio from './Pages/Dashboard/CreateVedio'
+import EditeVedio from './Pages/Dashboard/EditeVedio'
 export default function App() {
 
   return (
@@ -94,6 +95,7 @@ export default function App() {
           <Route path='/editequestion/:id' element={<EditeQuestion />} />
           <Route path='/editetest/:id' element={<EditeTest />} />
           <Route path='/editebook/:id' element={<EditeBook/>} />
+          <Route path='/editevedio/:id' element={<EditeVedio/>} />
 
           <Route path='/editeprofile/:id' element={<EditeProfile />} />
           <Route path='/ask' element={<Ask />} />

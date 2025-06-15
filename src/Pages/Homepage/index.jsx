@@ -227,7 +227,7 @@ export default function Homepage() {
                       <div className='mt-2'>
                         <p>We offer comprehensive and scientifically designed IQ tests suitable for all ages. These tests help identify cognitive abilities, pinpoint areas of delay, and provide a foundation for early intervention.
 
-</p>
+                        </p>
                       </div>
 
                     </div>
@@ -243,7 +243,7 @@ export default function Homepage() {
 
                       <div className='mt-2'>
                         <p>
-We provide a curated library of educational videos, articles, books, and interactive exercises designed to improve memory, attention, reasoning, and overall mental capacity.</p>
+                          We provide a curated library of educational videos, articles, books, and interactive exercises designed to improve memory, attention, reasoning, and overall mental capacity.</p>
                       </div>
 
                     </div>
@@ -282,8 +282,11 @@ We provide a curated library of educational videos, articles, books, and interac
                   {
                     doctors.slice(0, 3).map((el, index) => {
                       return (
-                        <div className="card card1 d-flex flex-column justify-content-center align-content-center " style={{ width: "18rem" }} key={index}>
-                          <img src={`${domain}/${el.image}`} className="card-img-top mt-2" alt="..." />
+                        <div className="card card1 d-flex flex-column justify-content-center  " style={{ width: "18rem" }} key={index}>
+                          <div className='d-flex justify-content-center'>
+
+                            <img src={`${domain}/${el.image}`} className="card-img-top mt-2" alt="..." />
+                          </div>
                           <div className="card-body">
                             <h5 className="card-title mb-1">Dr:{el.fullName}</h5>
                             <p className="card-text">{el.specialization}</p>
@@ -308,16 +311,7 @@ We provide a curated library of educational videos, articles, books, and interac
                   {
                     events.slice(0, 3).map((el, index) => {
                       return (
-                        // <Card style={{ width: '18rem' }}>
-                        //   <Card.Img variant="top" src={el.img} />
-                        //   <Card.Body>
-                        //     <Card.Title>{el.name}</Card.Title>
-                        //     <Card.Text>
-                        //     {el.descript}
-                        //     </Card.Text>
-                        //     <Link to={`/DetailsEvent/${el.id}`} className="btn  col-12 rounded-5">Enroll</Link>
-                        //   </Card.Body>
-                        // </Card>
+
                         <div key={el.videoEventId} className="card  card1  d-flex flex-column justify-content-center align-content-center align-items-center" style={{ width: "18rem" }} >
                           <img src={el.videoImagePath.replace('/api/HomeEvents/GetImage/', '')} className="card-img-top mt-3" height={152} alt="..." />
                           <div className="card-body d-flex flex-column justify-content-end">

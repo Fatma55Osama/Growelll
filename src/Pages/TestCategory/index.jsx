@@ -53,7 +53,7 @@ export default function TestCategory() {
         <div className='d-flex flex-row justify-content-center align-items-center mt-5 h-100'>
           <div className='col-6  d-flex flex-column justify-content-center align-items-center ' id={styles.detailtest}>
             <div className='col-12 d-flex flex-column justify-content-center align-items-start gap-2'>
-              <img src={`${domain}/${detailsdoctor.imgUrl}`} width={450} height={451} alt="" />
+              <img src={`${domain}/${detailsdoctor.imgUrl}`} className='rounded-4' width={450} height={451} alt="" />
               <h3>Dr.{detailsdoctor.fullName}</h3>
               <p>{detailsdoctor.bio}</p>
             </div>

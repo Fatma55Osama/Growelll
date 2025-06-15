@@ -91,7 +91,7 @@ export default function Book() {
                                 <div key={el.bookEventId} className='container col-3' >
 
                                     <Card style={{ width: '19rem', height: "580px" }}>
-                                        <Card.Img variant="top" src={`${domain}${el.bookImagePath}`} height={300} />
+                                        <Card.Img variant="top" src={`${domain}${el.bookImagePath}`} height={250} />
                                         <Card.Body className='d-flex flex-column justify-content-end'>
                                             <Card.Title>{el.bookTitle}</Card.Title>
                                             <Card.Text>

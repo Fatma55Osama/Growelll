@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styles from './index.module.css';
-import { usedomain, useModale } from '../../Store';
+import { usedomain, useModale, useProfile, useProfileDoctor } from '../../Store';
 import { IoIosSettings, IoMdNotifications } from 'react-icons/io';
 import { IoCloseSharp, IoPersonCircleOutline, IoPersonOutline, IoPlay, IoPlayOutline } from 'react-icons/io5';
-import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,11 +14,14 @@ import { LogoutDoctor } from '../../data/API/LogoutDoctor';
 import { DeleteDoctorAcount } from '../../data/API/DeleteDoctorAcount';
 import { GoTasklist } from 'react-icons/go';
 import { FaBook, FaClipboardQuestion } from "react-icons/fa6";
+import { getData } from '../../data/Repo/getData';
 export default function Menu() {
     const { closeModal } = useModale();
     const navigate = useNavigate()
     const { domain } = usedomain()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
+    const { Profiledoctor, setprofiledoctor } = useProfileDoctor()
+    const { Profile, setprofile } = useProfile()
 
     let token = localStorage.getItem('token') || sessionStorage.getItem('token')
     const destination = tokenDoctor ? '/changdoctorpassword' : '/changpassword';
@@ -37,6 +39,18 @@ export default function Menu() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+    useEffect(() => {
+        if (tokenDoctor) {
+            getData.get_profileDoctor(domain, tokenDoctor)
+                .then((res) => setprofiledoctor(res))
+                .catch((err) => console.error('Error fetching doctor profile:', err));
+        } else if (token) {
+            getData.get_profile(domain, token).then((res) => {
+                setprofile(res)
+
+            })
+        }
+    }, [domain, tokenDoctor]);
     // const DeleteAccountfunc = () => {
     //     console.log('Token:', token);
     //     DeleteAccount(token, domain).then(res => {
@@ -200,126 +214,167 @@ export default function Menu() {
     return (
         <div className={styles.modal} onClick={() => closeModal(false)}>
             <div className={styles.content + " animate__animated animate__bounceInRight"} onClick={(e) => e.stopPropagation()}>
-                <div className='container mt-3'>
-                    <div className='border-bottom mb-3 d-flex justify-content-between align-items-center'>
-                        <h3 className='p-1'>Setting Account <IoIosSettings /></h3>
-                        <IoCloseSharp style={{ fontSize: "25px" }} onClick={() => closeModal(false)} />
+                <div className=' ' >
+                    <div className='border-bottom mb-3 bg-info d-flex flex-column justify-content-between align-items-center' id={styles.welcom}>
+                        <div className='col-12 d-flex  justify-content-end '>
+
+                            <IoCloseSharp className=' my-1 mx-1 ' style={{ fontSize: "25px" }} onClick={() => closeModal(false)} />
+                        </div>
+
+                        <h3 className='p-1 d-flex  align-items-center gap-1'>
+                            Welcome:&nbsp;
+                            {tokenDoctor ? (
+                                <>
+                                    {Profiledoctor?.firstName}
+                                    <img
+                                        src={
+                                            Profiledoctor?.imgUrl
+                                                ? `${domain}${Profiledoctor.imgUrl}`
+                                                : '/default-profile.png'
+                                        }
+                                        width={40}
+                                        height={40}
+                                        className='rounded-5 ms-3'
+                                        alt=""
+                                    />
+                                </>
+                            ) : token ? (
+                                <>
+                                    {Profile?.userName}
+                                    <img
+                                        src={
+                                            Profile?.profilePicturePath
+                                                ? `${domain}${Profile.profilePicturePath}`
+                                                : '/default-profile.png'
+                                        }
+                                        width={40}
+                                        height={40}
+                                        className='rounded-5 ms-3'
+                                        alt=""
+                                    />
+                                </>
+                            ) : null}
+                        </h3>
+
                     </div>
 
 
-                    <div className='d-flex flex-column justify-content-between gap-4'>
-                        <div className='overflow-hidden mb-2'>
-                            {/* <h5 className={styles.h5}>Profile</h5> */}
-                            <Link className='d-flex gap-3 nav-link' to={'/profile'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                <IoPersonOutline className={styles.icon} />
-                                <h5>Profile</h5>
-                              
-                            </Link>
-                        </div>
-                        <div className='overflow-hidden mb-2'>
-                            <Link className='d-flex gap-3 nav-link' to={destination} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                <TbLockPassword className={styles.icon} />
-                                <h5>Change Password</h5>
-                               
-                            </Link>
-                        </div>
+                    <div className='container'>
+                        <div className='d-flex flex-column justify-content-between gap-3'>
+                            <div className='overflow-hidden mb-2'>
+                                {/* <h5 className={styles.h5}>Profile</h5> */}
+                                <Link className='d-flex gap-3 nav-link' to={'/profile'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                    <IoPersonOutline className={styles.icon} />
+                                    <h5>Profile</h5>
+
+                                </Link>
+                            </div>
+                            <div className='overflow-hidden mb-2'>
+                                <Link className='d-flex gap-3 nav-link' to={destination} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                    <TbLockPassword className={styles.icon} />
+                                    <h5>Change Password</h5>
+
+                                </Link>
+                            </div>
 
 
-                        <div className='overflow-hidden mb-2'>
-                            <Link className='d-flex gap-3 nav-link' to={'/report'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                <TbReport className={styles.icon} />
-                                <h5>Report</h5>
-                               
-                            </Link>
-                        </div>
-                        {
-                            tokenDoctor && (
-                                <div className='overflow-hidden mb-2'>
-                                    <Link className='d-flex gap-3 nav-link' to={'/ask'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                        <GoTasklist className={styles.icon} />
-                                        <h5>Ask</h5>
-                                    
-                                    </Link>
-                                </div>
+                            <div className='overflow-hidden mb-2'>
+                                <Link className='d-flex gap-3 nav-link ' to={'/report'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                    <TbReport className={styles.icon} />
+                                    <h5>Report</h5>
 
-                            )
-                        }
-                        {
-                            tokenDoctor && (
-                                <div className='overflow-hidden mb-2'>
-                                    <Link className='d-flex gap-3 nav-link' to={'/test'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                        <TbBrandSpeedtest className={styles.icon} />
-                                        <h5>All Test</h5>
+                                </Link>
+                            </div>
+                            {
+                                tokenDoctor && (
+                                    <div className='overflow-hidden mb-2'>
+                                        <Link className='d-flex gap-3 nav-link' to={'/ask'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                            <GoTasklist className={styles.icon} />
+                                            <h5>Ask</h5>
 
-                                    </Link>
-                                </div>
-                            )
-                        }
-                           {
-                            tokenDoctor && (
-                                <div className='overflow-hidden mb-2'>
-                                    <Link className='d-flex gap-3 nav-link' to={'/test'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                        <FaClipboardQuestion  className={styles.icon} />
-                                        <h5>All Question</h5>
+                                        </Link>
+                                    </div>
 
-                                    </Link>
-                                </div>
-                            )
-                        } {
-                            tokenDoctor && (
-                                <div className='overflow-hidden mb-2'>
-                                    <Link className='d-flex gap-3 nav-link' to={'/bookdoctor'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                        <FaBook   className={styles.icon} />
-                                        <h5>All Book</h5>
+                                )
+                            }
+                            {
+                                tokenDoctor && (
+                                    <div className='overflow-hidden mb-2'>
+                                        <Link className='d-flex gap-3 nav-link' to={'/test'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                            <TbBrandSpeedtest className={styles.icon} />
+                                            <h5>All Test</h5>
 
-                                    </Link>
-                                </div>
-                            )
-                        }
-                         {
-                            tokenDoctor && (
-                                <div className='overflow-hidden mb-2'>
-                                    <Link className='d-flex gap-3 nav-link' to={'/vediodoctor'} onClick={() => closeModal(false)} id={styles.profiletext}>
-                                        <IoPlay     className={styles.icon} />
-                                        <h5>All Vedio</h5>
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                            {
+                                tokenDoctor && (
+                                    <div className='overflow-hidden mb-2'>
+                                        <Link className='d-flex gap-3 nav-link' to={'/question'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                            <FaClipboardQuestion className={styles.icon} />
+                                            <h5>All Question</h5>
 
-                                    </Link>
-                                </div>
-                            )
-                        }
+                                        </Link>
+                                    </div>
+                                )
+                            } {
+                                tokenDoctor && (
+                                    <div className='overflow-hidden mb-2'>
+                                        <Link className='d-flex gap-3 nav-link' to={'/bookdoctor'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                            <FaBook className={styles.icon} />
+                                            <h5>All Book</h5>
+
+                                        </Link>
+                                    </div>
+                                )
+                            }
+                            {
+                                tokenDoctor && (
+                                    <div className='overflow-hidden mb-2'>
+                                        <Link className='d-flex gap-3 nav-link' to={'/vediodoctor'} onClick={() => closeModal(false)} id={styles.profiletext}>
+                                            <IoPlay className={styles.icon} />
+                                            <h5>All Vedio</h5>
+
+                                        </Link>
+                                    </div>
+                                )
+                            }
 
 
-                        <div className='overflow-hidden mb-2'>
-                            <div className='d-flex align-items-center gap-3' id={styles.profiletext} onClick={() => {
-                                if (tokenDoctor) {
-                                    DeleteDoctorAccountfunc();
-                                } else if (token) {
-                                    DeleteAccountfunc();
-                                }
-                            }}>
-                                <MdDelete className={styles.icon1} />
-                                <div className='col-10 ' id={styles.massege}>
-                                    <h5>Delete Account</h5>
+                            <div className='overflow-hidden mb-2'>
+                                <div className='d-flex align-items-center gap-3' id={styles.profiletext} onClick={() => {
+                                    if (tokenDoctor) {
+                                        DeleteDoctorAccountfunc();
+                                    } else if (token) {
+                                        DeleteAccountfunc();
+                                    }
+                                }}>
+                                    <MdDelete className={styles.icon1} />
+                                    <div className='col-10 ' id={styles.massege}>
+                                        <h5>Delete Account</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className='overflow-hidden mb-2 '>
-                            <div className='d-flex j align-items-center gap-3' id={styles.profiletext} onClick={() => {
-                                if (tokenDoctor) {
-                                    logoutDoctor();
-                                } else if (token) {
-                                    logout();
-                                }
-                            }}>
-                                <RiLogoutCircleLine className={styles.icon1} />
-                                <div className='col-10 ' id={styles.massege}>
-                                    <h5>Logout</h5>
+                            <div className='overflow-hidden mb-2 '>
+                                <div className='d-flex j align-items-center gap-3' id={styles.profiletext} onClick={() => {
+                                    if (tokenDoctor) {
+                                        logoutDoctor();
+                                    } else if (token) {
+                                        logout();
+                                    }
+                                }}>
+                                    <RiLogoutCircleLine className={styles.icon1} />
+                                    <div className='col-10 ' id={styles.massege}>
+                                        <h5>Logout</h5>
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
-
-
                     </div>
+
 
 
 

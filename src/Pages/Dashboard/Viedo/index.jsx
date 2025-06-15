@@ -43,7 +43,7 @@ export default function Viedo() {
             .catch(err => console.log(err));
     };
 
-    const handelDeleteBook = (id) => {
+    const handelDeletevedio = (id) => {
         Swal.fire({
             title: 'Are you sure?',
             text: "This Vedio will be permanently deleted!",
@@ -99,10 +99,10 @@ export default function Viedo() {
                                             <div className='d-flex flex-column  gap-3'>
                                                 <a href={el.videoUrl} target="_blank" className='btn btn-primary'>Show</a>
                                                 <div className={styles.icon + " d-flex gap-5 me-3"}>
-                                                    {/* <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon} to={`/editebook/${el.videoEventId}`}>
+                                                    <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon} to={`/editevedio/${el.videoEventId}`}>
                                                         <FiEdit /><span>Edit</span>
-                                                    </Link> */}
-                                                    <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon} onClick={() => handelDeleteBook(el.videoEventId)}>
+                                                    </Link>
+                                                    <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon} onClick={() => handelDeletevedio(el.videoEventId)}>
                                                         <RiDeleteBin6Line /><span>Delete</span>
                                                     </Link>
                                                 </div>

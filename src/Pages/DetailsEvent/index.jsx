@@ -31,7 +31,7 @@ export default function DetailsEvent() {
    useEffect(()=>{
     getData.get_show_singlebook(domain,id).then((res)=>{
       setbooks(res)
-      console.log(res)
+      console.log( "singlebook",res)
     }).catch((err)=>console.log(err))
     // getdetailsevent
      getData.get_show_singlevent(domain,id).then((res)=>{

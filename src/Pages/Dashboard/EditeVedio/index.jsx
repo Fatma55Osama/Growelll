@@ -8,41 +8,42 @@ import Swal from 'sweetalert2'
 import { usedomain } from '../../../Store'
 import { show_singletestdoctor } from '../../../data/API/show_singletestdoctor'
 import { Single_bookdoctor } from '../../../data/API/Single_bookdoctor'
-export default function EditeBook() {
+import { single_vediodoctor } from '../../../data/API/single_vediodoctor'
+export default function EditeVedio() {
     const params = useParams()
     let id = params.id
     const { domain } = usedomain()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
     const [error, setError] = useState('');
-    const [BookTitle, setBookTitle] = useState('');
+    const [VideoTitle, setVideoTitle] = useState('');
     const [Description, setDescription] = useState('');
-    const [AboutOfBook, setAboutOfBook] = useState('');
-    const [BookUrl, setBookUrl] = useState('');
-    const [BookImage, setBookImage] = useState('');
+    const [AboutOfVideo, setAboutOfVideo] = useState('');
+    const [VideoUrl, setVideoUrl] = useState('');
+    const [VideoImage, setVideoImage] = useState('');
     const navigate = useNavigate()
     useEffect(() => {
-        Single_bookdoctor(domain, id, tokenDoctor).then((res) => {
+        single_vediodoctor(domain, tokenDoctor, id).then((res) => {
 
-
-            setBookTitle(res.bookTitle || '');
+            console.log('single_vediodoctor',res) 
+            setVideoTitle(res.videoTitle || '');
             setDescription(res.description || '');
-            setAboutOfBook(res.aboutOfBook?.toString() ?? '');
-            setBookUrl(res.bookUrl?.toString() ?? '');
-            setBookImage(res.bookImagePath || '');
+            setAboutOfVideo(res.aboutOfVideo?.toString() ?? '');
+            setVideoUrl(res.videoUrl?.toString() ?? '');
+            setVideoImage(res.videoImagePath || '');
         })
             .catch((err) => {
                 console.error("Error fetching test data:", err);
             });
     }, [id]);
 
-    const handelEditbook = (e) => {
+    const handelEditvedio = (e) => {
         e.preventDefault()
         // if (
-        //     !BookTitle ||
+        //     !VideoTitle ||
         //     !Description ||
-        //     !AboutOfBook ||
-        //     !BookUrl ||
-        //     !BookImage
+        //     !AboutOfVideo ||
+        //     !VideoUrl ||
+        //     !VideoImage
         // ) {
         //     Swal.fire({
         //         icon: 'warning',
@@ -57,16 +58,16 @@ export default function EditeBook() {
         // }
 
         const formData = new FormData();
-        formData.append('BookTitle', BookTitle);
+        formData.append('VideoTitle', VideoTitle);
         formData.append('Description', Description);
-        formData.append('AboutOfBook', AboutOfBook);
-        formData.append('BookUrl', BookUrl);
+        formData.append('AboutOfVideo', AboutOfVideo);
+        formData.append('VideoUrl', VideoUrl);
 
         // الصورة: تأكد إنها File مش مجرد string
-        if (typeof BookImage === 'object') {
-            formData.append('BookImage', BookImage);
+        if (typeof VideoImage === 'object') {
+            formData.append('VideoImage', VideoImage);
         }
-        axios.put(`https://localhost:7071/api/BookEvent/EditBookEvent/${id}`, formData, {
+        axios.put(`https://localhost:7071/api/VideoEvent/EditVideoEvent/${id}`, formData, {
             headers: {
                 Authorization: `Bearer ${tokenDoctor}`,
                 // 'Content-Type': 'application/json',
@@ -75,11 +76,11 @@ export default function EditeBook() {
             .then(() => {
                 Swal.fire({
                     icon: 'success',
-                    title: 'Book Updated',
-                    text: 'Book updated successfully.',
+                    title: 'Video Updated',
+                    text: 'Video updated successfully.',
                 });
                 setError('');
-                navigate('/bookdoctor')
+                navigate('/vediodoctor')
             })
             .catch((err) => {
                 if (err.response && err.response.data) {
@@ -102,17 +103,17 @@ export default function EditeBook() {
         <div className='col-12' id={styles.parent}>
             <div className='container  d-flex justify-content-center ' id={styles.create}>
                 <div className='col-10 d-flex flex-column'>
-                    <Link to={'/bookdoctor'}>  <IoIosArrowRoundBack className='mb-3 text-black' style={{ fontSize: "50px" }} /></Link>
-                    <h2> Edit Book </h2>
-                    <form onSubmit={handelEditbook} action="" className='col-12 mt-5 d-flex flex-column gap-5'>
+                    <Link to={'/vediodoctor'}>  <IoIosArrowRoundBack className='mb-3 text-black' style={{ fontSize: "50px" }} /></Link>
+                    <h2> Edit Vedio </h2>
+                    <form onSubmit={handelEditvedio} action="" className='col-12 mt-5 d-flex flex-column gap-5'>
                         <div className='col-12 d-flex flex-row justify-content-between flex-wrap gap-5 gap-md-0'>
 
                             <div className='col-12 col-md-12 d-flex flex-column gap-2'>
-                                <label>BookTitle</label>
+                                <label>VedioTitle</label>
                                 <input
                                     type="text"
-                                    value={BookTitle}
-                                    onChange={(e) => setBookTitle(e.target.value)}
+                                    value={VideoTitle}
+                                    onChange={(e) => setVideoTitle(e.target.value)}
                                 />
                                 {/* {error?.TestName && <div className="text-danger">{error?.TestName[0]}</div>} */}
 
@@ -135,9 +136,9 @@ export default function EditeBook() {
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
-                                <label>AboutOfBook</label>
-                                <input value={AboutOfBook} onChange={(e) => setAboutOfBook(e.target.value)} className='py-2 col-10' type="text" placeholder='  Please Enter your CategoryID ' />
-                                {/* {error?.AboutOfBook && <div className="text-danger">{error?.AboutOfBook[0]}</div>} */}
+                                <label>AboutOfVideo</label>
+                                <input value={AboutOfVideo} onChange={(e) => setAboutOfVideo(e.target.value)} className='py-2 col-10' type="text" placeholder='  Please Enter your CategoryID ' />
+                                {/* {error?.AboutOfVideo && <div className="text-danger">{error?.AboutOfVideo[0]}</div>} */}
 
 
                             </div>
@@ -146,12 +147,12 @@ export default function EditeBook() {
 
 
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
-                                <label>BookUrl</label>
-                                {BookImage && typeof BookImage === 'string' && (
-                                    <img src={`${domain}/${BookImage}`} alt="Current Book" style={{ width: '100px' }} />
+                                <label>VideoUrl</label>
+                                {VideoImage && typeof VideoImage === 'string' && (
+                                    <img src={`${domain}/${VideoImage}`} alt="Current Video" style={{ width: '100px' }} />
                                 )}
-                                <input onChange={(e) => setBookImage(e.target.files[0])} className='py-2 col-12 col-md-10' type="file" />                                {/* {error?.BookUrl && <div className="text-danger">{error?.BookUrl[0]}</div>} */}
-                                {error?.BookImage && <div className="text-danger">{error?.BookImage[0]}</div>}
+                                <input onChange={(e) => setVideoImage(e.target.files[0])} className='py-2 col-12 col-md-10' type="file" />                                {/* {error?.VideoUrl && <div className="text-danger">{error?.VideoUrl[0]}</div>} */}
+                                {error?.VideoImage && <div className="text-danger">{error?.VideoImage[0]}</div>}
 
                             </div>
 

@@ -27,12 +27,16 @@ export default function Finddoctor() {
   const { page, pageSize, setPage, setPageSize, currentPage } = usePagenation()
   const { Searchs, setsearch } = useSearch();
   const [searchText, setSearchText] = useState("");
+  const [filterrate, setFilterrate] = useState([])
   // const totalPages = Math.ceil(totalItems / pageSize);
   useEffect(() => {
     getData.get_all_doctor(domain, page, pageSize).then((res) => {
       console.log("Doctors fetched:", res);
       setdataDoctor(res);
     });
+    const copyfilter = [...doctors].filter((el) => { return el.aveRating > 3 })
+    setFilterrate(copyfilter)
+    console.log('aveRating',copyfilter)
   }, [domain, page, pageSize]);
 
   const handleSearch = () => {
@@ -84,7 +88,7 @@ export default function Finddoctor() {
                 className="mySwiper"
               >
                 {
-                  doctors.slice(5, 10).map((el, index) => (
+                  filterrate.map((el, index) => (
                     <SwiperSlide>
 
                       <Card key={el.id} className={styles.Cardstyl} style={{ width: '22rem' }}>
@@ -93,7 +97,7 @@ export default function Finddoctor() {
                         <Card.Body>
                           <Card.Title className={styles.titlecard}>{el.fullName}</Card.Title>
                           {/* <Card.Img src={star} style={{ width: "100px" }} /> */}
-                          <DoctorRating value={el.aveRating} id={styles.star} />
+                          <DoctorRating value={el?.aveRating} id={styles.star} />
 
                           <Card.Text className={styles.textcaed}>
                             {el.specialization}
