@@ -79,40 +79,18 @@ export default function Homepage() {
     <>
       {
         loderindex == true ? <Loader /> : (
-          <div className='col-12  h-100'>
+          <div className='col-12 position-relative h-100'>
 
-            <div className='parent col-12  '>
+            <div className='parent col-12   ' >
 
-
-
-
-              {/* <Nav/> */}
-              {/* start nav par bg-white of figma */}
-              {/* 
-              <div className=' allnavsuccess col-12  py-3 '>
-                <div className='navpar col-11 col-md-9 bg-white container mt-3 d-flex flex-row align-items-center justify-content-between'>
-                  <div className='logonav ms-md-5'> <img src={logo} width="120px" height="48px" alt="" /></div>
-                  <div className='col-8 col-md-6 ' >
-                    <nav className=' d-flex flex-row justify-content-between me-md-3'>
-                      <Link className='nav-link' to="Contact">Contact</Link>
-                      <Link className='nav-link' to="Event">Events</Link>
-                      <Link className='nav-link' to="Finddoctor">Find Doctor</Link>
-                      <Link className='nav-link' to="/">Home</Link>
-                      <li><img src={frame} width="36px" height="20px" /></li>
-                    </nav>
-                  </div>
-                </div>
-              </div> */}
-
-              {/* end nav par bg-white of figma */}
-              <div id='orang' className='  py-5 '>
+              <div id='orang' className=' py-5 '>
                 <div className='imghight  d-flex justify-content-between'>
                   <img className='Blob33 ' src={Blob33} width="600px" height="500px" />
                   <img className='Blob4 ' src={Blob4} alt="" />
                 </div>
               </div>
-
-              <div className='textdoctor col-12 col-md-10 col-lg-12 container   d-flex flex-row align-items-center justify-content-between '>
+              
+              <div className='textdoctor container  col-12 col-md-10 col-lg-12 container   d-flex flex-row align-items-center justify-content-between '>
                 <div className='col-6 col-lg-5   div1 d-flex align-content-center align-items-center '>
                   <div className='col-12 bntdiv1 mt-5 h-75 d-flex flex-column align-items-baseline gap-1 gap-md-3'>
                     <h1>Discover Your <br /> Child’s Potential</h1>
@@ -132,7 +110,7 @@ export default function Homepage() {
                     <img className='underlight' src={underlayar} width="800px" height="460px" style={{ opacity: "0.5" }} alt="" />
 
                     <div className='imgboydoctor   ms-md-4 col-md-11 '>
-                      <div className='gropicon px-lg-2 px-1 col-11 col-md-6 col-lg-5 d-flex flex-row align-items-center justify-content-between'>
+                      <div className='gropicon px-lg-2 px-1 col-9 col-md-6 col-lg-5 d-flex flex-row align-items-center justify-content-between'>
                         <img className='icon1' src={icon} width="98px" height="56px" alt="" />
                         <h5 className='mt-md-2 m-0'>+90<p>Doctor</p> </h5>
                         <img className='truicon2' src={trueicon} width="40px" height="40px" alt="" />
@@ -183,7 +161,7 @@ export default function Homepage() {
                   </div>
 
                   <div className='col-lg-5 leftchid d-flex align-content-center align-items-center'>
-                    <div className='container allabutandp col-md-10 py-5  d-flex flex-column  gap-4 '>
+                    <div className='container allabutandp col-md-10 py-md-5  d-flex flex-column  gap-4 '>
 
                       <div className='aboutus col-8 col-md-11 col-lg-7 d-flex justify-content-around align-items-center gap-md-2 '>
                         <h1>About us</h1>
@@ -217,9 +195,9 @@ export default function Homepage() {
                 <div className='container   sonservices py-4 col-11 col-lg-10 d-flex justify-content-between flex-wrap gap-3 gap-lg-0  '>
 
                   <div className='col-lg-4 col-md-5 d-flex  align-items-end'>
-                    <div className='container col-11  secondry1 py-4 col-md-10  d-flex flex-column gap-2 align-items-center'>
+                    <div className='container col-11  secondry1 py-4 col-md-11 col-lg-10 d-flex flex-column gap-2 align-items-center'>
 
-                      <div className=' col-8 d-flex knowledg py-2 mt-1 justify-content-around align-items-center justify-content-center'>
+                      <div className=' col-8 col-md-9 col-lg-8 d-flex knowledg py-2 mt-1 justify-content-around align-items-center justify-content-center'>
                         <img src={spanicon1} width="40px" height="40px" alt="" />
                         <h3>IQ Testing</h3>
                       </div>
@@ -234,9 +212,9 @@ export default function Homepage() {
                   </div>
 
                   <div className='col-lg-4 col-md-5 d-flex align-items-center'>
-                    <div className='container col-11 secondry1 py-3 col-md-10  d-flex flex-column  align-content-center gap-2'>
+                    <div className='container col-11 secondry1 py-3 col-md-11 col-lg-10  d-flex flex-column  align-content-center gap-2'>
 
-                      <div className='d-flex flex-row  ms-3 col-11  knowledg  py-2 mt-1 justify-content-around align-content-center align-items-center'>
+                      <div className='d-flex flex-row  ms-2 col-11 col-md-12 col-lg-11  knowledg  py-2 mt-1 justify-content-around align-content-center align-items-center'>
                         <img src={spanicon} width="40px" height="40px" alt="" />
                         <h3> Cognitive Tools</h3>
                       </div>
@@ -250,7 +228,7 @@ export default function Homepage() {
                   </div>
 
                   <div className='col-lg-4 integrity col-md-5 d-flex align-items-end'>
-                    <div className='container col-11 secondry1 py-3 col-md-10  d-flex flex-column align-items-center  gap-2'>
+                    <div className='container col-11 secondry1 py-3 col-md-11 col-lg-10  d-flex flex-column align-items-center  gap-2'>
 
                       <div className='d-flex  col-9 knowledg py-2 mt-1 justify-content-around align-items-center'>
                         <img src={spanicon2} width="40px" height="40px" alt="" />
@@ -274,7 +252,7 @@ export default function Homepage() {
 
             <div className='col-12 div4 bg-white'>
               <div className='container  col-lg-9 d-flex flex-column align-items-center gap-5'>
-                <div className='col-md-10 mt-5 mt-md-0 title container d-flex justify-content-between align-items-center'>
+                <div className='col-md-11 col-lg-10 mt-5 mt-md-0 title container d-flex justify-content-between align-items-center'>
                   <h3>Doctors</h3>
                   <Link to={"/Finddoctor"} className='button px-3 py-1 px-md-5 py-md-2 rounded-5'>See more</Link>
                 </div>
@@ -302,8 +280,8 @@ export default function Homepage() {
 
 
             <div className='col-12 div5 bg-white'>
-              <div className='container  col-md-9 d-flex  flex-column align-items-center  gap-5'>
-                <div className='col-md-10 mt-5 mt-md-5 mt-lg-0 title container d-flex justify-content-between align-items-center'>
+              <div className='container  col-md-12 col-lg-9 d-flex  flex-column align-items-center  gap-5'>
+                <div className='col-md-11 col-lg-10 mt-5 mt-md-5 mt-lg-0 title container d-flex justify-content-between align-items-center'>
                   <h3>Events</h3>
                   <Link to={"/Event"} className='button px-3 py-1 px-md-5 py-md-2 rounded-5'>See more</Link>
                 </div>
@@ -329,11 +307,11 @@ export default function Homepage() {
             </div>
 
             <div className='col-12 div6 bg-white'>
-              <div className='container  col-lg-9 d-flex  flex-column align-items-center gap-5'>
-                <div className='col-md-10 mt-5 mt-md-5 mt-lg-0 title container  d-flex justify-content-between align-items-center'>
+              <div className='container col-md-12  col-lg-9 d-flex  flex-column align-items-center gap-5'>
+                <div className='col-md-12 col-lg-10 mt-5 mt-md-5 mt-lg-0 title container  d-flex justify-content-between align-items-center'>
                   <h3>Events</h3>
                 </div>
-                <div className='col-11 col-md-10 divcard d-flex justify-content-between flex-wrap gap-md-5 gap-lg-0'>
+                <div className='col-11 col-md-12 col-lg-10 divcard d-flex justify-content-between flex-wrap gap-md-5 gap-lg-0'>
                   {
                     books.slice(0, 3).map((el, index) => {
                       return (

@@ -102,6 +102,7 @@ export default function DetailsDoctor() {
                   </div>
                 </div>
               </div>
+              <Link className='nav-link py-2 rounded-5 text-white text-center' to={`/booking/${id}`} id={styles.buttonbooking}>Booking</Link>
             </div>
 
           </div>

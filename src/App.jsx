@@ -42,13 +42,19 @@ import EditeBook from './Pages/Dashboard/EditeBook'
 import Viedo from './Pages/Dashboard/Viedo'
 import CreateVedio from './Pages/Dashboard/CreateVedio'
 import EditeVedio from './Pages/Dashboard/EditeVedio'
+import TestShow from './Pages/Testshow'
+import Category from './Pages/Dashboard/Category'
+import CreateCategory from './Pages/Dashboard/CreateCategory'
+import EditeCategory from './Pages/Dashboard/EditeCategory'
+import Booking from './Pages/Booking'
+import Appointment from './Pages/Dashboard/Appointment'
 export default function App() {
 
   return (
 
     <BrowserRouter>
       {/* <AppLayout/> */}
-      
+
       <Chat />
       <ScrollToTop />
       {/* start nav par bg-white of figma */}
@@ -86,27 +92,34 @@ export default function App() {
           <Route path='/report' element={<Reports />}></Route>
           <Route path='/question' element={<Question />} />
           <Route path='/test' element={<Test />} />
-          <Route path='/createtest' element={<CreateTest />} />
+          <Route path='/appointment' element={<Appointment/>}/>
+          <Route path='/booking/:id' element={<Booking />} />
 
+          <Route path='/createtest' element={<CreateTest />} />
           <Route path='/createquestion' element={<CreateQuestion />} />
           <Route path='/createbook' element={<CreatBook />} />
           <Route path='/createvedio' element={<CreateVedio />} />
+          <Route path='/createcategory' element={<CreateCategory />} />
 
           <Route path='/editequestion/:id' element={<EditeQuestion />} />
           <Route path='/editetest/:id' element={<EditeTest />} />
-          <Route path='/editebook/:id' element={<EditeBook/>} />
-          <Route path='/editevedio/:id' element={<EditeVedio/>} />
-
+          <Route path='/editebook/:id' element={<EditeBook />} />
+          <Route path='/editevedio/:id' element={<EditeVedio />} />
+          <Route path='/editecategory/:id' element={<EditeCategory />} />
           <Route path='/editeprofile/:id' element={<EditeProfile />} />
+
+
           <Route path='/ask' element={<Ask />} />
           <Route path='/bookdoctor' element={<Book />} />
           <Route path='/vediodoctor' element={<Viedo />} />
+          <Route path='/category' element={<Category />} />
 
         </Route>
 
         <Route path='/'>
           <Route path='/DetailsDoctor/:id/test/:testNumber' element={<TestNow />} />
           <Route path='/DetailsDoctor/:id/tests' element={<TestCategory />} />
+          <Route path='/DetailsDoctor/:id/tests/:categoryID' element={<TestShow />} />
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
           <Route path='/registeradmin2' element={<RegisterAdminn />} />

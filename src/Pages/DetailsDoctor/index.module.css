@@ -98,6 +98,13 @@
     border-radius: 20px;
 
   }
+  #buttonbooking{
+    outline: none;
+    border: none;
+    font-size: 20px;
+    font-weight: 600;
+    background-color:#307BC4;
+  }
 }
 #textaboutme{
    color: #0C3275;

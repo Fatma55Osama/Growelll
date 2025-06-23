@@ -12,6 +12,9 @@ import { Doctorprofile } from "../API/Doctorprofile";
 import { store_test } from "../API/store_test";
 import { DoctorReport } from "../API/DoctorReport";
 import { store_contectus } from "../API/store_contectus";
+import { show_singleCategory } from "../API/show_singleCategory";
+import { store_Category } from "../API/store_Category";
+import { getallbooking } from "../API/getallbooking";
 
 export const getData = {
     get_all_doctor: async (domain, page = 1, pageSize = 10) => {
@@ -59,5 +62,14 @@ export const getData = {
       get_store_contectus: async ( tokenDoctor,domain) => {
         return await store_contectus( tokenDoctor,domain)
     },
-    
+     get_show_singleCategory: async (domain,id , tokenDoctor) => {
+        return await show_singleCategory(domain,id ,tokenDoctor)
+    },
+    get_store_Category:async(domain,tokenDoctor)=>{
+        return await store_Category(domain,tokenDoctor)
+    },
+    get_getallbooking:async(domain,tokenDoctor)=>{
+        return await getallbooking(domain,tokenDoctor)
+    },
+
 } 

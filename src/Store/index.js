@@ -248,3 +248,16 @@ export const usevediodoctor = create((set)=>({
 //   Doctorsingletest:{},
 //   setDoctorsingletest:(val)=>set({Doctorsingletest:val})
 // }))
+export const useCategory = create((set)=>({
+  category:[],
+  setcategory:(val)=>set({category:val})
+}))
+export const usebookingAppoiement = create((set)=>({
+  booking:[],
+  setbooking:(val)=>set({booking:val})
+}))
+// export const usesingleCategory = create((set)=>({
+//   singlecategory:{},
+//   setsinglecategory:(val)=>set({singlecategory:val})
+// }))
+

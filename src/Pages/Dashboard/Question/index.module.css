@@ -97,3 +97,19 @@
     max-width: 100%;
   }
 }
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-3px);
+  transition: all 0.3s ease;
+}
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+.btn-outline-danger:hover {
+  background-color: #dc3545;
+  color: #fff;
+}
+#spacediv1{
+  margin-top: 70px;
+}

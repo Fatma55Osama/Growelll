@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './index.module.css'
 import { InputAdornment } from '@mui/material'
 import { IoIosArrowRoundBack } from 'react-icons/io'
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { getData } from '../../../data/Repo/getData'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useCategory, usedomain } from '../../../Store'
 export default function CreateTest() {
     //   {
     //   
@@ -21,27 +22,46 @@ export default function CreateTest() {
     const numberOfQuestions = useRef()
     const isActive = useRef()
     const [error, setError] = useState()
+    const { domain } = usedomain()
+    const { category, setcategory } = useCategory()
+
 
     // const DoctorID = useRef()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
-
+    useEffect(() => {
+        getData.get_store_Category(domain, tokenDoctor).then((res) => {
+            setcategory(res)
+            console.log(res)
+        })
+            .catch((err) => {
+                console.error("Error fetching Category data:", err);
+            });
+    }, [])
     const handelCreateTest = (e) => {
         e.preventDefault();
-
+        if (!testName.current || !description.current || !categoryID.current || !numberOfQuestions.current || !isActive.current) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Form inputs are not ready yet. Please wait a moment.',
+            });
+            return;
+        }
         let testNamevalue = testName.current.value
         let descriptionvalue = description.current.value
         let categoryIDvalue = categoryID.current.value
         let numberOfQuestionsvalue = numberOfQuestions.current.value
-        let isActive4value = isActive.current.value
+        let isActive4value = isActive.current.checked
 
         // let DoctorIDvalue = DoctorID.current.value
+        console.log("categoryID.current is:", categoryID.current)
 
-        if (!testNamevalue || !descriptionvalue || !categoryIDvalue || !numberOfQuestionsvalue || !isActive4value) {
+        if (!testNamevalue || !descriptionvalue || !categoryIDvalue || !numberOfQuestionsvalue) {
             Swal.fire({
                 icon: "warning",
                 text: "All fields are required"
-            })
-            return
+            });
+            return;
         }
         axios.post('https://localhost:7071/api/Test/Create', {
             "testName": testName.current.value,
@@ -82,11 +102,10 @@ export default function CreateTest() {
                 }
             }
             setError(err.response.data.errors)
+            console.error("Error fetching Category data:", err);
             Swal.fire({
-                icon: 'error',
-                title: 'Submission Failed',
-                text: 'Please try again later or check your inputs.',
-                confirmButtonColor: '#d33'
+                icon: "error",
+                text: "Failed to load categories. Please refresh the page.",
             });
         })
     }
@@ -121,7 +140,14 @@ export default function CreateTest() {
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
                                 <label>CategoryID</label>
-                                <input ref={categoryID} className='py-2 col-10' type="number" placeholder='  Please Enter your categoryID ' />
+                                <select ref={categoryID} className='py-2 col-10'>
+                                    <option value="">-- Select a category --</option>
+                                    {Array.isArray(category) && category.map((el) => (
+                                        <option className='text-black' key={el.categoryID} value={el.categoryID}>{el.name}</option>
+                                    ))}
+
+                                </select>
+                                {/* <input ref={categoryID} className='py-2 col-10' type="number" placeholder='  Please Enter your categoryID ' /> */}
                             </div>
                         </div>
                         <div className='col-12 d-flex flex-row justify-content-between flex-wrap gap-3 gap-md-0'>
@@ -142,7 +168,7 @@ export default function CreateTest() {
 
                         <div className='d-flex justify-content-center'>
 
-                            <button type='submit' className={styles.button + ' py-2 py-md-3 col-5 text-white col-lg-3 '}>Save Test </button>
+                            <button disabled={category.length === 0} type='submit' className={styles.button + ' py-2 py-md-3 col-5 text-white col-lg-3 '}>Save Test </button>
                         </div>
 
                     </form>

@@ -41,9 +41,9 @@ export default function Reports() {
         token ? (<>
           <div
             id={styles.sectionreport1}
-            className="d-flex align-items-center justify-content-between"
+            className="container d-flex align-items-center justify-content-between"
           >
-            <div className={styles.div2 + " ms-5 mt-2 d-flex align-items-center"}>
+            <div className={styles.div2 + "  ms-5 mt-2 d-flex align-items-center"}>
               {report.length > 0 ? (
                 <>
                   <img src={`${domain}/${report[0]?.photo}`} width={490} height={499} alt="" />

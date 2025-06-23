@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './index.module.css'
 import { InputAdornment } from '@mui/material'
 import { IoIosArrowRoundBack } from 'react-icons/io'
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { getData } from '../../../data/Repo/getData'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { useDoctorTest, usedomain } from '../../../Store'
 export default function CreateQuestion() {
     //     {
     //   "questionID": 0,
@@ -32,10 +33,23 @@ export default function CreateQuestion() {
     const createdAt = useRef()
     const testID = useRef()
     const [error, setError] = useState('');
-
+    const { domain } = usedomain()
+    const { Doctortest, setDoctortest } = useDoctorTest()
     // const DoctorID = useRef()
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
-
+    useEffect(() => {
+        if (tokenDoctor) {
+            getData.get_store_test(tokenDoctor, domain).then((res) => {
+                console.log("Doctorstore_Doctortest", res);
+                setDoctortest(res)
+                // navigat('/question')
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else {
+            navigate('/')
+        }
+    }, [])
     const handelCreateQuestion = (e) => {
         e.preventDefault();
 
@@ -47,10 +61,10 @@ export default function CreateQuestion() {
         let correctAnswervalue = correctAnswer.current.value
         let orderNumbervalue = orderNumber.current.value
         let createdByvalue = createdBy.current.value
-        let testIDvalue = testID.current.value
+        let testIDvalue = testID.current?.value
         // let DoctorIDvalue = DoctorID.current.value
 
-        if (!questionTextvalue || !answerOption1value || !answerOption2value || !answerOption3value || !answerOption4value || !correctAnswervalue || !orderNumbervalue || !createdByvalue || !testIDvalue) {
+        if (!questionTextvalue || !testIDvalue||!answerOption1value || !answerOption2value || !answerOption3value || !answerOption4value || !correctAnswervalue || !orderNumbervalue || !createdByvalue) {
             Swal.fire({
                 icon: "warning",
                 text: "All fields are required"
@@ -67,7 +81,7 @@ export default function CreateQuestion() {
             "orderNumber": orderNumber.current.value,
             "createdBy": createdBy.current.value,
             "createdAt": new Date().toISOString(),
-            "testID": testID.current.value
+            "testID": testID.current?.value
         }, {
             headers: {
                 Authorization: `Bearer ${tokenDoctor}`
@@ -80,15 +94,15 @@ export default function CreateQuestion() {
                 text: 'Your request has been sent.',
                 confirmButtonColor: '#3085d6'
             })
-            questionText.current.value=''
-            answerOption1.current.value=''
-            answerOption2.current.value=''
-            answerOption3.current.value=''
-            answerOption4.current.value=''
-            correctAnswer.current.value=''
-            orderNumber.current.value=''
-            createdBy.current.value=''
-            testID.current.value=''
+            questionText.current.value = ''
+            answerOption1.current.value = ''
+            answerOption2.current.value = ''
+            answerOption3.current.value = ''
+            answerOption4.current.value = ''
+            correctAnswer.current.value = ''
+            orderNumber.current.value = ''
+            createdBy.current.value = ''
+            testID.current.value = ''
             setError('')
 
         }).catch((err) => {
@@ -180,7 +194,17 @@ export default function CreateQuestion() {
                         </div> */}
                         <div className='col-12 col-md-12 d-flex flex-column gap-2'>
                             <label>testID</label>
-                            <input ref={testID} className='py-2 col-12 col-md-11' type="number" placeholder='  Please Enter your testID ' />
+                            <select ref={testID} className='py-2 col-12 col-md-11'>
+                                <option value="">--Select Test ID</option>
+                                {Doctortest.map((el) => {
+                                 
+                                    return (
+                                        <option  key={el.testId} value={el.testId}>{el.testName}</option>
+
+                                    )
+                                })}
+                            </select>
+                            
                             {error.TestID && <div className="text-danger">{error.TestID[0]}</div>}
 
                         </div>

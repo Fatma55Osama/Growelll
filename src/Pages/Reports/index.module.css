@@ -5,7 +5,7 @@
     max-height: 100%;
     margin-top: 120px;
     .div2 {
-      margin-left: 150px !important;
+      /* margin-left: 150px !important; */
       img {
         width: 490px;
         height: 499px;
@@ -58,7 +58,7 @@
       box-shadow: 0px 4px 11.4px 0px #307bc426;
       border-radius: 25px;
       height: 381px;
-      margin-right: 50px;
+      /* margin-right: 50px; */
       #btnclassifact {
         button {
           border: none;

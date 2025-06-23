@@ -9,9 +9,11 @@ import Card from 'react-bootstrap/Card';
 import star from '../../assets/Frame 8823.png'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
+import { HiMiniSlash } from "react-icons/hi2";
 import "swiper/css";
 import './index.scss'
 import "swiper/css/navigation";
+import 'swiper/css/free-mode';
 import { useData, usedomain, usePagenation, useSearch } from '../../Store'
 import doctor from '../../assets/Group 8756.png'
 import doctorsimg from "../../assets/Link → doctor_11.png.png";
@@ -36,8 +38,8 @@ export default function Finddoctor() {
     });
     const copyfilter = [...doctors].filter((el) => { return el.aveRating > 3 })
     setFilterrate(copyfilter)
-    console.log('aveRating',copyfilter)
-  }, [domain, page, pageSize]);
+    console.log('aveRating', copyfilter)
+  }, [domain, page, pageSize, doctors]);
 
   const handleSearch = () => {
     Search(domain, searchText).then((res) => {
@@ -49,18 +51,18 @@ export default function Finddoctor() {
     <div className={styles.parent}>
       {/* <Nav /> */}
       <div className={styles.contandivcenter + ' container   d-flex flex-column align-items-center justify-content-center'}>
-        <div className={styles.div1 + ' col-11 px-4  d-flex flex-column  gap-5'}>
+        <div className={styles.div1 + ' col-12 col-md-11 px-4  d-flex flex-column  gap-5'}>
           <div className={styles.divresearsh + ' col-12 d-flex flex-wrap flex-row justify-content-between align-items-center'} >
-            <span className='d-flex gap-1'><Link className='nav-link' to={"/"}>Home</Link> / <Link to={"/Finddoctor"} className='nav-link'>Doctors</Link></span>
-            <div className={styles.divinput + ' col-6 col-md-4 col-lg-3   px-md-2 rounded-5 d-flex  align-items-center  py-md-2'}>
+            <span className='d-flex align-items-center gap-1'><Link className='nav-link' to={"/"}>Home</Link> <HiMiniSlash /><Link to={"/Finddoctor"} className='nav-link'>Doctors</Link></span>
+            <div className={styles.divinput + ' col-6 col-md-4 col-lg-3 px-2 py-2   px-md-2 rounded-5 d-flex  align-items-center  py-md-2'}>
               <input
-                className='col-8 col-md-8 ms-3'
+                className='col-9 col-md-8  ms-md-3'
                 placeholder='Search Doctors'
                 type="text"
                 value={searchText}
                 onChange={(e) => setSearchText(e.target.value)}
                 onKeyUp={handleSearch}
-              />              <img className='ms-2 ms-md-3' src={iconsearch} width="25px" height="25px" alt="" />
+              />              <img className='ms-1   ms-md-3' src={iconsearch} width="25px" height="25px" alt="" />
             </div>
 
           </div>
@@ -86,15 +88,29 @@ export default function Finddoctor() {
                 modules={[FreeMode, Navigation]}
                 onSlideChange={(swiper) => setIsBeginning(swiper.isBeginning)}
                 className="mySwiper"
+                breakpoints={{
+                  0: {
+                    slidesPerView: 1,
+                    spaceBetween: 10,
+                  },
+                  768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                  },
+                }}
               >
                 {
-                  filterrate.map((el, index) => (
-                    <SwiperSlide>
+                  filterrate?.map((el, index) => (
+                    <SwiperSlide key={el.id}>
 
-                      <Card key={el.id} className={styles.Cardstyl} style={{ width: '22rem' }}>
-                        <Card.Img variant="top" width={350} height={350} style={{ objectFit: "contain" }} src={`${domain}/${el.image}`} />
+                      <Card  className={styles.Cardstyl} style={{ width: '22rem', height: "510px" }}>
+                        <Card.Img variant="top" id={styles.imgcard} width={350} height={330} style={{ objectFit: "fill" }} src={`${domain}/${el.image}`} />
 
-                        <Card.Body>
+                        <Card.Body style={{height:"180px"}} id={styles.cardbody}>
                           <Card.Title className={styles.titlecard}>{el.fullName}</Card.Title>
                           {/* <Card.Img src={star} style={{ width: "100px" }} /> */}
                           <DoctorRating value={el?.aveRating} id={styles.star} />
@@ -124,18 +140,18 @@ export default function Finddoctor() {
               doctors.length > 0 ? (
                 doctors.map((el) => (
                   <div key={el.id} className='col-12 '>
-                    <div className='col-12 d-flex align-items-center justify-content-between '>
+                    <div className='col-12 d-flex align-items-center justify-content-between ' id={styles.smallflex}>
                       <div className={styles.imgdiv + " col-4"}>
                         <img src={`${domain}/${el.image}`} width={280} alt="" style={{ borderRadius: "50%" }} />
                       </div>
-                      <div className={styles.contantdata + " col-7 d-flex flex-column"}>
-                        <div className='ps-5 py-3 d-flex flex-column gap-3'>
-                          <div className='d-flex flex-column gap-1'>
+                      <div className={styles.contantdata + " col-md-7 col-12 d-flex flex-column"}>
+                        <div className='ps-md-5 px-3 py-3 d-flex flex-column gap-3'>
+                          <div className='d-flex flex-column gap-1 '>
                             <Link className='nav-link' to={el.id ? `/DetailsDoctor/${el.id}` : '#'}>
                               <h4>Dr: {el.fullName}</h4>
                             </Link>
                             <span>{el.specialization}</span>
-                            <p className='col-6'>{el.bio}</p>
+                            <p className='col-md-6'>{el.bio}</p>
                           </div>
                           <div className={styles.divicons + " d-flex gap-3"}>
                             <div className={styles.bordericon + " d-flex align-items-center justify-content-center"}>
@@ -150,8 +166,8 @@ export default function Finddoctor() {
                           </div>
                         </div>
 
-                        <div className={styles.HaveTest + " px-5 py-3"}>
-                          <div className='d-flex justify-content-between'>
+                        <div className={styles.HaveTest + " px-3 px-md-5  py-3"}>
+                          <div className='d-flex justify-content-between '>
                             <div className='d-flex align-items-center gap-2'>
                               <CiClock2 />
                               <span>Avaibility</span>
@@ -176,7 +192,7 @@ export default function Finddoctor() {
               Searchs.length > 0 ? (
                 Searchs.map((el) => (
                   <div key={el.id} className='col-12 '>
-                    <div className='col-12 d-flex align-items-center justify-content-between '>
+                    <div className='col-12 d-flex align-items-center justify-content-between ' id={styles.smallflex}>
                       <div className={styles.imgdiv + " col-4"}>
                         <img src={`${domain}/${el.image}`} width={280} alt="" style={{ borderRadius: "50%" }} />
                       </div>

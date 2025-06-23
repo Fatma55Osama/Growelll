@@ -5,8 +5,9 @@ import { IoIosArrowRoundBack } from 'react-icons/io'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
-import { usedomain } from '../../../Store'
+import { useCategory, usedomain } from '../../../Store'
 import { show_singletestdoctor } from '../../../data/API/show_singletestdoctor'
+import { getData } from '../../../data/Repo/getData'
 export default function EditeTest() {
     const params = useParams()
     let id = params.id
@@ -18,11 +19,11 @@ export default function EditeTest() {
     const [categoryID, setCategoryID] = useState('');
     const [numberOfQuestions, setNumberOfQuestions] = useState('');
     const [isActive, setisActive] = useState('');
+    const { category, setcategory } = useCategory()
+
     const navigate = useNavigate()
     useEffect(() => {
         show_singletestdoctor(domain, id, tokenDoctor).then((res) => {
-
-
             setTestName(res.testName || '');
             setDescription(res.description || '');
             setCategoryID(res.categoryID?.toString() ?? '');
@@ -32,17 +33,25 @@ export default function EditeTest() {
             .catch((err) => {
                 console.error("Error fetching test data:", err);
             });
-    }, [id]);
 
+    }, [id]);
+    useEffect(() => {
+        getData.get_store_Category(domain, tokenDoctor).then((res) => {
+            setcategory(res)
+            console.log("get_store_Category", res)
+        })
+            .catch((err) => {
+                console.error("Error fetching Category data:", err);
+            });
+    }, [])
     const handelEditTest = (e) => {
         e.preventDefault()
         if (
             !testName ||
             !description ||
             !categoryID ||
-            !numberOfQuestions ||
-            !isActive
- ) {
+            !numberOfQuestions
+        ) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Missing Fields',
@@ -57,7 +66,7 @@ export default function EditeTest() {
         axios.put(`https://localhost:7071/api/Test/Edit/${id}`, {
             "testName": testName,
             "description": description,
-            "categoryID": Number(categoryID),
+            "categoryID": parseInt(categoryID),
             'numberOfQuestions': Number(numberOfQuestions),
             'isActive': isActive,
         }, {
@@ -130,7 +139,17 @@ export default function EditeTest() {
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
                                 <label>CategoryID</label>
-                                <input value={categoryID} onChange={(e) => setCategoryID(e.target.value)} className='py-2 col-10' type="number" placeholder='  Please Enter your CategoryID ' />
+                                <select value={categoryID} onChange={(e) => setCategoryID(e.target.value)}>
+                                    {/* <option value=""></option> */}
+                                    {Array.isArray(category) && category?.map((el) => {
+                                        console.log('categoryID', categoryID)
+                                        return (
+                                            <option key={el.categoryID} value={el.categoryID}>{el.name}</option>
+
+                                        )
+                                    })}
+                                </select>
+                                {/* <input value={categoryID} onChange={(e) => setCategoryID(e.target.value)} className='py-2 col-10' type="number" placeholder='  Please Enter your CategoryID ' /> */}
                                 {error?.CategoryID && <div className="text-danger">{error?.CategoryID[0]}</div>}
 
 
@@ -156,7 +175,7 @@ export default function EditeTest() {
                         </div>
 
 
-
+                        {error?.updatedTest && <div className="text-danger">{error.updatedTest[0]}</div>}
 
 
                         <div className='d-flex justify-content-center'>

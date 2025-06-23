@@ -5,6 +5,8 @@ import { IoIosArrowRoundBack } from 'react-icons/io'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
+import { getData } from '../../../data/Repo/getData'
+import { useDoctorTest, usedomain } from '../../../Store'
 export default function EditeQuestion() {
     const params = useParams()
     let id = params.id
@@ -21,8 +23,21 @@ export default function EditeQuestion() {
     const [createdBy, setcreatedBy] = useState('');
     const [testID, setTestID] = useState('');
     const createdAt = new Date().toISOString();
+    const { domain } = usedomain()
+    const { Doctortest, setDoctortest } = useDoctorTest()
     useEffect(() => {
-        axios.get(`https://localhost:7071/api/Question/${id}`, {
+        if (tokenDoctor) {
+            getData.get_store_test(tokenDoctor, domain).then((res) => {
+                console.log("Doctorstore_Doctortest", res);
+                setDoctortest(res)
+                // navigat('/question')
+            }).catch((err) => {
+                console.log(err)
+            })
+        } else {
+            navigate('/')
+        }
+        axios.get(`${domain}/api/Question/${id}`, {
             headers: {
                 Authorization: `Bearer ${tokenDoctor}`
             }
@@ -182,9 +197,15 @@ export default function EditeQuestion() {
                                 min={new Date().toISOString().split('T')[0]}
                                 max={new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]} />
                         </div> */}
-                        <div className='col-12 col-md-12 d-flex flex-column gap-2'>
+                        <div className='col- col-md-12 d-flex flex-column gap-2'>
                             <label>testID</label>
-                            <input value={testID} onChange={(e) => setTestID(e.target.value)} className='py-2 col-12 col-md-11' type="number" placeholder='  Please Enter your testID ' />
+                            <select valu12e={testID} onChange={(e) => setTestID(e.target.value)} className='py-2 col-12 col-md-11'>
+                                {Doctortest.map((el) => (
+                                    <option value={el.testId} key={el.testId}>{el.testName}</option>
+                                ))}
+
+                            </select>
+                            {/* <input value={testID} onChange={(e) => setTestID(e.target.value)} className='py-2 col-12 col-md-11' type="number" placeholder='  Please Enter your testID ' /> */}
 
                         </div>
                         <div className='col-12 col-md-12 d-flex flex-column gap-2'>

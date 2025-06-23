@@ -14,7 +14,7 @@
       font-family: "Poppins", sans-serif;
       font-weight: 400;
     }
-    input {
+    input,select {
       border-radius: 10px;
       border: 1px solid #307bc480;
       outline: none;

@@ -1,10 +1,12 @@
-/* .parent {
-  #question1 {
+.category{
+#question1 {
     min-height: 600px;
     max-height: 90%;
-    background: linear-gradient(119.31deg, #2ac6ea70 17.16%, #007fff 89.78%);
+    /* margin-top: 8%; */
+    background: linear-gradient(119.31deg, #0074E4 17.16%, #0060CA 89.78%);
     .div2 {
       margin-left: 150px !important;
+      /* margin-top: 20px !important; */
       img {
         width: 390px;
         height: 399px;
@@ -69,14 +71,17 @@
       font-weight: 500;
     }
   }
+  
   .divqqa {
-   
+    /* min-height: 500px;
+    max-height: 90%; */
   }
   #Qa {
     #singleqa {
       margin-top: 100px;
+      /* background-color: #307bc4; */
       border-radius: 10px;
-      background-color: rgba(221, 231, 255, 1);
+      background-color: #A2D2FF;
       color: rgba(12, 50, 117, 1) !important;
       border: 1px solid rgba(12, 50, 117, 1);
     }
@@ -93,100 +98,102 @@
     overflow-wrap: break-word;
     white-space: normal;
     max-width: 100%;
-  }
-} */
-.parent{
+  }}
   
-}
-.divqqa {
-  background-color: #f8f9fb; /* خلفية فاتحة */
-}
-
-.testCard {
-  background: #ffffff;
-  border-radius: 15px;
-  padding: 25px;
-  border: 1px solid #e0e6ed;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: 0.3s ease-in-out;
+  .category {
+  background: #f4f8fb;
+  min-height: 100vh;
+  padding-bottom: 50px;
 }
 
-.testCard:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+.pageTitle {
+  font-size: 32px;
+  font-weight: bold;
+  color: #0056b3;
 }
 
-.testCard h4 {
-  color: #1e3a8a;
-  font-size: 22px;
-}
-
-.testCard p {
-  margin-bottom: 10px;
-  font-size: 15px;
-  color: #333;
-}
-
-.testCard button,
-.testCard a {
-  font-size: 14px;
-  font-weight: 500;
-  padding: 6px 12px;
-}
-.div2 {
-  background: #ffffff;
+.doctorCard {
+  display: flex;
+  align-items: center;
+  background: white;
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  padding: 30px;
-  gap: 20px;
-}
-
-.div2 img {
-  border-radius: 15px;
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-}
-
-.contantdata {
-  background: #f9fafc;
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: inset 0 1px 6px rgba(0, 0, 0, 0.04);
+  gap: 20px;
+  margin-bottom: 30px;
 }
-/* الصورة تبقى مربعة وناعمة */
-img.rounded-4 {
+
+.doctorImg {
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 3px solid #0074e4;
+}
+
+.doctorInfo h4 {
+  margin-bottom: 10px;
+  color: #274760;
+  font-weight: bold;
+}
+
+.doctorInfo p {
+  color: #27476099;
+}
+
+.addBtn {
+  background-color: #0074e4;
+  color: white !important;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.addBtn:hover {
+  background-color: #005bb5;
+}
+
+.categoryCard {
+  background: white;
   border-radius: 20px;
-  border: 3px solid #e0e0e0;
-}
-
-/* ألوان وأزرار هادية */
-.btn-outline-primary {
-  border-color: #007bff;
-  color: #007bff;
+  padding: 20px;
+  border: 1px solid #ccc;
   transition: 0.3s;
-}
-.btn-outline-primary:hover {
-  background-color: #007bff;
-  color: #fff;
+  height: 100%;
 }
 
-.btn-outline-success:hover {
-  background-color: #28a745;
-  color: #fff;
-}
-.btn-outline-danger:hover {
-  background-color: #dc3545;
-  color: #fff;
+.categoryCard:hover {
+  box-shadow: 0 5px 15px rgba(0, 115, 255, 0.1);
+  transform: translateY(-3px);
 }
 
-/* خلفية البطاقات */
-.bg-light {
-  background-color: #f8f9fa !important;
+.editBtn, .deleteBtn {
+  border: none;
+  background: transparent;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
 }
 
-/* تحسين التباعد */
-.shadow-sm {
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06) !important;
+.editBtn {
+  color: #0d6efd;
+}
+
+.editBtn:hover {
+  text-decoration: underline;
+}
+
+.deleteBtn {
+  color: #dc3545;
+}
+
+.deleteBtn:hover {
+  text-decoration: underline;
 }
 #spacediv1{
   margin-top: 70px;

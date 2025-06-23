@@ -11,6 +11,7 @@ import { getData } from '../../../data/Repo/getData';
 import { useDoctorQuestion, usedomain } from '../../../Store';
 import { DeleteQuestions } from '../../../data/API/DeleteQuestions';
 import Swal from 'sweetalert2';
+import { FaClipboardQuestion } from 'react-icons/fa6';
 export default function Question() {
     const { domain } = usedomain()
     const navigate = useNavigate()
@@ -83,7 +84,7 @@ export default function Question() {
                 DeleteQuestions(tokenDoctor, domain, id)
                     .then(res => {
                         Swal.fire('Deleted!', 'The question has been deleted.', 'success');
-                        
+
                         fetchQuestions();
                     })
                     .catch((error) => {
@@ -96,155 +97,94 @@ export default function Question() {
 
     return (
         <div className={styles.parent}>
-            <div className='d-flex justify-content-center ' id={styles.question1}>
-                <div className='d-flex justify-content-center container'>
-                    <div className={styles.div2 + " container   justify-content-center d-flex align-items-center mt-5"}>
-                        {
-                            Doctorquestion.length > 0 ? (
-                                <>
-                                    <img src={`${domain}/${Doctorquestion[0]?.doctor?.imgUrl}`} width={190} height={199} alt="" />
-                                    <div className={styles.contantdata + " col-5 d-flex flex-column"}>
-                                        <div className="ps-3 py-3 d-flex flex-column gap-3">
-                                            <div className="d-flex flex-column gap-1 container">
-                                                <h4>Dr: {Doctorquestion[0]?.doctor?.firstName} {Doctorquestion[0]?.doctor?.lastName}</h4>
-                                                <span>{doctor.bio}</span>
-                                                <p className='col-11'>{Doctorquestion[0]?.doctor?.bio} </p>
-                                                {/* <span>Date: {new Date(report[0]?.takenAt).toLocaleDateString()}</span> */}
-                                            </div>
-                                        </div>
-                                        <div className={styles.HaveTest + " px-5 py-4"}>
-                                            {/* <div className='d-flex justify-content-between'>
-                                <div className='d-flex align-items-center gap-2'>
-                                    <CiClock2 />
-                                    <span>Avaibility</span>
-                                </div>
-                                <div>
-                                    <Link className'nav-link' ><span>Have the test <GoArrowRight /></span></Link>
-                                </div>=
-                            </div> */}
-
-                                        </div>
-                                    </div>
-                                </>
-                            ) : (
-                                <>
-                                    <img src={`${domain}/${Doctorquestion?.doctor?.imgUrl}`} width={190} height={199} alt="" />
-                                    <div className={styles.contantdata + " col-5 d-flex flex-column"}>
-                                        <div className="ps-3 py-3 d-flex flex-column gap-3">
-                                            <div className="d-flex flex-column gap-1 container">
-                                                <h4>Dr: {Doctorquestion?.doctor?.firstName} {Doctorquestion?.doctor?.lastName}</h4>                                                <span>{doctor.bio}</span>
-                                                <p className='col-11'>{Doctorquestion?.doctor?.bio} </p>
-                                                {/* <span>Date: {new Date(report[0]?.takenAt).toLocaleDateString()}</span> */}
-                                            </div>
-                                        </div>
-                                        <div className={styles.HaveTest + " px-5 py-4"}>
-                                            {/* <div className='d-flex justify-content-between'>
-                                <div className='d-flex align-items-center gap-2'>
-                                    <CiClock2 />
-                                    <span>Avaibility</span>
-                                </div>
-                                <div>
-                                    <Link className'nav-link' ><span>Have the test <GoArrowRight /></span></Link>
-                                </div>=
-                            </div> */}
-
-                                        </div>
-                                    </div>
-                                </>
-                            )
-                        }
-
-
-
+            <div className="container py-5 " id={styles.spacediv1}>
+                <div className="text-center mb-5">
+                    <div className="d-flex justify-content-center align-items-center mb-3">
+                        <span
+                            className="rounded-circle bg-primary d-flex justify-content-center align-items-center"
+                            style={{ width: "60px", height: "60px" }}
+                        >
+                            <FaClipboardQuestion size={30} color="white" />
+                        </span>
                     </div>
-                    <div className=' col-3 d-flex justify-content-end align-items-end ' >
-                        <Link className='nav-link text-white py-4 px-4 me-3  text-white' to={'/createquestion'} id={styles.btnadd}> <IoIosAddCircleOutline /> Add new Questions</Link>
+                    <h3 className="fw-bold text-primary">All Questions</h3>
+                    <p className="text-muted">Here you can manage all your test questions.</p>
+                </div>
+                {/* Doctor Card */}
+                {Doctorquestion.length > 0 && (
+                    <div className="card mb-4 shadow-sm border-0 rounded-4">
+                        <div className="row g-0 align-items-center">
+                            <div className="col-md-3 text-center p-2">
+                                <img
+                                    src={`${domain}/${Doctorquestion[0]?.doctor?.imgUrl}`}
+                                    alt="doctor"
+                                    className="img-fluid rounded-4 shadow-sm"
+                                    style={{ width: "200px", height: "200px", objectFit: "cover" }}
+                                />
+                            </div>
+                            <div className="col-md-9">
+                                <div className="card-body">
+                                    <h3 className="card-title text-primary fw-bold">
+                                        Dr. {Doctorquestion[0]?.doctor?.firstName} {Doctorquestion[0]?.doctor?.lastName}
+                                    </h3>
+                                    <p className="card-text text-muted fst-italic">{Doctorquestion[0]?.doctor?.bio}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                )} 
+                 {/* Add Button */}
+                <div className="d-flex justify-content-end mb-4">
+                    <Link
+                        to="/createquestion"
+                        className="btn btn-primary rounded-pill d-flex align-items-center gap-2 shadow"
+                    >
+                        <IoIosAddCircleOutline />
+                        Add New Question
+                    </Link>
                 </div>
 
-            </div>
 
 
-
-            <div className={styles.divqqa}>
-                {
-                    Array.isArray(Doctorquestion) && Doctorquestion.length > 0 ? (
+              
+                {/* Questions List */}
+                <div className="row gy-4">
+                    {Array.isArray(Doctorquestion) && Doctorquestion.length > 0 ? (
                         Doctorquestion.map((el, index) => (
-                            <div key={el.questionID} className='container col-10 ' id={styles.Qa}>
-                                <div className='text-white container d-flex justify-content-between align-items-center ' id={styles.singleqa}>
-                                    <div className='ms-3 py-3 d-flex flex-column gap-2 '>
-                                        <h6 className=''>Q{index + 1}</h6>
-                                        <div className='ms-3 d-flex flex-column gap-2 mb-4' id={styles.breakText}>
-                                            <h4>{el.questionText}</h4>
-                                            <div className='d-flex gap-5'>
+                            <div key={el.questionID} className="col-12">
+                                <div className="card shadow border-0 rounded-4 p-4 position-relative">
+                                    <div className="d-flex justify-content-between">
+                                        <div>
+                                            <h5 className="fw-bold text-primary mb-3">Q{index + 1}: {el.questionText}</h5>
+                                            <div className="d-flex flex-column gap-1">
                                                 <span>A) {el.answerOption1}</span>
                                                 <span>B) {el.answerOption2}</span>
                                                 <span>C) {el.answerOption3}</span>
                                                 <span>D) {el.answerOption4}</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className={styles.icon + " d-flex gap-5 me-3"}>
-                                        <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon} to={`/editequestion/${el.questionID}`}>
-                                            <FiEdit /><span>Edit</span>
-                                        </Link>
-                                        <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon} onClick={() => handelDeleteQuestions(el.questionID)}>
-                                            <RiDeleteBin6Line /><span>Delete</span>
-                                        </Link>
+                                        <div className="d-flex justify-content-start align-items-end gap-2">
+                                            <Link to={`/editequestion/${el.questionID}`} className="btn btn-outline-primary btn-sm d-flex align-items-center gap-1">
+                                                <FiEdit /> Edit
+                                            </Link>
+                                            <button onClick={() => handelDeleteQuestions(el.questionID)} className="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                                                <RiDeleteBin6Line /> Delete
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         ))
                     ) : (
-                        <div className="text-center text-secondary my-5 d-flex justify-content-center align-items-center">
-                            <h4>{Doctorquestion?.message || "No questions found."}</h4>
+                        <div className="text-center text-muted mt-5">
+                            <h5>{Doctorquestion?.message || "No questions found."}</h5>
                         </div>
-                    )
-                }
-
-
-                {/* <div className='container col-10' id={styles.Qa}>
-                    <div className='text-white container d-flex justify-content-between align-items-center' id={styles.singleqa}>
-                        <div className='ms-3 py-3 d-flex flex-column  gap-2'>
-                            <h6 className=''>Q1</h6>
-                            <div className=' ms-3 d-flex flex-column gap-2 mb-4'>
-                                <h4>what is 4+4 ?</h4>
-                                <div className='d-flex gap-5'>
-                                    <span>Answer1</span>
-                                    <span>Answer1</span>
-                                    <span>Answer1</span>
-                                    <span>Answer1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.icon + " d-flex gap-5 me-3"}>
-                            <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon}><FiEdit /><span>Edit</span></Link>
-                            <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon}><RiDeleteBin6Line /><span>Delete</span></Link>
-                        </div>
-                    </div>
+                    )}
                 </div>
-                <div className='container col-10' id={styles.Qa}>
-                    <div className='text-white container d-flex justify-content-between align-items-center' id={styles.singleqa}>
-                        <div className='ms-3 py-3 d-flex flex-column  gap-2'>
-                            <h6 className=''>Q1</h6>
-                            <div className=' ms-3 d-flex flex-column gap-2 mb-4'>
-                                <h4>what is 4+4 ?</h4>
-                                <div className='d-flex gap-5'>
-                                    <span>Answer1</span>
-                                    <span>Answer1</span>
-                                    <span>Answer1</span>
-                                    <span>Answer1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={styles.icon + " d-flex gap-5 me-3"}>
-                            <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon}><FiEdit /><span>Edit</span></Link>
-                            <Link className='nav-link d-flex align-items-center gap-2' id={styles.icon}><RiDeleteBin6Line /><span>Delete</span></Link>
-                        </div>
-                    </div>
-                </div> */}
             </div>
 
         </div>
+
+
     )
 }

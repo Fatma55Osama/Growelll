@@ -1,0 +1,141 @@
+/* .booking {
+  min-height: 100vh;
+  .backimg {
+    background-image: url(../../assets/0131e6c00e4a83b65cea570917c65e89.jpg);
+    background-position: 50%;
+    background-size: cover;
+    min-height: 550px;
+    max-height: 90%;
+  }
+  #textbooking {
+    h5 {
+      font-size: 21px;
+       color: #307BC4;
+    }
+    h3 {
+      font-size: 36px;
+      font-weight: 600;
+      color: #307BC4;
+    }
+    p {
+      font-size: 17px;
+      color: rgba(85, 85, 85, 1);
+    }
+  }
+  #forminput {
+    input {
+      border-radius: 8px;
+      border: 1px solid #307bc480;
+      outline: none;
+      padding: 10px;
+      &::placeholder {
+        opacity: 30%;
+      }
+    }
+    textarea {
+      border-radius: 8px;
+      border: 1px solid #307bc480;
+      padding: 15px;
+      min-height: 150px;
+      outline: none;
+    }
+  }
+} */
+.booking {
+  background-color: #f8f9fc;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.backimg {
+  background-image: url(../../assets/0131e6c00e4a83b65cea570917c65e89.jpg);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 54, 105, 0.5);
+}
+
+.headerText {
+  position: relative;
+  color: white;
+  text-align: center;
+  z-index: 1;
+}
+
+.headerText h5 {
+  font-size: 20px;
+  font-weight: 500;
+  color: #aad4ff;
+}
+
+.headerText h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.headerText p {
+  font-size: 16px;
+  max-width: 700px;
+  margin: 10px auto 0;
+}
+
+.form {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+  color: #274760;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s ease;
+}
+.form textarea{
+   min-height: 150px !important;
+   resize: none;
+}
+.form input:focus,
+.form textarea:focus {
+  border-color: #307bc4;
+  box-shadow: 0 0 0 3px rgba(48, 123, 196, 0.1);
+}
+
+.submitBtn {
+  background-color: #307bc4;
+  color: white;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #2568b3;
+}

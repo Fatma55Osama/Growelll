@@ -18,9 +18,8 @@
   width: 400px;
   height: 100%;
   /* border-radius: 15px; */
-  
 }
-#welcom{
+#welcom {
   background: linear-gradient(270deg, #2261ff 0%, #a2bcff 100%);
   color: white;
 }
@@ -39,16 +38,29 @@
 /* #p {
   color: #7a7f9a;
 } */
- #profiletext{
-  color:#515151 ;
-  h5{
-  font-size: 20px;
-  
+#profiletext {
+  color: #515151;
+  h5 {
+    font-size: 20px;
   }
- }
+}
+#menuscroll {
+  height: 570px;
+  overflow-y: auto;
+}
 @media screen and (max-width: 767px) {
   .content {
     width: 310px;
-  height: 420px;
+    height: 630px;
+  }
+  #menuscroll {
+    height: 500px;
+    overflow-y: auto;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  #menuscroll {
+    height: 500px;
+    overflow-y: auto;
   }
 }
