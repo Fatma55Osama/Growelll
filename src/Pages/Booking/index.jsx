@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import styles from './index.module.css'
 import { useParams } from 'react-router-dom'
 import { usedomain } from '../../Store'
-import { ToastContainer } from 'react-bootstrap'
+import { ToastContainer } from 'react-toastify';
 import { Bounce, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import { PostBooking } from '../../data/API/PostBooking'
@@ -22,7 +22,7 @@ export default function Booking() {
         e.preventDefault();
         let testnamevalue = testname.current.value
         let scorevalue = parseFloat(score.current.value);
-        let appointmentvalue = new Date(appointment.current.value).toISOString();
+        let appointmentvalue = appointment.current.value;
         let isconfirmedvalue = isconfirmed.current.checked
         let notevalue = note.current.value
         let validationErrors = {};
@@ -36,49 +36,57 @@ export default function Booking() {
         }
 
         setError({});
-        let values = {
-            'testName': testnamevalue,
-            'score': scorevalue,
-            'appointmentDate': appointmentvalue,
-            'isConfirmed': isconfirmedvalue ? "true" : "false",
-            'notes': notevalue
-        }; PostBooking(values, token, domain, id).then((res) => {
-            toast.success('Appointment booked successfully!');
-            Swal.fire({
-                icon: 'success',
-                title: 'successfully',
-                text: 'Appointment booked successfully!',
-                confirmButtonColor: 'success'
-            });
-            testname.current.value = "";
-            score.current.value = "";
-            appointment.current.value = "";
-            isconfirmed.current.checked = false;
-            note.current.value = "";
-        }).catch((err) => {
-            if (err.response && err.response.data) {
-                const validationErrors = err.response.data.errors;
-                if (validationErrors) {
-                    setError(validationErrors);
-                } else {
-                    setError({ general: [err.response.data.message || "Unknown error occurred"] });
+        // let values = {
+        //     'testName': testnamevalue,
+        //     'score': scorevalue,
+        //     'appointmentDate': appointmentvalue,
+        //     'isConfirmed': isconfirmedvalue,
+        //     'notes': notevalue
+        // };
+        let values = [testnamevalue, scorevalue, appointmentvalue, isconfirmedvalue, notevalue];
+        console.log("values being sent:", values);
+        PostBooking(values, token, domain, id)
+            .then((res) => {
+                setError({});
+                toast.success('Appointment booked successfully!');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Successfully',
+                    text: 'Appointment booked successfully!',
+                    confirmButtonColor: 'success'
+                });
+                testname.current.value = "";
+                score.current.value = "";
+                appointment.current.value = "";
+                isconfirmed.current.checked = false;
+                note.current.value = "";
+            })
+            .catch((err) => {
+                if (err.response && err.response.data) {
+                    const validationErrors = err.response.data.errors;
+                    if (validationErrors) {
+                        console.log("Validation errors:", validationErrors);
+                        setError(validationErrors);
+                    } else {
+                        setError({ general: [err.response.data.message || "Unknown error occurred"] });
+                    }
                 }
-            }
-            // setError(err.response.data.errors)
-            Swal.fire({
-                icon: 'error',
-                title: 'Submission Failed',
-                text: 'Please try again later or check your inputs.',
-                confirmButtonColor: '#d33'
-            });
-        })
-        console.log("Sending data:", {
-            testName: testnamevalue,
-            score: scorevalue,
-            appointmentDate: appointmentvalue,
-            isConfirmed: isconfirmedvalue,
-            notes: notevalue
-        });
+                setError(err.response.data.errors)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Submission Failed',
+                    text: 'Please try again later or check your inputs.',
+                    confirmButtonColor: '#d33'
+                });
+            })
+
+        // console.log("Sending data:", {
+        //     testName: testnamevalue,
+        //     score: scorevalue,
+        //     appointmentDate: appointmentvalue,
+        //     isConfirmed: isconfirmedvalue,
+        //     notes: notevalue
+        // });
     }
     return (
         <div className={styles.booking}>
@@ -99,6 +107,7 @@ export default function Booking() {
                         pauseOnHover
                         theme="light"
                         transition={Bounce}
+                        className={styles.customtoast}
                     />
                     <h5> Get In Touch</h5>
                     <h2>Appointment Booking</h2>

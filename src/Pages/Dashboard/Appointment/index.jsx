@@ -11,12 +11,15 @@ export default function Appointment() {
     let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
 
     useEffect(() => {
-        getData.get_getallbooking(domain, tokenDoctor).then((res) => {
-            console.log("Allbooking", res)
-            setbooking(res)
-        }).catch((err) => {
-            console.log("errbooking", err)
-        })
+        if (domain && tokenDoctor) {
+            getData.get_getallbooking(domain, tokenDoctor).then((res) => {
+                console.log("Allbooking", res)
+                setbooking(res)
+            }).catch((err) => {
+                console.log("errbooking", err)
+            })
+        }
+
     }, [])
     return (
         <div className={styles.Appointment}>
@@ -24,29 +27,25 @@ export default function Appointment() {
 
                 <h1>Appointments</h1>
                 {
-                    Array.isArray(booking) && booking.slice(0,1).map((el) => {
-                        return (
-                        <div key={el.bookingID} className='col-12 shadow-sm d-flex align-items-center justify-content-between px-5 py-3 mt-4' id={styles.carddoctor}>
-                            <div className='d-flex flex-column gap-3 px-5'>
-                                <h2>{el.doctorName}</h2>
-                                <h6>{el.aboutME}</h6>
-                                <p className='col-7'>With experience in managing complex
-                                    medical conditions in children</p>
-                            </div>
-                            <div className={styles.img}>
-                                <img src={`${domain}/${el.imageDoctor}`} width={250} height={250} alt="" />
-                            </div>
-                        </div>)
-                    })
+                    Array.isArray(booking) && booking.length > 0 &&
+                    <div key={booking[0].bookingID} className='col-12 shadow-sm d-flex align-items-center justify-content-between px-5 py-3 mt-4' id={styles.carddoctor}>
+                        <div className='d-flex flex-column gap-3 px-5'>
+                            <h2>{booking[0].doctorName}</h2>
+                            <h6>{booking[0].aboutME}</h6>
+                            <p className='col-7'>With experience in managing complex medical conditions in children</p>
+                        </div>
+                        <div className={styles.img}>
+                            <img src={`${domain}${booking[0].imageDoctor}`} width={250} height={250} alt="" />
+                        </div>
+                    </div>
                 }
-
                 {
                     Array.isArray(booking) && booking.map((el, index) => {
                         return (
                             <div key={el.bookingID} className={styles.datauser + " col-12 container d-flex flex-column justify-content-center px-5  py-4 "}>
                                 <div className={styles.section1 + " col-12 d-flex px-4 justify-content-between align-items-center py-2"}>
                                     <h5>{el.patientName}</h5>
-                                    <h5>{el.appointmentDate}</h5>
+                                  <h5>{ new Date(el.appointmentDate).toLocaleDateString('en-GB') }</h5>
                                     <img src={`${domain}${el.imageUser}`} height={115} width={115} alt="" />
                                 </div>
                                 <div className='d-flex flex-column gap-3 mt-3 ms-3'>
@@ -55,10 +54,10 @@ export default function Appointment() {
                                 </div>
 
                                 <div id={styles.carduser} className='col-12 mt-3'>
-                                    <div><button className='py-3 px-5'>Note</button></div>
+                                    <div><button className='py-3 px-5 fw-bold'>Note</button></div>
                                     <div className='px-4 py-4'>{el.notes}</div>
                                 </div>
-                                <div className={styles.btnstyles + " d-flex justify-content-end mt-4"}><button className='py-3 px-5 text-black'>  {el.isConfirmed ? "Confirmed" : "Not Confirmed"}</button></div>
+                                <div className={styles.btnstyles + " d-flex justify-content-end mt-4"}><button className='py-3 px-5 text-black'>  {el.isConfirmed ? "Confirmed" : "UnConfirmed"}</button></div>
                             </div>
                         )
                     })

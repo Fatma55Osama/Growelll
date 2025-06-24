@@ -139,3 +139,6 @@
 .submitBtn:hover {
   background-color: #2568b3;
 }
+.customtoast {
+  z-index: 9999!important;
+}
