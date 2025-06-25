@@ -82,7 +82,7 @@ export default function Category() {
         </div>
 
         {/* Doctor Info */}
-        {category.length > 0 && (
+        {category.length > 0 ? (
           <div className={styles.doctorCard + " shadow-sm d-flex  justify-content-between "}>
             <div className='d-flex align-items-center gap-3'>
               <img
@@ -93,6 +93,25 @@ export default function Category() {
               <div className={styles.doctorInfo}>
                 <h4>Dr. {category[0]?.doctor?.doctorName}</h4>
                 <p>{category[0]?.doctor?.bio}</p>
+              </div>
+            </div>
+            <div className="d-flex   justify-content-end align-items-start mt-4 mb-3">
+              <Link to="/createcategory" className={styles.addBtn}>
+                <IoIosAddCircleOutline /> Add New Category
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.doctorCard + " shadow-sm d-flex  justify-content-between "}>
+            <div className='d-flex align-items-center gap-3'>
+              <img
+                src={`${domain}/${category?.doctor?.imgUrl}`}
+                alt="Doctor"
+                className={styles.doctorImg}
+              />
+              <div className={styles.doctorInfo}>
+                <h4>Dr. {category?.doctor?.firstName} {category?.doctor?.lastName} </h4>
+                <p>{category?.doctor?.bio}</p>
               </div>
             </div>
             <div className="d-flex   justify-content-end align-items-start mt-4 mb-3">

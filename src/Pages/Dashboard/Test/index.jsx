@@ -69,26 +69,50 @@ export default function Test() {
     return (
         <div className={styles.parent + " py-5"}>
             {/* Doctor Card */}
-            <div className="container mb-5" id={styles.spacediv1}>
-                <div className="d-flex flex-column flex-md-row align-items-center bg-white shadow rounded-4 p-4 gap-4">
-                    <img
-                        src={`${domain}/${Doctortest[0]?.doctor?.imageUrl || 'default-doctor.png'}`}
-                        alt="Doctor"
-                        className="rounded-4"
-                        style={{ width: '200px', height: '200px',borderRadius:"8px", objectFit: 'cover' }}
-                    />
-                    <div className="flex-grow-1">
-                        <h3 className="text-primary fw-bold mb-2">
-                            Dr. {Doctortest[0]?.doctor?.doctorName}
-                        </h3>
-                        <p className="text-muted">{Doctortest[0]?.doctor?.bio}</p>
+            {
+                Doctortest.length > 0 ? (
+                    <div className="container mb-5" id={styles.spacediv1}>
+                        <div className="d-flex flex-column flex-md-row align-items-center bg-white shadow rounded-4 p-4 gap-4">
+                            <img
+                                src={`${domain}/${Doctortest[0]?.doctor?.imageUrl || 'default-doctor.png'}`}
+                                alt="Doctor"
+                                className="rounded-4"
+                                style={{ width: '200px', height: '200px', borderRadius: "8px", objectFit: 'cover' }}
+                            />
+                            <div className="flex-grow-1">
+                                <h3 className="text-primary fw-bold mb-2">
+                                    Dr. {Doctortest[0]?.doctor?.doctorName}
+                                </h3>
+                                <p className="text-muted">{Doctortest[0]?.doctor?.bio}</p>
+                            </div>
+                            <Link to="/createtest" className="btn btn-outline-primary fw-semibold px-4 py-2">
+                                <IoIosAddCircleOutline size={20} className="me-2" />
+                                Add New Test
+                            </Link>
+                        </div>
                     </div>
-                    <Link to="/createtest" className="btn btn-outline-primary fw-semibold px-4 py-2">
-                        <IoIosAddCircleOutline size={20} className="me-2" />
-                        Add New Test
-                    </Link>
-                </div>
-            </div>
+                ) : (<div className="container mb-5" id={styles.spacediv1}>
+                    <div className="d-flex flex-column flex-md-row align-items-center bg-white shadow rounded-4 p-4 gap-4">
+                        <img
+                            src={`${domain}/${Doctortest?.doctor?.imgUrl || 'default-doctor.png'}`}
+                            alt="Doctor"
+                            className="rounded-4"
+                            style={{ width: '200px', height: '200px', borderRadius: "8px", objectFit: 'cover' }}
+                        />
+                        <div className="flex-grow-1">
+                            <h3 className="text-primary fw-bold mb-2">
+                                Dr. {Doctortest?.doctor?.firstName}  {Doctortest?.doctor?.lastName} 
+                            </h3>
+                            <p className="text-muted">{Doctortest?.doctor?.bio}</p>
+                        </div>
+                        <Link to="/createtest" className="btn btn-outline-primary fw-semibold px-4 py-2">
+                            <IoIosAddCircleOutline size={20} className="me-2" />
+                            Add New Test
+                        </Link>
+                    </div>
+                </div>)
+            }
+
 
             {/* Tests List */}
             <div className="container">

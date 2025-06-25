@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.css'
 import { MdEmail } from "react-icons/md";
 import { FiPhone } from "react-icons/fi";
-import { FaAddressCard, FaCamera } from "react-icons/fa";
+import { FaAddressCard, FaCamera, FaGenderless } from "react-icons/fa";
 import { getData } from '../../data/Repo/getData';
 import { usedomain, useProfile, useProfileDoctor } from '../../Store';
 import { Link } from 'react-router-dom';
@@ -17,13 +17,15 @@ export default function Profile() {
   const [hasChanges, setHasChanges] = useState(false);
   const { Profiledoctor, setprofiledoctor } = useProfileDoctor()
   const [doctorHasChanges, setDoctorHasChanges] = useState(false);
-  const [editMode, setEditMode] = useState({ userName: false, email: false, phoneNumber: false, adderss: false })
+  const [editMode, setEditMode] = useState({ userName: false, email: false, phoneNumber: false, adderss: false,gender:false })
   const [formData, setFormData] = useState({
     userName: '',
     email: '',
     phoneNumber: '',
     profilePictureFile: null,
-    adderss: ''
+    adderss: '',
+    gender:''
+
   })
   const [editModeDoctor, setEditModeDoctor] = useState({
     firstName: false,
@@ -81,7 +83,8 @@ export default function Profile() {
           email: res.email,
           phoneNumber: res.phoneNumber,
           profilePictureFile: null,
-          adderss: res.adderss || ''
+          adderss: res.adderss || '',
+          gender:res.gender
         })
       })
     } else if (tokenDoctor) {
@@ -325,6 +328,7 @@ export default function Profile() {
           adderss: updatedProfile.adderss || '',
           email: updatedProfile.email,
           profilePictureFile: null,
+          gender:updatedProfile.gender
         });
         setEditMode({ userName: false, phoneNumber: false, adderss: false });
 
@@ -447,6 +451,20 @@ export default function Profile() {
 
                   <div className='d-flex align-items-center gap-3'>
                     {formData.email}
+                    {/* <button onClick={() => setEditMode(prev => ({ ...prev, email: true }))} id={styles.edit} title="Edit Email">
+                    <HiPencil />
+                  </button> */}
+                  </div>
+
+                </div>
+                <div className='d-flex text-start justify-content-between align-items-center'>
+                  <div className='d-flex align-items-center gap-3' id={styles.icon}>
+                    <FaGenderless />
+                    <span>Gender</span>
+                  </div>
+
+                  <div className='d-flex align-items-center gap-3'>
+                    {formData.gender}
                     {/* <button onClick={() => setEditMode(prev => ({ ...prev, email: true }))} id={styles.edit} title="Edit Email">
                     <HiPencil />
                   </button> */}
@@ -619,6 +637,7 @@ export default function Profile() {
                     </div>
 
                   </div>
+                  
 
                   <div className='d-flex text-start justify-content-between align-items-center'>
                     <div className='d-flex align-items-center gap-3' id={styles.icon}>

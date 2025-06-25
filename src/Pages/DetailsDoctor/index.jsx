@@ -136,7 +136,7 @@ export default function DetailsDoctor() {
             </div>
             <div className=' ms-5 d-flex justify-content-between align-items-center'>
               <div className={styles.divbtn2 + "   d-flex justify-content-center align-items-center "}>
-                          <Link className='nav-link' to={`/DetailsDoctor/${id}/tests`}><button className=' '>Have the Test</button></Link>
+                          <Link className='nav-link col-12' to={`/DetailsDoctor/${id}/tests`}><button className='col-12 '>Have the Category</button></Link>
               </div>
               <div className='col-6 '>
                 <p className='mt-3 text-white'>Borem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis </p>

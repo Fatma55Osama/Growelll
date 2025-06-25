@@ -16,7 +16,8 @@ export default function Register() {
     let pass = formRefs.current[4].value
     let confirm = formRefs.current[5].value
     let phone = formRefs.current[6].value
-    if (!first_name || !last_name || !address || !email || !pass || !confirm || !phone) {
+    let gender = formRefs.current[7].value
+    if (!first_name || !last_name || !address || !email || !pass || !confirm || !phone || !gender ) {
       Swal.fire({
         icon: "warning",
         text: "All fields are required"
@@ -57,6 +58,7 @@ export default function Register() {
     formData.append("PhoneNumber", phone)
     formData.append("Password", pass);
     formData.append("ConfirmPassword", confirm);
+    formData.append("Gender", gender);
     axios.post("https://localhost:7071/api/Account/Register", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
@@ -89,8 +91,7 @@ export default function Register() {
           <h2>REGISTER </h2>
           <form onSubmit={HandelRegist} className='d-flex flex-column gap-4'>
             <input ref={(el) => (formRefs.current[0] = el)} type="text" placeholder='First Name' />
-            {errors.FristName && <div className="text-danger">{errors.FristName[0]}</div>}           
-             <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
+            {errors.FristName && <div className="text-danger">{errors.FristName[0]}</div>}
             <input ref={(el) => (formRefs.current[1] = el)} type="text" placeholder='Last Name' />
             {errors.LastName && <div className="text-danger">{errors.LastName[0]}</div>}
 
@@ -102,6 +103,26 @@ export default function Register() {
 
             <input ref={(el) => (formRefs.current[6] = el)} type="Phone" placeholder='Phone' />
             {errors.PhoneNumber && <div className="text-danger">{errors.PhoneNumber[0]}</div>}
+            <div>
+              <label className="me-3">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Female"
+                  onChange={(e) => (formRefs.current[7] = { value: e.target.value })}
+                />Female
+              </label>
+              <label className="ms-3">
+                <input
+                  type="radio"
+                  name="gender"
+                  value="Male"
+                  onChange={(e) => (formRefs.current[7] = { value: e.target.value })}
+                /> Male
+              </label>
+            </div>
+            {errors.gender && <div className="text-danger">{errors.gender[0]}</div>}
+
 
             <input ref={(el) => (formRefs.current[4] = el)} type="password" placeholder='Password' />
             {errors.Password && <div className="text-danger">{errors.Password[0]}</div>}

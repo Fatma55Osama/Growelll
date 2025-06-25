@@ -111,7 +111,7 @@ export default function Question() {
                     <p className="text-muted">Here you can manage all your test questions.</p>
                 </div>
                 {/* Doctor Card */}
-                {Doctorquestion.length > 0 && (
+                {Doctorquestion.length > 0 ? (
                     <div className="card mb-4 shadow-sm border-0 rounded-4 d-flex justify-content-between ">
                         <div className="row g-0 align-items-center">
                             <div className="col-md-3 text-center p-2">
@@ -128,6 +128,37 @@ export default function Question() {
                                         Dr. {Doctorquestion[0]?.doctor?.firstName} {Doctorquestion[0]?.doctor?.lastName}
                                     </h3>
                                     <p className="card-text text-muted fst-italic">{Doctorquestion[0]?.doctor?.bio}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="d-flex justify-content-end mb-4">
+                            <Link
+                                to="/createquestion"
+                                className="btn btn-primary rounded-pill d-flex align-items-center gap-2 shadow"
+                            >
+                                <IoIosAddCircleOutline />
+                                Add New Question
+                            </Link>
+                        </div>
+
+                    </div>
+                ):(
+                      <div className="card mb-4 shadow-sm border-0 rounded-4 d-flex justify-content-between ">
+                        <div className="row g-0 align-items-center">
+                            <div className="col-md-3 text-center p-2">
+                                <img
+                                    src={`${domain}/${Doctorquestion?.doctor?.imgUrl}`}
+                                    alt="doctor"
+                                    className="img-fluid rounded-4 shadow-sm"
+                                    style={{ width: "200px", height: "200px", objectFit: "cover" }}
+                                />
+                            </div>
+                            <div className="col-md-9">
+                                <div className="card-body">
+                                    <h3 className="card-title text-primary fw-bold">
+                                        Dr. {Doctorquestion?.doctor?.firstName} {Doctorquestion?.doctor?.lastName}
+                                    </h3>
+                                    <p className="card-text text-muted fst-italic">{Doctorquestion?.doctor?.bio}</p>
                                 </div>
                             </div>
                         </div>

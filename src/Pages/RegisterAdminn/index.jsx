@@ -54,7 +54,7 @@ export default function RegisterAdminn() {
         let ImgUrlvalue = ImgUrl.current.files[0]
         let Passwordvalue = Password.current.value
         let ConfirmPasswordvalue = ConfirmPassword.current.value
-        if (!Firstvalue || !Secondvalue || !Lastvalue || !Emailvalue || !Gendervalue || !Biovalue || !AboutMevalue || !Descriptionvalue || !PhoneNumbervalue || !AboutOfKidsvalue || !TargetAgeGroupvalue || !Specializationvalue || !Addressvalue || !YearsOfExperiencevalue || !AveRatingvalue || !Agevalue || !Educationvalue  || !Passwordvalue || !ConfirmPasswordvalue) {
+        if (!Firstvalue || !Secondvalue || !Lastvalue || !Emailvalue || !Gendervalue || !Biovalue || !AboutMevalue || !Descriptionvalue || !PhoneNumbervalue || !AboutOfKidsvalue || !TargetAgeGroupvalue || !Specializationvalue || !Addressvalue || !YearsOfExperiencevalue || !AveRatingvalue || !Agevalue || !Educationvalue || !Passwordvalue || !ConfirmPasswordvalue) {
             Swal.fire({
                 icon: "warning",
                 text: "All fields are required"
@@ -259,6 +259,8 @@ export default function RegisterAdminn() {
                             <div className='col-8 col-md-6 d-flex flex-column gap-2'>
                                 <label>AveRating</label>
                                 <input ref={AveRating} className='py-2 col-12 col-md-10' type="number" placeholder='  Please Enter your AveRating ' />
+                                {error.AveRating && <div className="text-danger">{error.AveRating[0]}</div>}
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>
@@ -278,7 +280,7 @@ export default function RegisterAdminn() {
                                 <input ref={Education} className='py-2 col-12 col-md-10' type="text" placeholder='  Please Enter your Education ' />
                                 {error.Education && <div className="text-danger">{error.Education[0]}</div>}
 
-                                
+
                             </div>
 
                             <div className='col-10 col-md-6 d-flex flex-column gap-2 '>

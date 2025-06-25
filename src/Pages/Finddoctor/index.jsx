@@ -174,7 +174,7 @@ export default function Finddoctor() {
                             </div>
                             <div>
                               <Link to={`/DetailsDoctor/${el.id}/tests`} className='nav-link'>
-                                <span>Have the test <GoArrowRight /></span>
+                                <span>Have the Category <GoArrowRight /></span>
                               </Link>
                             </div>
                           </div>

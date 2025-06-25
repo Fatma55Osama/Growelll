@@ -215,7 +215,7 @@ export default function Menu() {
                             <IoCloseSharp className=' my-1 mx-1 ' style={{ fontSize: "25px" }} onClick={() => closeModal(false)} />
                         </div>
 
-                        <h3 className='col-12 p-1 d-flex align-items-center justify-content-between flex-wrap  '  id={styles.Hi}>
+                        <h3 className='col-12 p-1 px-3 d-flex align-items-center justify-content-between flex-wrap  '  id={styles.Hi}>
                           
                             {tokenDoctor ? (
                                 <>
