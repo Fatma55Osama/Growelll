@@ -112,7 +112,7 @@ export default function Question() {
                 </div>
                 {/* Doctor Card */}
                 {Doctorquestion.length > 0 && (
-                    <div className="card mb-4 shadow-sm border-0 rounded-4">
+                    <div className="card mb-4 shadow-sm border-0 rounded-4 d-flex justify-content-between ">
                         <div className="row g-0 align-items-center">
                             <div className="col-md-3 text-center p-2">
                                 <img
@@ -131,22 +131,23 @@ export default function Question() {
                                 </div>
                             </div>
                         </div>
+                        <div className="d-flex justify-content-end mb-4">
+                            <Link
+                                to="/createquestion"
+                                className="btn btn-primary rounded-pill d-flex align-items-center gap-2 shadow"
+                            >
+                                <IoIosAddCircleOutline />
+                                Add New Question
+                            </Link>
+                        </div>
+
                     </div>
-                )} 
-                 {/* Add Button */}
-                <div className="d-flex justify-content-end mb-4">
-                    <Link
-                        to="/createquestion"
-                        className="btn btn-primary rounded-pill d-flex align-items-center gap-2 shadow"
-                    >
-                        <IoIosAddCircleOutline />
-                        Add New Question
-                    </Link>
-                </div>
+                )}
+                {/* Add Button */}
 
 
 
-              
+
                 {/* Questions List */}
                 <div className="row gy-4">
                     {Array.isArray(Doctorquestion) && Doctorquestion.length > 0 ? (

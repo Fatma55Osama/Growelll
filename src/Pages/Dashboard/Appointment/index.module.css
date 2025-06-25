@@ -35,7 +35,7 @@
       background-color: rgba(193, 226, 245, 1);
       border-radius: 30px;
       .section1 {
-        background-color:  rgba(141, 141, 141, 0.368);
+        background-color: rgba(141, 141, 141, 0.368);
         border-radius: 20px;
         img {
           border-radius: 50%;
@@ -46,24 +46,53 @@
         }
       }
       #carduser {
-        background-color:  rgba(141, 141, 141, 0.368);
+        background-color: rgba(141, 141, 141, 0.368);
         border-radius: 30px;
         height: 200px;
-        button{
-            background-color: rgba(193, 226, 245, 1);
-            outline: none;
-            border: none;
-            border-radius:20px ;
+        button {
+          background-color: rgba(193, 226, 245, 1);
+          outline: none;
+          border: none;
+          border-radius: 20px;
         }
       }
-      .btnstyles{
-          button{
-           background-color: rgba(141, 141, 141, 0.368);
-            outline: none;
-            border: none;
-            border-radius:20px ;
+      .btnstyles {
+        button {
+          background-color: rgba(141, 141, 141, 0.368);
+          outline: none;
+          border: none;
+          border-radius: 20px;
         }
       }
     }
+  }
+
+  .deleteBtn {
+    border: none;
+    border-radius: 20px;
+    background: transparent;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  /* .editBtn {
+    color: #0d6efd;
+  } */
+
+  /* .editBtn:hover {
+    text-decoration: underline;
+  } */
+
+  .deleteBtn {
+    color:white;
+  }
+
+  .deleteBtn:hover {
+    text-decoration: underline;
+
   }
 }

@@ -70,7 +70,7 @@ export default function DetailsDoctor() {
                     <span>Avaibility</span>
                   </div>
                   <div>
-                   <Link className='nav-link' to={`/DetailsDoctor/${id}/tests`}><span>Have the test <GoArrowRight /></span></Link> 
+                   <Link className='nav-link' to={`/DetailsDoctor/${id}/tests`}><span>Have the Category <GoArrowRight /></span></Link> 
                   </div>
                 </div>
 

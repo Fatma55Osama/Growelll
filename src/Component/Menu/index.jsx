@@ -215,11 +215,12 @@ export default function Menu() {
                             <IoCloseSharp className=' my-1 mx-1 ' style={{ fontSize: "25px" }} onClick={() => closeModal(false)} />
                         </div>
 
-                        <h3 className='p-1 d-flex  align-items-center gap-1' id={styles.Hi}>
-                            Hi:&nbsp;
+                        <h3 className='col-12 p-1 d-flex align-items-center justify-content-between flex-wrap  '  id={styles.Hi}>
+                          
                             {tokenDoctor ? (
                                 <>
-                                    {Profiledoctor?.firstName}
+
+                                   <span>Hi :&nbsp;{Profiledoctor?.firstName}  {Profiledoctor?.lastName}</span> 
                                     <img
                                         src={
                                             Profiledoctor?.imgUrl
@@ -234,7 +235,7 @@ export default function Menu() {
                                 </>
                             ) : token ? (
                                 <>
-                                    {Profile?.userName}
+                                    <span>Hi :&nbsp;{Profile?.userName}</span>
                                     <img
                                         src={
                                             Profile?.profilePicturePath
