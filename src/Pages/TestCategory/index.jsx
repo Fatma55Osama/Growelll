@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styles from './index.module.css'
 import growell from '../../assets/Growell222.svg'
 import frams from '../../assets/Frame.png'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { useData, usedomain } from '../../Store'
 import { getData } from '../../data/Repo/getData'
 import { IoIosArrowRoundBack } from 'react-icons/io'
@@ -12,9 +12,10 @@ import { ToastContainer } from 'react-bootstrap'
 export default function TestCategory() {
   const { id } = useParams();
   const { domain } = usedomain()
+  const navigate = useNavigate();
   const { detailsdoctor, setdailsdoctor } = useData()
   useEffect(() => {
-
+ 
     getData.get_single_dotor(domain, id).then((res) => {
       setdailsdoctor(res)
       console.log(res)

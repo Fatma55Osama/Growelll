@@ -10,11 +10,11 @@ import { Bounce, toast } from 'react-toastify'
 import { ToastContainer } from 'react-bootstrap'
 
 export default function TestShow() {
-  const { id } = useParams();
+  const { id, categoryID } = useParams()
   const { domain } = usedomain()
   const { detailsdoctor, setdailsdoctor } = useData()
 
-  const params = useParams()
+
   const navigate = useNavigate()
 
   // let id = params.categoryID
@@ -34,6 +34,7 @@ export default function TestShow() {
       }
     });
   }, [])
+const selectedCategory = detailsdoctor?.categories?.find(cat => String(cat.categoryID) === categoryID);
   return (
     <div className='col-12 d-flex' id={styles.testnow}>
       <ToastContainer
@@ -62,8 +63,8 @@ export default function TestShow() {
             <h3>Tests :</h3>
 
             <div className='col-12 d-flex flex-column text-center gap-3'>
-              {detailsdoctor?.categories[0]?.tests?.length > 0 ? (
-                detailsdoctor.categories[0]?.tests.map((el, index) => (
+              {selectedCategory?.tests?.length > 0 ? (
+                selectedCategory.tests.map((el, index) => (
                   <Link
                     key={index}
                     className="nav-link py-3 px-3"
@@ -78,6 +79,7 @@ export default function TestShow() {
                   No Test Available
                 </div>
               )}
+
 
 
             </div>

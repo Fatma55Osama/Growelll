@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDoctorReport, usedomain, useReport } from '../../Store'
 import { getData } from '../../data/Repo/getData'
 import frams from '../../assets/Frame.png'
@@ -9,7 +9,7 @@ export default function Reports() {
   const { domain } = usedomain()
   const { report, setreport } = useReport()
   const { doctorreport, setdoctorreport } = useDoctorReport()
-
+  const [filterreport, setfilterreport] = useState()
 
   let tokenDoctor = localStorage.getItem("tokenDoctor") || sessionStorage.getItem("tokenDoctor");
   let token = localStorage.getItem('token') || sessionStorage.getItem('token')
@@ -31,8 +31,14 @@ export default function Reports() {
       console.warn("No tokendoctor found in storage")
     }
 
-
   }, [token, setreport])
+  useEffect(() => {
+    if (Array.isArray(report)) {
+      const sorted = [...report].sort((a, b) => new Date(b.takenAt) - new Date(a.takenAt)).slice(0, 1);
+      setfilterreport(sorted);
+    }
+    console.log("setfilterreport", filterreport)
+  }, [report]);
 
   return (
 
@@ -43,58 +49,62 @@ export default function Reports() {
             id={styles.sectionreport1}
             className="container d-flex align-items-center justify-content-between"
           >
-            <div className={styles.div2 + "  ms-5 mt-2 d-flex align-items-center"}>
-              {report.length > 0 ? (
+            <div className={styles.div2 + " ms-5 mt-2 d-flex align-items-center"}>
+              {Array.isArray(filterreport) && filterreport.length > 0 ? (
                 <>
-                  <img src={`${domain}/${report[0]?.photo}`} width={490} height={499} alt="" />
+                  <img src={`${domain}/${filterreport[0]?.photo}`} width={490} height={499} alt="" />
                   <div className={styles.contantdata + " col-8 d-flex flex-column"}>
                     <div className="ps-5 py-3 d-flex flex-column gap-3">
                       <div className="d-flex flex-column gap-1 container">
-                        <h4>{report[0]?.username}</h4>
-                        <span>Dr: {report[0]?.doctor}</span>
-                        <span>TestName: {report[0]?.testName}</span>
-                        <span>Date: {new Date(report[0]?.takenAt).toLocaleDateString()}</span>
+                        <h4>{filterreport[0]?.username}</h4>
+                        <span>Dr: {filterreport[0]?.doctor}</span>
+                        <span>TestName: {filterreport[0]?.testName}</span>
+                        <span>Date: {new Date(filterreport[0]?.takenAt).toLocaleDateString()}</span>
                       </div>
                     </div>
                     <div className={styles.HaveTest + " px-5 py-3"}>
                       <div className="d-flex justify-content-between">
                         <div className="d-flex align-items-center gap-2">
-                          <span>Score: {report[0]?.score}</span>
+                          <span>Score: {filterreport[0]?.score}</span>
                         </div>
                         <div>
-                          <span>Percentage: {report[0]?.percentage}%</span>
+                          <span>Percentage: {filterreport[0]?.percentage}%</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </>
-              ) : (
+              ) : !Array.isArray(report) && report?.message ? (
                 <>
                   <img src={`${domain}/${report?.photo}`} width={490} height={499} alt="" />
                   <div className={styles.contantdata + " col-8 d-flex flex-column"}>
                     <div className="ps-5 py-3 d-flex flex-column gap-3">
                       <div className="d-flex flex-column gap-1 container">
                         <h4>{report?.username}</h4>
-                        <span>Dr: Invaild Data</span>
-                        <span>TestName: No test results found for the user.</span>
-                        <span>Date: {new Date(report[0]?.takenAt).toLocaleDateString()}</span>
+                        <span>Dr: Invalid Data</span>
+                        <span>TestName: {report?.message}</span>
+                        <span>Date: No Date</span>
                       </div>
                     </div>
                     <div className={styles.HaveTest + " px-5 py-3"}>
                       <div className="d-flex justify-content-between">
                         <div className="d-flex align-items-center gap-2">
-                          <span>Score: {report[0]?.score}</span>
+                          <span>Score: --</span>
                         </div>
                         <div>
-                          <span>Percentage: {report[0]?.percentage}%</span>
+                          <span>Percentage: --%</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </>
-              
+              ) : (
+                <div className="text-center w-100">
+                  <h3>No test results available.</h3>
+                </div>
               )}
             </div>
+
 
             <div className="col-4 " id={styles.classificat}>
               <div className="d-flex justify-content-end" id={styles.btnclassifact}>
@@ -208,7 +218,7 @@ export default function Reports() {
             </>
           ) : (
             <div className="text-center d-flex justify-content-center align-items-center " id={styles.noreport}>
-             <h2>No reports available at the moment</h2>
+              <h2>No reports available at the moment</h2>
             </div>
           )}
         </>
